@@ -125,7 +125,11 @@ Item {
       if (notCloseCommand) {
         cmd.exec(termNoCloseCmd + " '" + effCmd + " " + termNoCloseSuffix + "'")
       } else {
-        cmd.exec(termCmd + " '" + effCmd + "'")
+        var baseTerm = termCmd.trim()
+        if (baseTerm.indexOf("bash -c") === -1 && baseTerm.indexOf("sh -c") === -1) {
+          baseTerm += " bash -c"
+        }
+        cmd.exec(baseTerm + " '" + effCmd + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'")
       }
     }
   }
@@ -141,7 +145,11 @@ Item {
     if (notCloseCommand) {
       cmd.exec(termNoCloseCmd + " '" + cmdToRun + " " + termNoCloseSuffix + "'")
     } else {
-      cmd.exec(termCmd + " '" + cmdToRun + "'")
+      var baseTerm = termCmd.trim()
+      if (baseTerm.indexOf("bash -c") === -1 && baseTerm.indexOf("sh -c") === -1) {
+        baseTerm += " bash -c"
+      }
+      cmd.exec(baseTerm + " '" + cmdToRun + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'")
     }
   }
 

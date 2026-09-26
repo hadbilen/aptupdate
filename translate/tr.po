@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hadbilen.aptupdate.plasmoid 1.0.4\n"
+"Project-Id-Version: hadbilen.aptupdate.plasmoid 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 13:03+0300\n"
+"POT-Creation-Date: 2026-09-26 13:21+0300\n"
 "PO-Revision-Date: 2026-09-26 12:47+0300\n"
 "Last-Translator: hadbilen <temroa@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -17,24 +17,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:165
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:183
 msgid "Install all updates"
 msgstr "Tüm güncellemeleri kur"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:183
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:201
 msgid "Refresh list"
 msgstr "Listeyi yenile"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:209
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:227
 msgid "A system restart is required to complete updates."
 msgstr ""
 "Güncellemelerin tamamlanması için sistemin yeniden başlatılması gerekiyor."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:238
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:256
 msgid "You're up-to-date !"
 msgstr "Sisteminiz güncel!"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:247
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:265
 msgid "Hu ho something is wrong\n"
 msgstr "Bir sorun oluştu\n"
 
@@ -49,11 +49,11 @@ msgstr[1] "%1 güncelleme mevcut"
 msgid "System Updates"
 msgstr "Sistem Güncellemeleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:161
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:160
 msgid "Update"
 msgstr "Güncelle"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:168
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:167
 msgid "Refresh"
 msgstr "Yenile"
 

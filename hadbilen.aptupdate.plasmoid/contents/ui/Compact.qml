@@ -108,6 +108,9 @@ Item {
 
     function onIsUpdating(status) {
       updateUi(status)
+      if (!status) {
+        row.onUpdate = false
+      }
     }
 
     function onTotalAur(total) {

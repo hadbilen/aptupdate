@@ -1,3 +1,10 @@
+### v1.0.5
+  - Fix terminal closing prematurely on upgrade by enforcing a `bash -c` wrapper for compound shell pipelines (`sudo apt update && sudo apt upgrade`)
+  - Fix `cmd` variable shadowing in `main.qml` `onExited` that caused `TypeError` and stuck refresh spinner
+  - Filter out benign Qt/KDE runtime warnings from stderr in `Full.qml`
+  - Keep terminal open upon failure with pause prompt so errors can be inspected
+  - Reset update state properly in `Compact.qml`
+
 ### v1.0.4
   - Independent selective toggles for Snap and Flatpak updates (`enableSnapUpdates` and `enableFlatpakUpdates`)
   - Dynamic generation of count, list, and full upgrade commands according to active package managers

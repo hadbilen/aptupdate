@@ -94,6 +94,9 @@ PlasmaExtras.Representation {
 
     function onIsUpdating(status) {
       onRefresh = status
+      if (status) {
+        onError = false
+      }
     }
 
     function onTotalAur(total) {
@@ -109,13 +112,28 @@ PlasmaExtras.Representation {
     }
 
     function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
-      if (stderr !== '') {
-        onError = true
-        errorMessage = stderr
+      const isUpdate = cmd.indexOf("konsole") !== -1 || cmd.startsWith(plasmoid.configuration.termCmd) || cmd.startsWith(plasmoid.configuration.termNoCloseCmd)
+      if (isUpdate) {
+        onError = false
+        refresh()
+        return
+      }
+      if (exitCode !== 0 && stderr !== '') {
+        const cleanErr = stderr.split("\n").filter(l => {
+          return l.indexOf("qt.core.qobject") === -1 &&
+                 l.indexOf("kf.") === -1 &&
+                 l.indexOf("This plugin does not support") === -1 &&
+                 l.indexOf("Failed to create secure directory") === -1
+        }).join("\n").trim()
+        if (cleanErr !== '') {
+          onError = true
+          errorMessage = cleanErr
+        }
       }
     }
 
     function onPackagesList(listAur, listArch, listArchRepo) {
+      onError = false
       packageListModel.clear()
       full.packageList = (listArch || "") + (listAur ? "\n" + listAur : "")
       if (listAur) injectList(listAur)

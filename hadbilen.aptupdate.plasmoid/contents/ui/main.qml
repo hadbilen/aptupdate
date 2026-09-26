@@ -59,19 +59,21 @@ PlasmoidItem {
             connected(source)
         }
 
-        onExited: function (cmd, exitCode, exitStatus, stdout, stderr) {
-            if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({cmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
-            if (stderr !== '') cmd.exec("kdialog --passivepopup 'APT Update counter throw " + stderr + " error on cmd: " + cmd + "'")
+        onExited: function (sourceCmd, exitCode, exitStatus, stdout, stderr) {
+            if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({sourceCmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
+
+            const isUpdateCmd = sourceCmd.startsWith(plasmoid.configuration.termCmd) || sourceCmd.startsWith(plasmoid.configuration.termNoCloseCmd) || sourceCmd.indexOf("konsole") !== -1
+            const isOnError = exitCode !== 0 && stderr !== ""
 
             // handle reboot required
-            if (cmd === "test -f /var/run/reboot-required && echo 1 || echo 0") {
+            if (sourceCmd === "test -f /var/run/reboot-required && echo 1 || echo 0") {
                 main.rebootRequired = (stdout.trim() === "1")
                 rebootStatus(main.rebootRequired)
             }
 
             // handle the result for the count
-            const cmdIsAur = cmd === plasmoid.configuration.countAurCommand || (updater.lastCountAurCmd !== "" && cmd === updater.lastCountAurCmd)
-            const cmdIsArch = cmd === plasmoid.configuration.countArchCommand
+            const cmdIsAur = sourceCmd === plasmoid.configuration.countAurCommand || (updater.lastCountAurCmd !== "" && sourceCmd === updater.lastCountAurCmd)
+            const cmdIsArch = sourceCmd === plasmoid.configuration.countArchCommand
             if (cmdIsArch) {
                 let total = stdout.replace(/\n/g, '')
                 totalArch(total)
@@ -88,9 +90,9 @@ PlasmoidItem {
             }
 
             // handle the result for the list
-            const cmdIsListAur = cmd === plasmoid.configuration.listAurCommand || (updater.lastListAurCmd !== "" && cmd === updater.lastListAurCmd)
-            const cmdIsListArch = cmd === plasmoid.configuration.listArchCommand
-            const cmdIsListArchRepo = cmd === plasmoid.configuration.listRepoArchCommand
+            const cmdIsListAur = sourceCmd === plasmoid.configuration.listAurCommand || (updater.lastListAurCmd !== "" && sourceCmd === updater.lastListAurCmd)
+            const cmdIsListArch = sourceCmd === plasmoid.configuration.listArchCommand
+            const cmdIsListArchRepo = sourceCmd === plasmoid.configuration.listRepoArchCommand
             if (cmdIsListAur) listAur = stdout
             if (cmdIsListArch) listArch = stdout
             if (cmdIsListArchRepo) listArchRepo = stdout
@@ -99,21 +101,18 @@ PlasmoidItem {
             }
 
             // handle the result for the checker
-            if (cmd === "konsole -v") checker.validateKonsole(stderr)
-            if (cmd === "apt --version") checker.validateCheckupdates(stderr)
+            if (sourceCmd === "konsole -v") checker.validateKonsole(stderr)
+            if (sourceCmd === "apt --version") checker.validateCheckupdates(stderr)
 
-            const isUpdateCmd = cmd.startsWith(plasmoid.configuration.termCmd) || cmd.startsWith(plasmoid.configuration.termNoCloseCmd)
-            const isOnError = stderr !== ""
-
-            // retry the cmd if error execpt for the upgrade (that crash the plasmoid)
+            // retry the cmd if error except for the upgrade (that crash the plasmoid)
             if (isOnError && !isUpdateCmd && plasmoid.configuration.retryMode) {
-                if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd retry after error : ' + cmd, true)
-                cmd.exec(cmd)
+                if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd retry after error : ' + sourceCmd, true)
+                cmd.exec(sourceCmd)
             }
 
             // refresh after an update action
             if (isUpdateCmd) {
-                if (isOnDebug) debug.log('APTUPDATE - an update end, refreshing : ' + cmd, false)
+                if (isOnDebug) debug.log('APTUPDATE - an update end, refreshing : ' + sourceCmd, false)
                 updater.countAll()
             }
 

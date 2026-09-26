@@ -88,7 +88,7 @@
   </entry>
 
   <entry name="termCmd" type="String">
-    <default>konsole -e</default>
+    <default>konsole -e bash -c</default>
   </entry>
 
   <entry name="termNoCloseCmd" type="String">
