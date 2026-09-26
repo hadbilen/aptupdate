@@ -3,7 +3,7 @@
         "Authors": [
             {
                 "Email": "temroa@gmail.com",
-                "Name": "hadbilen (Ubuntu / Debian / Snap Port)"
+                "Name": "hadbilen (Ubuntu / Debian / Snap / Flatpak Port)"
             },
             {
                 "Email": "a2n.dev@pm.me",
@@ -11,12 +11,12 @@
             }
         ],
         "Category": "System Information",
-        "Description": "Show and handle pending APT and Snap updates for Kubuntu / Ubuntu / Debian",
+        "Description": "Show and handle pending APT, Snap, and Flatpak updates for Kubuntu / Ubuntu / Debian",
         "Icon": "system-software-update",
         "Id": "hadbilen.aptupdate.plasmoid",
         "License": "GPL-3.0+",
         "Name": "APT Update Counter",
-        "Version": "1.0.1",
+        "Version": "1.0.2",
         "Website": "https://github.com/hadbilen/aptupdate",
         "Depends": ["konsole"],
         "EnabledByDefault": false

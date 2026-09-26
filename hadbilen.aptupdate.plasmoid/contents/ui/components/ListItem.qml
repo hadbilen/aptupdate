@@ -15,10 +15,10 @@ PlasmaComponents.ItemDelegate {
     // fv         = from version
     // tv         = to version
 
-    width: parent.width // throw a warning but work anyway
+    width: ListView.view ? ListView.view.width : (parent ? parent.width : implicitWidth)
 
     function updateOne() {
-        updater.launchOneUpdate(name)
+        updater.launchOneUpdate(name, repo)
     }
 
     function openRepoPage() {

@@ -4,6 +4,7 @@ import QtQuick.Controls
 
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
+import org.kde.kirigami as Kirigami
 import org.kde.plasma.workspace.components as WorkspaceComponents
 import "components" as Components
 
@@ -138,7 +139,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : PlasmaCore.Theme.textColor
+      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
       anchors {
         right: container.right
         bottom: container.bottom
@@ -151,7 +152,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : PlasmaCore.Theme.textColor
+      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
       anchors {
         left: container.left
         bottom: container.bottom
@@ -164,7 +165,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : PlasmaCore.Theme.textColor
+      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
       anchors {
         right: container.right
         top: container.top
@@ -177,7 +178,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : PlasmaCore.Theme.textColor
+      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
       anchors {
         left: container.left
         top: container.top
@@ -190,7 +191,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : PlasmaCore.Theme.textColor
+      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
       anchors {
         right: container.right
         bottom: container.bottom
@@ -203,7 +204,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : PlasmaCore.Theme.textColor
+      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
       anchors {
         left: container.left
         bottom: container.bottom
@@ -216,7 +217,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : PlasmaCore.Theme.textColor
+      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
       anchors {
         right: container.right
         top: container.top
@@ -229,7 +230,7 @@ Item {
       height: container.height / 2.5
       width: height
       radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : PlasmaCore.Theme.textColor
+      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
       anchors {
         left: container.left
         top: container.top

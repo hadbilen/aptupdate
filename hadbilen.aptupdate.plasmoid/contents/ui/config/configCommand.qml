@@ -115,7 +115,7 @@ Kirigami.ScrollablePage {
  
       Controls.TextField {
         id: countAurCommandInput
-        Kirigami.FormData.label: "Count Snap command: "
+        Kirigami.FormData.label: "Count secondary (Snap/Flatpak) command: "
       }
 
       Controls.TextField {
@@ -130,7 +130,7 @@ Kirigami.ScrollablePage {
 
       Controls.TextField {
         id: listAurCommandInput
-        Kirigami.FormData.label: "List Snap command (expected output = package oldver -> newver): "
+        Kirigami.FormData.label: "List secondary (Snap/Flatpak) command: "
       }
     }
 

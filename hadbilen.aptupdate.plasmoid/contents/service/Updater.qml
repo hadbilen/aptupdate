@@ -60,13 +60,18 @@ Item {
     }
   }
 
-  function launchOneUpdate(packageName) {
-    if (updateCommandOne !== '' && packageName) {
-      if (notCloseCommand) {
-        cmd.exec(termNoCloseCmd + " '" + updateCommandOne + " " + packageName + " " + termNoCloseSuffix + "'")
-      } else {
-        cmd.exec(termCmd + " '" + updateCommandOne + " " + packageName + "'")
-      }
+  function launchOneUpdate(packageName, repo) {
+    if (!packageName) return
+    var cmdToRun = updateCommandOne + " " + packageName
+    if (repo === "snap") {
+      cmdToRun = "sudo snap refresh " + packageName
+    } else if (repo === "flatpak") {
+      cmdToRun = "flatpak update -y " + packageName
+    }
+    if (notCloseCommand) {
+      cmd.exec(termNoCloseCmd + " '" + cmdToRun + " " + termNoCloseSuffix + "'")
+    } else {
+      cmd.exec(termCmd + " '" + cmdToRun + "'")
     }
   }
 

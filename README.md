@@ -1,10 +1,10 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.1-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.2-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
-A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT** and **Snap** package updates on Kubuntu, Ubuntu, and Debian systems.
+A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
 
-Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) project with native APT and Snap support.
+Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) project with native APT, Snap, and Flatpak support.
 
 ![APT Update Counter Preview](git-assets/img/allalt.png)
 
@@ -14,13 +14,13 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 
 ## Features
 
-- **Dual Ecosystem (APT & Snap):** Automatically tracks both system APT packages and modern Snap application updates.
-- **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT packages and [snapcraft.io](https://snapcraft.io) for Snap packages.
-- **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade && sudo snap refresh`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
+- **Multi-Ecosystem (APT, Snap & Flatpak):** Concurrently tracks core system APT packages and modern containerized Snap and Flatpak applications.
+- **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
+- **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade && sudo snap refresh && flatpak update`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
 - **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).
-- **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with `APT ~ Snap` separators, colors), and fully editable commands.
+- **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with separators, colors), and fully editable commands.
 - **Native Breeze Theming:** Integrates with KDE Plasma's `system-software-update` icon for full theme consistency.
-- **Graceful Fallbacks:** Operates seamlessly even if Snap is absent or removed from the system.
+- **Graceful Fallbacks:** Operates seamlessly even if Snap or Flatpak is not installed on the system.
 
 ---
 
@@ -49,6 +49,9 @@ cp -r /tmp/aptupdate/hadbilen.aptupdate.plasmoid ~/.local/share/plasma/plasmoids
 # Refresh KDE system cache
 kbuildsycoca6 --noincremental
 
+# Restart Plasmashell (flushes in-memory QML cache without closing open apps)
+systemctl --user restart plasma-plasmashell.service
+
 # Clean up temporary clone
 rm -rf /tmp/aptupdate
 ```
@@ -67,11 +70,11 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 | Setting | Default Command | Description |
 | :--- | :--- | :--- |
 | **Count APT Command** | `apt list --upgradable 2>/dev/null \| grep -c '\['` | Counts pending APT package updates |
-| **Count Snap Command** | `which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null \| tail -n +2 \| wc -l \|\| echo 0` | Counts pending Snap updates (falls back to 0) |
+| **Count Secondary (Snap/Flatpak)** | `s=0; f=0; which snap >/dev/null 2>&1 && s=$(snap refresh --list 2>/dev/null \| tail -n +2 \| wc -l \|\| echo 0); which flatpak >/dev/null 2>&1 && f=$(flatpak remote-ls --updates 2>/dev/null \| wc -l \|\| echo 0); echo $((s + f))` | Concurrently counts Snap and Flatpak updates |
 | **List APT Command** | `apt list --upgradable 2>/dev/null \| grep '\[' \| awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "->", $3}'` | Formats package name and version difference |
-| **List Snap Command** | `which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null \| awk 'NR>1 {print $1, "snap", "->", $2}'` | Formats Snap updates |
-| **Update All Command** | `sudo apt update && sudo apt upgrade && (which snap >/dev/null 2>&1 && sudo snap refresh \|\| true)` | Full system upgrade (APT + Snap) |
-| **Update One Command** | `sudo apt install --only-upgrade` | Upgrade single selected package |
+| **List Secondary Command** | `(which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null \| awk 'NR>1 {print $1, "snap", "->", $2}') ; (which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null \| awk '{print $1, "flatpak", "->", $2}')` | Formats Snap & Flatpak updates |
+| **Update All Command** | `sudo apt update && sudo apt upgrade && (which snap >/dev/null 2>&1 && sudo snap refresh \|\| true) && (which flatpak >/dev/null 2>&1 && flatpak update -y \|\| true)` | Full system upgrade (APT + Snap + Flatpak) |
+| **Update One Command** | `sudo apt install --only-upgrade` | Upgrade single selected package (Snap/Flatpak routed automatically) |
 | **Terminal Command** | `konsole -e` | Terminal emulator wrapper |
 
 ---
@@ -79,7 +82,7 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 ## Credits & Upstream
 
 - **Original Creator & UI Design:** [Alan Bouteiller (A2N)](https://github.com/bouteillerAlan) - [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate).
-- **Debian / Ubuntu / Snap Port & Packaging:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
+- **Debian / Ubuntu / Snap / Flatpak Port & Packaging:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
 
 ## License
 

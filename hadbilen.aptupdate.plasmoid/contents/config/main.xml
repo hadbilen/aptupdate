@@ -52,7 +52,7 @@
   </entry>
 
   <entry name="updateCommand" type="String">
-    <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true)</default>
+    <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true) &amp;&amp; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak update -y || true)</default>
   </entry>
 
   <entry name="updateCommandOne" type="String">
@@ -64,7 +64,7 @@
   </entry>
 
   <entry name="countAurCommand" type="String">
-    <default>which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | tail -n +2 | wc -l || echo 0</default>
+    <default>s=0; f=0; which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; s=$(snap refresh --list 2&gt;/dev/null | tail -n +2 | wc -l || echo 0); which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; f=$(flatpak remote-ls --updates 2&gt;/dev/null | wc -l || echo 0); echo $((s + f))</default>
   </entry>
 
   <entry name="listArchCommand" type="String">
@@ -76,7 +76,7 @@
   </entry>
 
   <entry name="listAurCommand" type="String">
-    <default>which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | awk 'NR&gt;1 {print $1, "snap", "-&gt;", $2}'</default>
+    <default>(which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | awk 'NR&gt;1 {print $1, "snap", "-&gt;", $2}') ; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak remote-ls --updates 2&gt;/dev/null | awk '{print $1, "flatpak", "-&gt;", $2}')</default>
   </entry>
 
   <entry name="termCmd" type="String">

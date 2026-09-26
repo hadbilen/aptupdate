@@ -24,13 +24,13 @@ Kirigami.ScrollablePage {
 
             Controls.Label {
                 Kirigami.FormData.label: "Version: "
-                text: "1.0.1"
+                text: "1.0.2"
                 font.bold: true
             }
 
             Controls.Label {
                 Kirigami.FormData.label: "Description: "
-                text: "KDE Plasma 6 update monitor for APT and Snap on Kubuntu, Ubuntu, and Debian."
+                text: "KDE Plasma 6 update monitor for APT, Snap, and Flatpak on Kubuntu, Ubuntu, and Debian."
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
             }
@@ -68,7 +68,7 @@ Kirigami.ScrollablePage {
             }
 
             Controls.Label {
-                text: "This plasmoid is a dedicated Debian/Ubuntu port with native APT and Snap integration, derived with gratitude from the original Archupdate widget."
+                text: "This plasmoid is a dedicated Debian/Ubuntu port with native APT, Snap, and Flatpak integration, derived with gratitude from the original Archupdate widget."
                 wrapMode: Text.WordWrap
                 Layout.fillWidth: true
                 opacity: 0.8

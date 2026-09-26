@@ -59,12 +59,22 @@ PlasmaExtras.Representation {
 
       if (name && name.trim() !== "") {
         const isSnap = (fv === "snap" || line.indexOf(" snap ") !== -1)
+        const isFlatpak = (fv === "flatpak" || line.indexOf(" flatpak ") !== -1)
+        let repoType = 'apt'
+        let website = 'https://packages.ubuntu.com/search?keywords=' + encodeURIComponent(name)
+        if (isSnap) {
+          repoType = 'snap'
+          website = 'https://snapcraft.io/' + encodeURIComponent(name)
+        } else if (isFlatpak) {
+          repoType = 'flatpak'
+          website = 'https://flathub.org/apps/search?q=' + encodeURIComponent(name)
+        }
         packageListModel.append({
           name: name,
-          fv: isSnap ? "-" : fv,
+          fv: (isSnap || isFlatpak) ? "-" : fv,
           tv: tv,
-          repo: isSnap ? 'snap' : 'apt',
-          websiteUrl: isSnap ? ('https://snapcraft.io/' + name) : ('https://packages.ubuntu.com/search?keywords=' + name)
+          repo: repoType,
+          websiteUrl: website
         });
       }
     });
@@ -124,9 +134,9 @@ PlasmaExtras.Representation {
          height: Kirigami.Units.iconSizes.medium
          text: {
            const aptCount = parseInt(full.totalArch, 10) || 0
-           const snapCount = parseInt(full.totalAur, 10) || 0
-           if (snapCount > 0) {
-             return 'APT ' + aptCount + ' - Snap ' + snapCount
+           const extraCount = parseInt(full.totalAur, 10) || 0
+           if (extraCount > 0) {
+             return 'APT ' + aptCount + ' - Extra ' + extraCount
            }
            return 'APT ' + aptCount
          }
