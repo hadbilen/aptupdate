@@ -49,7 +49,7 @@ ColumnLayout {
         RowLayout {
             RowLayout {
                 PlasmaComponents3.Label {
-                    text: "Arch:"
+                    text: "APT:"
                     opacity: 1
                 }
                 PlasmaComponents3.Label {
@@ -59,8 +59,9 @@ ColumnLayout {
             }
             Item { Layout.fillWidth: true }
             RowLayout {
+                visible: totalAur !== "" && totalAur !== "0"
                 PlasmaComponents3.Label {
-                    text: "AUR:"
+                    text: "Other:"
                     opacity: 1
                 }
                 PlasmaComponents3.Label {

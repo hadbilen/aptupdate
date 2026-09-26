@@ -101,7 +101,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "Replace yay by paru or with the AUR helper of your choice.\n checkupdates is recommanded for the db sync.\nFor paru you may want to exclude ignored package with paru -Qua | grep -v ' \[ignored\]$' | wc -l for example"
+      text: "Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally use the secondary command fields for Flatpak or Snap updates."
       visible: true
     }
 
@@ -110,27 +110,27 @@ Kirigami.ScrollablePage {
 
       Controls.TextField {
         id: countArchCommandInput
-        Kirigami.FormData.label: "Count ARCH command (expected output = 12): "
+        Kirigami.FormData.label: "Count APT command (expected output = number): "
       }
  
       Controls.TextField {
         id: countAurCommandInput
-        Kirigami.FormData.label: "Count AUR command (expected output = 12): "
+        Kirigami.FormData.label: "Count secondary/Flatpak command (optional): "
       }
 
       Controls.TextField {
         id: listArchCommandInput
-        Kirigami.FormData.label: "List ARCH command (expected output = package oldver -> newver): "
+        Kirigami.FormData.label: "List APT command (expected output = package oldver -> newver): "
       }
 
       Controls.TextField {
         id: listRepoArchCommandInput
-        Kirigami.FormData.label: "List repository detail (expected output = same has yay -Siq): "
+        Kirigami.FormData.label: "List repository detail (optional): "
       }
 
       Controls.TextField {
         id: listAurCommandInput
-        Kirigami.FormData.label: "List AUR command (expected output = package oldver -> newver): "
+        Kirigami.FormData.label: "List secondary/Flatpak command (optional): "
       }
     }
 

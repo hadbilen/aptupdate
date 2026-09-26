@@ -42,14 +42,14 @@ PlasmoidItem {
         }
 
         onSourceConnected: function (source) {
-            if (isOnDebug) debug.log('ARCHUPDATE - '+plasmoid.id+' - cmd connected: ' + source, false)
+            if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd connected: ' + source, false)
             isUpdating(true)
             connected(source)
         }
 
         onExited: function (cmd, exitCode, exitStatus, stdout, stderr) {
-            if (isOnDebug) debug.log('ARCHUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({cmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
-            if (stderr !== '') cmd.exec("kdialog --passivepopup 'Archupdate counter throw " + stderr + " error on cmd: " + cmd + "'")
+            if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({cmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
+            if (stderr !== '') cmd.exec("kdialog --passivepopup 'APT Update counter throw " + stderr + " error on cmd: " + cmd + "'")
 
             // handle the result for the count
             const cmdIsAur = cmd === plasmoid.configuration.countAurCommand
@@ -80,20 +80,20 @@ PlasmoidItem {
 
             // handle the result for the checker
             if (cmd === "konsole -v") checker.validateKonsole(stderr)
-            if (cmd === "checkupdates --version") checker.validateCheckupdates(stderr)
+            if (cmd === "apt --version") checker.validateCheckupdates(stderr)
 
             const isUpdateCmd = cmd.startsWith(plasmoid.configuration.termCmd) || cmd.startsWith(plasmoid.configuration.termNoCloseCmd)
             const isOnError = stderr !== ""
 
             // retry the cmd if error execpt for the upgrade (that crash the plasmoid)
             if (isOnError && !isUpdateCmd && plasmoid.configuration.retryMode) {
-                if (isOnDebug) debug.log('ARCHUPDATE - '+plasmoid.id+' - cmd retry after error : ' + cmd, true)
+                if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd retry after error : ' + cmd, true)
                 cmd.exec(cmd)
             }
 
             // refresh after an update action
             if (isUpdateCmd) {
-                if (isOnDebug) debug.log('ARCHUPDATE - an update end, refreshing : ' + cmd, false)
+                if (isOnDebug) debug.log('APTUPDATE - an update end, refreshing : ' + cmd, false)
                 updater.countAll()
             }
 

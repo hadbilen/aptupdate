@@ -1,0 +1,24 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "temroa@gmail.com",
+                "Name": "hadbilen"
+            }
+        ],
+        "Category": "System Information",
+        "Description": "Show and handle pending APT updates for Kubuntu / Ubuntu / Debian",
+        "Icon": "software-update-available",
+        "Id": "hadbilen.aptupdate.plasmoid",
+        "License": "GPL-3.0+",
+        "Name": "APT Update Counter",
+        "Version": "1.0.0",
+        "Website": "https://github.com/hadbilen/aptupdate",
+        "Depends": ["konsole"],
+        "EnabledByDefault": false
+    },
+    "X-Plasma-NotificationArea": true,
+    "X-Plasma-NotificationAreaCategory": "SystemServices",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}

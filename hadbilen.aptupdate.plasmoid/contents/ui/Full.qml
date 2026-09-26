@@ -112,16 +112,16 @@ PlasmaExtras.Representation {
           }
         }
       } catch(err) {
-        console.log("A2N.ARCHUPDATE: err:", err)
+        console.log("APTUPDATE: err:", err)
       }
 
-      if (name.trim() !== "") {
+      if (name && name.trim() !== "") {
         packageListModel.append({
           name: name,
           fv: fv,
           tv: tv,
-          repo: pdetail && pdetail.repo ? pdetail.repo : '[not found]',
-          websiteUrl: pdetail && pdetail.websiteUrl ? pdetail.websiteUrl : ''
+          repo: pdetail && pdetail.repo ? pdetail.repo : 'apt',
+          websiteUrl: pdetail && pdetail.websiteUrl ? pdetail.websiteUrl : 'https://packages.ubuntu.com/search?keywords=' + name
         });
       }
 

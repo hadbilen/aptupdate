@@ -52,31 +52,31 @@
   </entry>
 
   <entry name="updateCommand" type="String">
-    <default>yay</default>
+    <default>sudo apt update &amp;&amp; sudo apt upgrade</default>
   </entry>
 
   <entry name="updateCommandOne" type="String">
-    <default>yay -Sy</default>
+    <default>sudo apt install --only-upgrade</default>
   </entry>
 
   <entry name="countArchCommand" type="String">
-    <default>checkupdates | wc -l</default>
+    <default>apt list --upgradable 2&gt;/dev/null | grep -c '\['</default>
   </entry>
 
   <entry name="countAurCommand" type="String">
-    <default>yay -Qua | wc -l</default>
+    <default></default>
   </entry>
 
   <entry name="listArchCommand" type="String">
-    <default>checkupdates</default>
+    <default>apt list --upgradable 2&gt;/dev/null | grep '\[' | awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "-&gt;", $3}'</default>
   </entry>
 
   <entry name="listRepoArchCommand" type="String">
-    <default>yay -Siq</default>
+    <default></default>
   </entry>
 
   <entry name="listAurCommand" type="String">
-    <default>yay -Qua</default>
+    <default></default>
   </entry>
 
   <entry name="termCmd" type="String">
@@ -90,7 +90,6 @@
   <entry name="termNoCloseSuffix" type="String">
     <default>; exec $SHELL</default>
   </entry>
-
 </group>
 
 <group name="displayConfigPage">

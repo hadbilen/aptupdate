@@ -12,17 +12,17 @@ Item {
   }
 
   function checkupdates() {
-    cmd.exec("checkupdates --version")
+    cmd.exec("apt --version")
   }
 
   function validateKonsole(stderr) {
     plasmoid.configuration.konsoleIsValid = stderr === ''
-    if (stderr !== '') cmd.exec("kdialog --passivepopup 'Missing dependency (konsole) for arch update plasmoid'")
+    if (stderr !== '') cmd.exec("kdialog --passivepopup 'Missing dependency (konsole) for apt update plasmoid'")
   }
 
   function validateCheckupdates(stderr) {
     plasmoid.configuration.checkupdateIsValid = stderr === ''
-    if (stderr !== '') cmd.exec("kdialog --passivepopup 'Missing dependency (pacman-contrib) for arch update plasmoid'")
+    if (stderr !== '') cmd.exec("kdialog --passivepopup 'Missing dependency (apt) for apt update plasmoid'")
   }
 
 }
