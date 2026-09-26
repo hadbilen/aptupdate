@@ -71,6 +71,14 @@
     <default>false</default>
   </entry>
 
+  <entry name="hasSnap" type="Bool">
+    <default>true</default>
+  </entry>
+
+  <entry name="hasFlatpak" type="Bool">
+    <default>true</default>
+  </entry>
+
   <entry name="updateCommand" type="String">
     <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true) &amp;&amp; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak update -y || true)</default>
   </entry>

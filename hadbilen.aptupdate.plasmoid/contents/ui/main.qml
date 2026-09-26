@@ -22,6 +22,8 @@ PlasmoidItem {
     property string listArch: ""
     property string listArchRepo: ""
     property bool rebootRequired: false
+    property bool hasSnap: plasmoid.configuration.hasSnap
+    property bool hasFlatpak: plasmoid.configuration.hasFlatpak
     property int previousTotal: -1
 
     function checkNotification() {
@@ -115,6 +117,14 @@ PlasmoidItem {
             // handle the result for the checker
             if (sourceCmd === "konsole -v") checker.validateKonsole(stderr)
             if (sourceCmd === "apt --version") checker.validateCheckupdates(stderr)
+            if (sourceCmd === "which snap >/dev/null 2>&1 && echo 1 || echo 0") {
+                checker.validateSnap(stdout)
+                main.hasSnap = plasmoid.configuration.hasSnap
+            }
+            if (sourceCmd === "which flatpak >/dev/null 2>&1 && echo 1 || echo 0") {
+                checker.validateFlatpak(stdout)
+                main.hasFlatpak = plasmoid.configuration.hasFlatpak
+            }
 
             // retry the cmd if error except for the upgrade (that crash the plasmoid)
             if (isOnError && !isUpdateCmd && plasmoid.configuration.retryMode) {
@@ -219,5 +229,6 @@ PlasmoidItem {
 
     Component.onCompleted: {
         plasmoid.configuration.debugLog = "" // clear log window
+        checker.checkProviders()
     }
 }

@@ -45,29 +45,33 @@ Item {
   }
 
   function getCountAurCmd() {
-    if (!enableSnapUpdates && !enableFlatpakUpdates) return ""
-    if (enableSnapUpdates && enableFlatpakUpdates) {
-      return countAurCommand !== "" ? countAurCommand : "s=0; f=0; which snap >/dev/null 2>&1 && s=$(snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0); which flatpak >/dev/null 2>&1 && f=$(flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0); echo $((s + f))"
+    var snapActive = enableSnapUpdates && plasmoid.configuration.hasSnap
+    var flatpakActive = enableFlatpakUpdates && plasmoid.configuration.hasFlatpak
+    if (!snapActive && !flatpakActive) return ""
+    if (snapActive && flatpakActive) {
+      return countAurCommand !== "" ? countAurCommand : "s=0; f=0; s=$(snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0); f=$(flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0); echo $((s + f))"
     }
-    if (enableSnapUpdates) {
-      return "which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0"
+    if (snapActive) {
+      return "snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0"
     }
-    if (enableFlatpakUpdates) {
-      return "which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0"
+    if (flatpakActive) {
+      return "flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0"
     }
     return ""
   }
 
   function getListAurCmd() {
-    if (!enableSnapUpdates && !enableFlatpakUpdates) return ""
-    if (enableSnapUpdates && enableFlatpakUpdates) {
-      return listAurCommand !== "" ? listAurCommand : "(which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}') ; (which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}')"
+    var snapActive = enableSnapUpdates && plasmoid.configuration.hasSnap
+    var flatpakActive = enableFlatpakUpdates && plasmoid.configuration.hasFlatpak
+    if (!snapActive && !flatpakActive) return ""
+    if (snapActive && flatpakActive) {
+      return listAurCommand !== "" ? listAurCommand : "(snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}') ; (flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}')"
     }
-    if (enableSnapUpdates) {
-      return "which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}'"
+    if (snapActive) {
+      return "snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}'"
     }
-    if (enableFlatpakUpdates) {
-      return "which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}'"
+    if (flatpakActive) {
+      return "flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}'"
     }
     return ""
   }
@@ -78,11 +82,11 @@ Item {
       aptUpgrade = "sudo apt -o APT::Get::Always-Include-Phased-Updates=true upgrade"
     }
     var parts = ["sudo apt update && " + aptUpgrade]
-    if (enableSnapUpdates) {
-      parts.push("(which snap >/dev/null 2>&1 && sudo snap refresh || true)")
+    if (enableSnapUpdates && plasmoid.configuration.hasSnap) {
+      parts.push("sudo snap refresh")
     }
-    if (enableFlatpakUpdates) {
-      parts.push("(which flatpak >/dev/null 2>&1 && flatpak update -y || true)")
+    if (enableFlatpakUpdates && plasmoid.configuration.hasFlatpak) {
+      parts.push("flatpak update -y")
     }
     return parts.join(" && ")
   }
@@ -93,11 +97,11 @@ Item {
       aptUpgrade = "apt-get -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq"
     }
     var parts = ["apt-get update && " + aptUpgrade]
-    if (enableSnapUpdates) {
-      parts.push("(which snap >/dev/null 2>&1 && snap refresh || true)")
+    if (enableSnapUpdates && plasmoid.configuration.hasSnap) {
+      parts.push("snap refresh")
     }
-    if (enableFlatpakUpdates) {
-      parts.push("(which flatpak >/dev/null 2>&1 && flatpak update -y || true)")
+    if (enableFlatpakUpdates && plasmoid.configuration.hasFlatpak) {
+      parts.push("flatpak update -y")
     }
     var innerCmd = parts.join(" && ")
     return "pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + innerCmd + "'"
@@ -149,6 +153,7 @@ Item {
   }
 
   function countAll() {
+    checker.checkProviders()
     countArch()
     countAur()
     listArchRepo()
@@ -187,8 +192,16 @@ Item {
     if (!packageName) return
     var cmdToRun = updateCommandOne + " " + packageName
     if (repo === "snap") {
+      if (!plasmoid.configuration.hasSnap) {
+        cmd.exec("notify-send -u critical -a 'APT Update Counter' -i dialog-error '" + i18n("Update Error") + "' '" + i18n("Snap is not installed on this system.") + "'")
+        return
+      }
       cmdToRun = "sudo snap refresh " + packageName
     } else if (repo === "flatpak") {
+      if (!plasmoid.configuration.hasFlatpak) {
+        cmd.exec("notify-send -u critical -a 'APT Update Counter' -i dialog-error '" + i18n("Update Error") + "' '" + i18n("Flatpak is not installed on this system.") + "'")
+        return
+      }
       cmdToRun = "flatpak update -y " + packageName
     }
     if (notCloseCommand) {

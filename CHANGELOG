@@ -1,3 +1,9 @@
+### v1.0.8
+  - Dynamic Provider Auto-Discovery: Automatically detect if `snap` or `flatpak` binaries exist on system (`hasSnap`, `hasFlatpak`); eliminate redundant subshells if absent
+  - Graceful Settings Degradation: Disabled checkboxes with contextual `(not installed)` labels in settings when Snap or Flatpak is not installed
+  - Safe Single Package Upgrades: Notify user via native desktop alert if attempting to upgrade a package whose manager is missing
+  - Updated Translations: Turkish localization for all new provider status messages and configuration labels
+
 ### v1.0.7
   - Metadata Localization: Add `Description[tr]` and `Name[tr]` to `metadata.json` for native KDE Turkish About tab presentation
   - Author Credits: Refine Turkish author descriptors in `metadata.json` (`hadbilen (Ubuntu, Debian, Snap & Flatpak Portu)`, `Alan Bouteiller <a2n> (Orijinal Archupdate Geliştiricisi)`)

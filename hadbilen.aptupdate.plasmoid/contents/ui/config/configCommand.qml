@@ -115,12 +115,18 @@ Kirigami.ScrollablePage {
 
       Controls.CheckBox {
         id: enableSnapUpdatesBox
-        Kirigami.FormData.label: i18n("Enable Snap updates: ")
+        enabled: plasmoid.configuration.hasSnap
+        Kirigami.FormData.label: plasmoid.configuration.hasSnap
+          ? i18n("Enable Snap updates: ")
+          : i18n("Enable Snap updates (not installed): ")
       }
 
       Controls.CheckBox {
         id: enableFlatpakUpdatesBox
-        Kirigami.FormData.label: i18n("Enable Flatpak updates: ")
+        enabled: plasmoid.configuration.hasFlatpak
+        Kirigami.FormData.label: plasmoid.configuration.hasFlatpak
+          ? i18n("Enable Flatpak updates: ")
+          : i18n("Enable Flatpak updates (not installed): ")
       }
 
       Controls.CheckBox {
@@ -136,7 +142,7 @@ Kirigami.ScrollablePage {
       Controls.TextField {
         id: countAurCommandInput
         Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
-        enabled: enableSnapUpdatesBox.checked || enableFlatpakUpdatesBox.checked
+        enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
       }
 
       Controls.TextField {
@@ -152,7 +158,7 @@ Kirigami.ScrollablePage {
       Controls.TextField {
         id: listAurCommandInput
         Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
-        enabled: enableSnapUpdatesBox.checked || enableFlatpakUpdatesBox.checked
+        enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
       }
     }
 

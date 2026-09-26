@@ -14,6 +14,7 @@ xgettext --from-code=UTF-8 -C --qt \
     "$ROOT_DIR"/hadbilen.aptupdate.plasmoid/contents/ui/*.qml \
     "$ROOT_DIR"/hadbilen.aptupdate.plasmoid/contents/ui/components/*.qml \
     "$ROOT_DIR"/hadbilen.aptupdate.plasmoid/contents/ui/config/*.qml \
+    "$ROOT_DIR"/hadbilen.aptupdate.plasmoid/contents/service/*.qml \
     "$ROOT_DIR"/hadbilen.aptupdate.plasmoid/contents/config/*.qml
 
 for po in "$DIR"/*.po; do
