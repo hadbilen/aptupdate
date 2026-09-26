@@ -39,7 +39,8 @@ Kirigami.ScrollablePage {
     return i18n("Give the following command: <br/>") + cmdA + cmdB + cmdC + cmdD
   }
 
-  ColumnLayout {
+  Kirigami.FormLayout {
+    id: mainFormLayout
 
     anchors {
       left: parent.left
@@ -47,182 +48,164 @@ Kirigami.ScrollablePage {
       right: parent.right
     }
 
+    Component.onCompleted: {
+      var lay = mainFormLayout.children[0];
+      lay.anchors.horizontalCenter = undefined;
+      lay.anchors.left = mainFormLayout.left;
+      lay.anchors.right = mainFormLayout.right;
+    }
+
     Kirigami.InlineMessage {
       Layout.fillWidth: true
+      Kirigami.FormData.isSection: true
       text: i18n("This option enables logs for each command executed by the plugin.")
       visible: debugModeBox.checked
     }
 
-    Kirigami.FormLayout {
-      wideMode: false
-
-      Kirigami.Separator {
-        Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: i18n("General")
-      }
+    Kirigami.Separator {
+      Kirigami.FormData.isSection: true
+      Kirigami.FormData.label: i18n("General")
     }
 
-    Kirigami.FormLayout {
-      id: generalLayout
-
-      Controls.SpinBox {
-        id: updateIntervalSpin
-        Kirigami.FormData.label: i18n("Update every: ")
-        from: 1
-        to: 1440 // 1 day
-        editable: true
-        textFromValue: (value) => value + " " + i18n("minute(s)")
-        valueFromText: (text) => parseInt(text)
-      }
-
-      Controls.CheckBox {
-        id: notCloseBox
-        Kirigami.FormData.label: i18n("Do not close the terminal at the end of the upgrade action: ")
-        checked: false
-      }
-
-      Controls.CheckBox {
-        id: debugModeBox
-        Kirigami.FormData.label: i18n("Debug: ")
-        checked: false
-      }
-
-      Controls.CheckBox {
-        id: retryModeBox
-        Kirigami.FormData.label: i18n("Retry \"Search & count\" cmd if they are in error: ")
-        checked: false
-      }
-
+    Controls.SpinBox {
+      id: updateIntervalSpin
+      Kirigami.FormData.label: i18n("Update every: ")
+      from: 1
+      to: 1440 // 1 day
+      editable: true
+      textFromValue: (value) => value + " " + i18n("minute(s)")
+      valueFromText: (text) => parseInt(text)
     }
- 
-   Kirigami.FormLayout {
-      wideMode: false
 
-      Kirigami.Separator {
-        Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: i18n("Search & count")
-      }
+    Controls.CheckBox {
+      id: notCloseBox
+      Kirigami.FormData.label: i18n("Do not close the terminal at the end of the upgrade action: ")
+      checked: false
+    }
+
+    Controls.CheckBox {
+      id: debugModeBox
+      Kirigami.FormData.label: i18n("Debug: ")
+      checked: false
+    }
+
+    Controls.CheckBox {
+      id: retryModeBox
+      Kirigami.FormData.label: i18n("Retry \"Search & count\" cmd if they are in error: ")
+      checked: false
+    }
+
+    Kirigami.Separator {
+      Kirigami.FormData.isSection: true
+      Kirigami.FormData.label: i18n("Search & count")
     }
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
+      Kirigami.FormData.isSection: true
       text: i18n("Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally use the secondary command fields for Flatpak or Snap updates.")
       visible: true
     }
 
-    Kirigami.FormLayout {
-      id: searchLayout
-      twinFormLayouts: [generalLayout]
-
-      Controls.CheckBox {
-        id: enableSnapUpdatesBox
-        enabled: plasmoid.configuration.hasSnap
-        Kirigami.FormData.label: plasmoid.configuration.hasSnap
-          ? i18n("Enable Snap updates: ")
-          : i18n("Enable Snap updates (not installed): ")
-      }
-
-      Controls.CheckBox {
-        id: enableFlatpakUpdatesBox
-        enabled: plasmoid.configuration.hasFlatpak
-        Kirigami.FormData.label: plasmoid.configuration.hasFlatpak
-          ? i18n("Enable Flatpak updates: ")
-          : i18n("Enable Flatpak updates (not installed): ")
-      }
-
-      Controls.CheckBox {
-        id: includePhasedUpdatesBox
-        Kirigami.FormData.label: i18n("Include phased (staged) updates: ")
-      }
-
-      Controls.TextField {
-        id: countArchCommandInput
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
-      }
- 
-      Controls.TextField {
-        id: countAurCommandInput
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
-        enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
-      }
-
-      Controls.TextField {
-        id: listArchCommandInput
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("List APT command (expected output = package oldver -> newver): ")
-      }
-
-      Controls.TextField {
-        id: listRepoArchCommandInput
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("List repository detail (optional): ")
-      }
-
-      Controls.TextField {
-        id: listAurCommandInput
-        Layout.fillWidth: true
-        Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
-        enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
-      }
+    Controls.CheckBox {
+      id: enableSnapUpdatesBox
+      enabled: plasmoid.configuration.hasSnap
+      Kirigami.FormData.label: plasmoid.configuration.hasSnap
+        ? i18n("Enable Snap updates: ")
+        : i18n("Enable Snap updates (not installed): ")
     }
 
-      Kirigami.FormLayout {
-        wideMode: false
+    Controls.CheckBox {
+      id: enableFlatpakUpdatesBox
+      enabled: plasmoid.configuration.hasFlatpak
+      Kirigami.FormData.label: plasmoid.configuration.hasFlatpak
+        ? i18n("Enable Flatpak updates: ")
+        : i18n("Enable Flatpak updates (not installed): ")
+    }
 
-        Kirigami.Separator {
-          Kirigami.FormData.isSection: true
-          Kirigami.FormData.label: i18n("Update package")
-        }
-      }
+    Controls.CheckBox {
+      id: includePhasedUpdatesBox
+      Kirigami.FormData.label: i18n("Include phased (staged) updates: ")
+    }
 
-      Kirigami.FormLayout {
-        id: updateLayout
-        twinFormLayouts: [generalLayout, searchLayout]
+    Controls.TextField {
+      id: countArchCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
+    }
 
-        Controls.CheckBox {
-          id: silentUpdateBox
-          Kirigami.FormData.label: i18n("Run updates in background silently (pkexec): ")
-        }
+    Controls.TextField {
+      id: countAurCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
+      enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
+    }
 
-        Kirigami.Heading {
-          level: 3
-          Layout.fillWidth: true
-          wrapMode: Text.Wrap
-          text: generateCmdExample()
-        }
+    Controls.TextField {
+      id: listArchCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("List APT command (expected output = package oldver -> newver): ")
+    }
 
-        Controls.TextField {
-          id: updateCommandInput
-          Layout.fillWidth: true
-          Kirigami.FormData.label: i18n("Update all packages command: ")
-        }
+    Controls.TextField {
+      id: listRepoArchCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("List repository detail (optional): ")
+    }
 
-        Controls.TextField {
-          id: updateCommandOneInput
-          Layout.fillWidth: true
-          Kirigami.FormData.label: i18n("Update one package command: ")
-        }
+    Controls.TextField {
+      id: listAurCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
+      enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
+    }
 
-        Controls.TextField {
-          id: termCmdInput
-          Layout.fillWidth: true
-          Kirigami.FormData.label: i18n("Command for the update action: ")
-        }
+    Kirigami.Separator {
+      Kirigami.FormData.isSection: true
+      Kirigami.FormData.label: i18n("Update package")
+    }
 
-        Controls.TextField {
-          id: termNoCloseCmdInput
-          Layout.fillWidth: true
-          Kirigami.FormData.label: i18n("Command for the update action with do no close: ")
-        }
+    Controls.CheckBox {
+      id: silentUpdateBox
+      Kirigami.FormData.label: i18n("Run updates in background silently (pkexec): ")
+    }
 
-        Controls.TextField {
-          id: termNoCloseSuffixInput
-          Layout.fillWidth: true
-          Kirigami.FormData.label: i18n("Command that run after the \"do not close\" command: ")
-        }
-      }
+    Kirigami.Heading {
+      level: 3
+      Layout.fillWidth: true
+      wrapMode: Text.Wrap
+      text: generateCmdExample()
+    }
+
+    Controls.TextField {
+      id: updateCommandInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Update all packages command: ")
+    }
+
+    Controls.TextField {
+      id: updateCommandOneInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Update one package command: ")
+    }
+
+    Controls.TextField {
+      id: termCmdInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Command for the update action: ")
+    }
+
+    Controls.TextField {
+      id: termNoCloseCmdInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Command for the update action with do no close: ")
+    }
+
+    Controls.TextField {
+      id: termNoCloseSuffixInput
+      Layout.fillWidth: true
+      Kirigami.FormData.label: i18n("Command that run after the \"do not close\" command: ")
+    }
 
   }
 
