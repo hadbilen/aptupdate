@@ -1,3 +1,16 @@
+### v1.1.1
+  - Pre-flight DPkg/APT Lock Check & Conflict Prevention: Prevents race conditions and lock aborts when `apt`, `dpkg`, or `unattended-upgrades` is already running in an external terminal (e.g. waiting at an interactive Y/n prompt). Upgrade buttons are safely disabled with informative tooltips and an inline informational banner in the popup.
+  - Non-blocking Lock Timeouts: Injected `-o DPkg::Lock::Timeout=10` into all APT count, simulation, and upgrade commands to gracefully handle transient lock contention.
+  - Systemd Shutdown Inhibit: Protected silent background upgrades with `systemd-inhibit --what=shutdown:sleep` to prevent power-off or suspend while packages are being unpacked/configured.
+  - Infinite Retry Loop & CPU DoS Prevention: Replaced unthrottled immediate error-retry loops with a 5-second backoff timer capped at 2 attempts, eliminating CPU pegging on persistent failures.
+  - Concurrency Reference Counting: Tracked concurrent background operations with `activeJobs` reference counting, ensuring the refresh spinner and active state remain visible until all asynchronous jobs complete.
+  - Badge & Metric Sanitization: Enforced strict numeric regex validation on counts to prevent `NaN` badges or invalid active states.
+  - Self-Healing Error Recovery: Automatically cleared sticky error state (`hasError = false`) upon subsequent successful checks.
+  - Notification Aggregation: Debounced desktop alerts across multi-provider checks (500ms debounce) to eliminate duplicate/spam notifications.
+  - Shell Injection Hardening: Sanitized package names in single-package upgrades against shell metacharacters.
+  - Dead Code Removal: Removed obsolete `contents/_toolbox/` legacy files and unused imports.
+  - 100% Turkish Translation Coverage: Full localization coverage for all new package manager lock banners and tooltips.
+
 ### v1.1.0
   - Full Left-Aligned Settings Architecture: Unified all 5 configuration tabs (`configCommand.qml`, `configNotification.qml`, `configDisplay.qml`, `configPopup.qml`, `configMouse.qml`, plus `showLog.qml`) into single, left-aligned, full-width `Kirigami.FormLayout` containers.
   - CheckBox Inline Button/Text Atomic Alignment: Replaced detached `Kirigami.FormData.label` on checkboxes with native `text:` and section grouping. Activation buttons now sit alongside their text labels, preventing them from falling underneath sentences on compact/high-DPI displays (e.g. 12.5" FHD @ 120% scale) or being pushed to the far right margin.

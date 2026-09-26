@@ -182,10 +182,11 @@ PlasmaExtras.Representation {
          icon.name: "install-symbolic"
          display: PlasmaComponents.AbstractButton.IconOnly
          text: i18n("Install all updates")
+         enabled: !main.isPkgManagerBusy
          onClicked: updateAll()
          visible: !onRefresh && packageList !== ""
          PlasmaComponents.ToolTip {
-           text: parent.text
+           text: main.isPkgManagerBusy ? i18n("Package manager is currently in use by another process.") : parent.text
          }
        }
 
@@ -231,6 +232,17 @@ PlasmaExtras.Representation {
      anchors.right: parent.right
    }
 
+   // package manager busy banner
+   Kirigami.InlineMessage {
+     id: busyLockMsg
+     visible: main.isPkgManagerBusy
+     type: Kirigami.MessageType.Information
+     text: i18n("Package manager is currently in use by another process.")
+     anchors.top: full.rebootRequired ? rebootMsg.bottom : headerSeparator.bottom
+     anchors.left: parent.left
+     anchors.right: parent.right
+   }
+
    // page view for the list
    Kirigami.ScrollablePage {
      id: scrollView
@@ -239,7 +251,7 @@ PlasmaExtras.Representation {
        anchors.fill: parent
        color: "transparent"
      }
-     anchors.top: full.rebootRequired ? rebootMsg.bottom : headerSeparator.bottom
+     anchors.top: main.isPkgManagerBusy ? busyLockMsg.bottom : (full.rebootRequired ? rebootMsg.bottom : headerSeparator.bottom)
      anchors.bottom: parent.bottom
      anchors.left: parent.left
      anchors.right: parent.right

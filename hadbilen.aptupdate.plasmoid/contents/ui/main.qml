@@ -6,7 +6,6 @@ import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 import org.kde.plasma.plasma5support as Plasma5Support
 
-import "../_toolbox" as Tb
 import "../service" as Sv
 
 PlasmoidItem {
@@ -16,6 +15,8 @@ PlasmoidItem {
     property bool isOnDebug: plasmoid.configuration.debugMode
     property bool isOnUpdate: false
     property bool hasError: false
+    property bool isPkgManagerBusy: false
+    property int activeJobs: 0
     property string tArch: "0"
     property string tAur: "0"
     property string listAur: ""
@@ -26,6 +27,7 @@ PlasmoidItem {
     property bool hasSnap: plasmoid.configuration.hasSnap
     property bool hasFlatpak: plasmoid.configuration.hasFlatpak
     property int previousTotal: -1
+    property var retryCounts: ({})
 
     function checkNotification() {
         if (!plasmoid.configuration.notifyOnUpdates) return
@@ -35,6 +37,26 @@ PlasmoidItem {
             cmd.exec("notify-send -a 'APT Update Counter' -i system-software-update '" + i18n("System Updates") + "' '" + msg + "'")
         }
         main.previousTotal = currentTotal
+    }
+
+    Timer {
+        id: notifyDebounceTimer
+        interval: 500
+        repeat: false
+        onTriggered: checkNotification()
+    }
+
+    Timer {
+        id: retryTimer
+        interval: 5000
+        repeat: false
+        property string pendingCmd: ""
+        onTriggered: {
+            if (pendingCmd !== "") {
+                cmd.exec(pendingCmd)
+                pendingCmd = ""
+            }
+        }
     }
 
     // load one instance of each needed service
@@ -59,14 +81,22 @@ PlasmoidItem {
 
         onSourceConnected: function (source) {
             if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd connected: ' + source, false)
-            const isUp = source.indexOf("pkexec") !== -1 || source.indexOf("konsole") !== -1 || (updater.lastUpdateCmd !== "" && source === updater.lastUpdateCmd)
+            main.activeJobs++
+            isUpdating(true)
+
+            const isUp = source.indexOf("pkexec") !== -1 ||
+                         source.indexOf("konsole") !== -1 ||
+                         source.indexOf("apt ") !== -1 ||
+                         source.indexOf("apt-get ") !== -1 ||
+                         source.indexOf("snap refresh") !== -1 ||
+                         source.indexOf("flatpak update") !== -1 ||
+                         (updater.lastUpdateCmd !== "" && source === updater.lastUpdateCmd)
             if (isUp) {
                 main.isOnUpdate = true
                 main.hasError = false
                 errorStatus(false)
                 updateRunning(true)
             }
-            isUpdating(true)
             connected(source)
         }
 
@@ -80,6 +110,12 @@ PlasmoidItem {
                                 (updater.lastUpdateCmd !== "" && sourceCmd === updater.lastUpdateCmd)
             const isOnError = exitCode !== 0 && stderr !== ""
 
+            // handle lock check
+            if (sourceCmd === "fuser /var/lib/dpkg/lock-frontend 2>/dev/null && echo 1 || echo 0") {
+                main.isPkgManagerBusy = (stdout.trim() === "1")
+                pkgManagerBusyStatus(main.isPkgManagerBusy)
+            }
+
             // handle reboot required
             if (sourceCmd === "test -f /var/run/reboot-required && echo 1 || echo 0") {
                 const isReboot = (stdout.trim() === "1")
@@ -91,22 +127,30 @@ PlasmoidItem {
                 rebootStatus(main.rebootRequired)
             }
 
-            // handle the result for the count
+            // handle the result for the count with numeric sanitization (anti-NaN)
             const cmdIsAur = sourceCmd === plasmoid.configuration.countAurCommand || (updater.lastCountAurCmd !== "" && sourceCmd === updater.lastCountAurCmd)
             const cmdIsArch = sourceCmd === plasmoid.configuration.countArchCommand || (updater.lastCountArchCmd !== "" && sourceCmd === updater.lastCountArchCmd)
             if (cmdIsArch) {
-                let total = stdout.replace(/\n/g, '')
+                let clean = stdout.trim()
+                let total = /^\d+$/.test(clean) ? clean : "0"
                 totalArch(total)
                 main.tArch = total
                 updater.listArch()
-                checkNotification()
+                notifyDebounceTimer.restart()
             }
             if (cmdIsAur) {
-                let total = stdout.replace(/\n/g, '')
+                let clean = stdout.trim()
+                let total = /^\d+$/.test(clean) ? clean : "0"
                 totalAur(total)
                 main.tAur = total
                 updater.listAur()
-                checkNotification()
+                notifyDebounceTimer.restart()
+            }
+
+            // auto-clear error state on clean count
+            if (!isOnError && !isUpdateCmd && (cmdIsArch || cmdIsAur)) {
+                main.hasError = false
+                errorStatus(false)
             }
 
             // handle the result for the list
@@ -132,10 +176,20 @@ PlasmoidItem {
                 main.hasFlatpak = plasmoid.configuration.hasFlatpak
             }
 
-            // retry the cmd if error except for the upgrade (that crash the plasmoid)
+            // throttled retry with backoff and cap (prevents unthrottled DoS loops)
             if (isOnError && !isUpdateCmd && plasmoid.configuration.retryMode) {
-                if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd retry after error : ' + sourceCmd, true)
-                cmd.exec(sourceCmd)
+                const currentRetries = main.retryCounts[sourceCmd] || 0
+                if (currentRetries < 2 && !retryTimer.running) {
+                    main.retryCounts[sourceCmd] = currentRetries + 1
+                    if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - scheduled retry (attempt '+(currentRetries+1)+') in 5s: ' + sourceCmd, true)
+                    retryTimer.pendingCmd = sourceCmd
+                    retryTimer.restart()
+                } else if (currentRetries >= 2) {
+                    if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - max retries reached for: ' + sourceCmd, true)
+                    delete main.retryCounts[sourceCmd]
+                }
+            } else if (!isOnError && main.retryCounts[sourceCmd]) {
+                delete main.retryCounts[sourceCmd]
             }
 
             // refresh and notifications after an update action
@@ -160,7 +214,11 @@ PlasmoidItem {
                 updater.countAll()
             }
 
-            isUpdating(false)
+            // reference-counted completion
+            main.activeJobs = Math.max(0, main.activeJobs - 1)
+            if (main.activeJobs === 0) {
+                isUpdating(false)
+            }
         }
 
         // execute the given cmd
@@ -176,6 +234,7 @@ PlasmoidItem {
         signal totalAur(string total)
         signal totalArch(string total)
         signal rebootStatus(bool required)
+        signal pkgManagerBusyStatus(bool busy)
         signal connected(string source)
         signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }
@@ -205,6 +264,7 @@ PlasmoidItem {
         PlasmaCore.Action {
             text: i18n("Update")
             icon.name: "install-symbolic"
+            enabled: !main.isPkgManagerBusy && !main.isOnUpdate
             onTriggered: {
                 updater.launchUpdate()
             }

@@ -32,16 +32,16 @@ Item {
 
   function getCountArchCmd() {
     if (includePhasedUpdates) {
-      return "apt-get -s upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | grep -c '^Inst ' || echo 0"
+      return "LANG=C apt-get -s -o DPkg::Lock::Timeout=10 upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | grep -c '^Inst ' || echo 0"
     }
-    return "apt-get -s upgrade 2>/dev/null | grep -c '^Inst ' || echo 0"
+    return "LANG=C apt-get -s -o DPkg::Lock::Timeout=10 upgrade 2>/dev/null | grep -c '^Inst ' || echo 0"
   }
 
   function getListArchCmd() {
     if (includePhasedUpdates) {
-      return "apt-get -s upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
+      return "LANG=C apt-get -s -o DPkg::Lock::Timeout=10 upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
     }
-    return "apt-get -s upgrade 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
+    return "LANG=C apt-get -s -o DPkg::Lock::Timeout=10 upgrade 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
   }
 
   function getCountAurCmd() {
@@ -77,11 +77,11 @@ Item {
   }
 
   function getEffectiveUpdateCommand() {
-    var aptUpgrade = "sudo apt upgrade"
+    var aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 upgrade"
     if (includePhasedUpdates) {
-      aptUpgrade = "sudo apt -o APT::Get::Always-Include-Phased-Updates=true upgrade"
+      aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade"
     }
-    var parts = ["sudo apt update && " + aptUpgrade]
+    var parts = ["sudo apt -o DPkg::Lock::Timeout=10 update && " + aptUpgrade]
     if (enableSnapUpdates && plasmoid.configuration.hasSnap) {
       parts.push("sudo snap refresh")
     }
@@ -92,11 +92,11 @@ Item {
   }
 
   function getEffectiveSilentUpdateCommand() {
-    var aptUpgrade = "apt-get upgrade -yq"
+    var aptUpgrade = "apt-get -o DPkg::Lock::Timeout=10 upgrade -yq"
     if (includePhasedUpdates) {
-      aptUpgrade = "apt-get -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq"
+      aptUpgrade = "apt-get -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq"
     }
-    var parts = ["apt-get update && " + aptUpgrade]
+    var parts = ["apt-get -o DPkg::Lock::Timeout=10 update && " + aptUpgrade]
     if (enableSnapUpdates && plasmoid.configuration.hasSnap) {
       parts.push("snap refresh")
     }
@@ -104,7 +104,7 @@ Item {
       parts.push("flatpak update -y")
     }
     var innerCmd = parts.join(" && ")
-    return "pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + innerCmd + "'"
+    return "systemd-inhibit --what=shutdown:sleep --who='APT Update Counter' --why='Installing system updates' pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + innerCmd + "'"
   }
 
   function countArch() {
@@ -152,8 +152,13 @@ Item {
     cmd.exec("test -f /var/run/reboot-required && echo 1 || echo 0")
   }
 
+  function checkLock() {
+    cmd.exec("fuser /var/lib/dpkg/lock-frontend 2>/dev/null && echo 1 || echo 0")
+  }
+
   function countAll() {
     checker.checkProviders()
+    checkLock()
     countArch()
     countAur()
     listArchRepo()
@@ -166,6 +171,10 @@ Item {
   }
 
   function launchUpdate() {
+    if (main.isPkgManagerBusy) {
+      cmd.exec("notify-send -u normal -a 'APT Update Counter' -i dialog-warning '" + i18n("Package Manager Busy") + "' '" + i18n("Another package management process is currently running. Please wait for it to complete.") + "'")
+      return
+    }
     if (silentUpdate) {
       var silentCmd = getEffectiveSilentUpdateCommand()
       lastUpdateCmd = silentCmd
@@ -190,34 +199,39 @@ Item {
 
   function launchOneUpdate(packageName, repo) {
     if (!packageName) return
-    var cmdToRun = updateCommandOne + " " + packageName
+    if (main.isPkgManagerBusy) {
+      cmd.exec("notify-send -u normal -a 'APT Update Counter' -i dialog-warning '" + i18n("Package Manager Busy") + "' '" + i18n("Another package management process is currently running. Please wait for it to complete.") + "'")
+      return
+    }
+
+    var safePackageName = packageName.replace(/[^a-zA-Z0-9.+:_-]/g, "")
+    if (!safePackageName) return
+
+    var cmdToRun = updateCommandOne + " " + safePackageName
     if (repo === "snap") {
       if (!plasmoid.configuration.hasSnap) {
         cmd.exec("notify-send -u critical -a 'APT Update Counter' -i dialog-error '" + i18n("Update Error") + "' '" + i18n("Snap is not installed on this system.") + "'")
         return
       }
-      cmdToRun = "sudo snap refresh " + packageName
+      cmdToRun = "sudo snap refresh " + safePackageName
     } else if (repo === "flatpak") {
       if (!plasmoid.configuration.hasFlatpak) {
         cmd.exec("notify-send -u critical -a 'APT Update Counter' -i dialog-error '" + i18n("Update Error") + "' '" + i18n("Flatpak is not installed on this system.") + "'")
         return
       }
-      cmdToRun = "flatpak update -y " + packageName
+      cmdToRun = "flatpak update -y " + safePackageName
     }
     if (notCloseCommand) {
-      cmd.exec(termNoCloseCmd + " '" + cmdToRun + " " + termNoCloseSuffix + "'")
+      lastUpdateCmd = termNoCloseCmd + " '" + cmdToRun + " " + termNoCloseSuffix + "'"
+      cmd.exec(lastUpdateCmd)
     } else {
       var baseTerm = termCmd.trim()
       if (baseTerm.indexOf("bash -c") === -1 && baseTerm.indexOf("sh -c") === -1) {
         baseTerm += " bash -c"
       }
-      cmd.exec(baseTerm + " '" + cmdToRun + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'")
+      lastUpdateCmd = baseTerm + " '" + cmdToRun + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'"
+      cmd.exec(lastUpdateCmd)
     }
   }
 
-  function killProcess(process) {
-    cmd.exec("kill -9 " + process)
-  }
-
 }
-

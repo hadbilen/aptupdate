@@ -86,9 +86,10 @@ PlasmaComponents.ItemDelegate {
                 icon.name: "system-run-symbolic"
                 display: PlasmaComponents.AbstractButton.IconOnly
                 text: i18n("Update %1", name)
+                enabled: !main.isPkgManagerBusy
                 onClicked: updateOne()
                 PlasmaComponents.ToolTip {
-                    text: parent.text
+                    text: main.isPkgManagerBusy ? i18n("Package manager is currently in use by another process.") : parent.text
                 }
             }
         }
