@@ -71,6 +71,10 @@
     <default>false</default>
   </entry>
 
+  <entry name="notifyOnRebootRequired" type="Bool">
+    <default>true</default>
+  </entry>
+
   <entry name="hasSnap" type="Bool">
     <default>true</default>
   </entry>

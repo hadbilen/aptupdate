@@ -1,3 +1,11 @@
+### v1.0.9
+  - Dedicated Notifications Settings Tab: Consolidated `configNotification.qml` grouping all notification controls (`notifyOnUpdates`, `notifyOnRebootRequired`, `notifyOnSilentUpdate`) with an explicit fail-safe policy notice
+  - System Restart Desktop Notification: Automated, once-per-state-change desktop alert when `/var/run/reboot-required` is detected
+  - Clean Configuration Hierarchy: Removed scattered notification checkboxes from Display and Command tabs for clean separation of concerns
+  - Updated Project Governance: Refreshed `AUTHORS`, `CODE_OF_CONDUCT.md`, and practical development/testing guidelines in `CONTRIBUTING.md`
+  - Refreshed Visual Assets: Updated screenshots and preview images in `git-assets/img/` reflecting Kubuntu / KDE Plasma 6
+  - Complete Localization: 100% Turkish translation coverage for all new notification controls, headings, and system restart messages
+
 ### v1.0.8
   - Dynamic Provider Auto-Discovery: Automatically detect if `snap` or `flatpak` binaries exist on system (`hasSnap`, `hasFlatpak`); eliminate redundant subshells if absent
   - Graceful Settings Degradation: Disabled checkboxes with contextual `(not installed)` labels in settings when Snap or Flatpak is not installed

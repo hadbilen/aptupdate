@@ -1,8 +1,13 @@
-# Authors ordered by first contribution.
+# Authors and contributors to APT Update Counter
 
-Bouteiller Alan <a2n.dev@pm.me> github.com/bouteillerAlan
-Luis Bocanegra github.com/luisbocanegra
-moritz-john github.com/moritz-john
-meyer-mcmains github.com/meyer-mcmains
-Jeroen Weelink weelink  github.com/weelink
+## Maintainer & Lead Developer (Debian, Ubuntu, Snap & Flatpak Port)
+- hadbilen <temroa@gmail.com> (https://github.com/hadbilen)
 
+## Original Archupdate Creator
+- Alan Bouteiller <a2n.dev@pm.me> (https://github.com/bouteillerAlan)
+
+## Upstream Archupdate Contributors
+- Luis Bocanegra (https://github.com/luisbocanegra)
+- moritz-john (https://github.com/moritz-john)
+- meyer-mcmains (https://github.com/meyer-mcmains)
+- Jeroen Weelink (https://github.com/weelink)

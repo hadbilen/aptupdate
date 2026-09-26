@@ -28,7 +28,6 @@ Kirigami.ScrollablePage {
   property alias cfg_iconUseCustomColor: iconUseCustomColor.checked
 
   property alias cfg_hideOnZero: hideOnZero.checked
-  property alias cfg_notifyOnUpdates: notifyOnUpdates.checked
 
   ColumnLayout {
 
@@ -199,12 +198,6 @@ Kirigami.ScrollablePage {
       Controls.CheckBox {
         id: hideOnZero
         Kirigami.FormData.label: i18n("Hide label when 0 updates: ")
-        checked: false
-      }
-
-      Controls.CheckBox {
-        id: notifyOnUpdates
-        Kirigami.FormData.label: i18n("Show desktop notification on new updates: ")
         checked: false
       }
     }

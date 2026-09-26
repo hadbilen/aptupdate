@@ -1,6 +1,6 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.8-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.9-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
 A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
 
@@ -19,11 +19,11 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 - **Ubuntu Phased Updates Management:** Intelligently filter out staged/deferred phased updates so your badge accurately reflects immediately installable updates, or choose to include and forcibly upgrade phased packages. Individual package clicks always install directly.
 - **Silent Background Updates:** Optional non-interactive background upgrade mode via `pkexec` without opening a terminal window.
 - **Rich Icon States & Animation:** Active updates feature a smooth rotation animation and theme accent color; update errors display a negative red error badge (`!`) with diagnostic tooltips.
-- **Fail-Safe Desktop Notifications:** Optional completion desktop notification after background upgrades, with critical error notifications always guaranteed to surface even if completion notifications are disabled.
+- **Dedicated Notifications Tab:** Consolidated settings tab for desktop notifications: alerts for newly discovered updates, system restart required alerts, and silent background upgrade completion.
+- **Fail-Safe Policy:** Critical package management errors and failure alerts are guaranteed to surface even if optional notifications are turned off.
 - **Responsive Popup Layout:** Dynamically constrained popup width (320px - 580px) with elegant text truncation (`...`) for long package names, keeping action buttons aligned and accessible.
 - **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
-- **Reboot Required Indicator:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and displays clear restart warnings in both the tooltip and popup.
-- **Desktop Notifications:** Optionally sends native KDE desktop notifications whenever new system updates are discovered (toggleable in Display settings).
+- **Reboot Required Detection & Notification:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and sends a native desktop alert while displaying clear restart warnings in both the tooltip and popup.
 - **Internationalization (i18n):** Full GNU Gettext localization support. The canonical source code is 100% English, while automatically displaying in the user's desktop language (Turkish catalog included, community translations welcome).
 - **One-Click Upgrades:** Launch full system upgrades or upgrade individual packages in Konsole or silently in the background directly from the applet or via mouse middle-click.
 - **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).

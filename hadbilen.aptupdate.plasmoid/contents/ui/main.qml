@@ -22,6 +22,7 @@ PlasmoidItem {
     property string listArch: ""
     property string listArchRepo: ""
     property bool rebootRequired: false
+    property bool previousRebootRequired: false
     property bool hasSnap: plasmoid.configuration.hasSnap
     property bool hasFlatpak: plasmoid.configuration.hasFlatpak
     property int previousTotal: -1
@@ -81,7 +82,12 @@ PlasmoidItem {
 
             // handle reboot required
             if (sourceCmd === "test -f /var/run/reboot-required && echo 1 || echo 0") {
-                main.rebootRequired = (stdout.trim() === "1")
+                const isReboot = (stdout.trim() === "1")
+                if (isReboot && !main.previousRebootRequired && plasmoid.configuration.notifyOnRebootRequired) {
+                    cmd.exec("notify-send -u normal -a 'APT Update Counter' -i system-reboot '" + i18n("System Restart Required") + "' '" + i18n("A system restart is required to complete updates.") + "'")
+                }
+                main.previousRebootRequired = isReboot
+                main.rebootRequired = isReboot
                 rebootStatus(main.rebootRequired)
             }
 
