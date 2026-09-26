@@ -1,5 +1,25 @@
+### v1.0.3
+  - Automatically detect `/var/run/reboot-required` and alert user in tooltip and popup
+  - Optional native KDE desktop notifications on new updates (toggleable in Display settings)
+  - Full GNU Gettext i18n localization infrastructure with Turkish (`tr`) translation
+  - Unified About dialog under KDE Plasma's native metadata tab
+  - Security policy routing through `hadbilen@users.noreply.github.com`
+
+### v1.0.2
+  - Concurrent Snap & Flatpak support in the secondary update manager
+  - Automatic routing of single updates (`sudo snap refresh` / `flatpak update -y`)
+  - Full Plasma 6.6 / Qt 6.8 compatibility fixes (Kirigami.Theme, delegate width, clean obsolete files)
+
+### v1.0.1
+  - Initial Snap package support and Snapcraft URL resolution
+  - Breeze `system-software-update` icon integration
+  - About tab and original upstream credit to Alan Bouteiller
+
+### v1.0.0
+  - Initial fork and adaptation for Debian / Ubuntu / Kubuntu APT package management (KDE Plasma 6)
+
 ### v6.4.0
- - Icon can be customized now
+  - Icon can be customized now
  - Command that run with "do not close" can now run a suffix command, by default it run the default user shell (`$SHELL`)
  - Improve settings label
 
