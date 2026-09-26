@@ -31,6 +31,10 @@
     <default>30</default>
   </entry>
 
+  <entry name="updateIntervalUnit" type="Int">
+    <default>0</default>
+  </entry>
+
   <entry name="debugMode" type="Bool">
     <default>false</default>
   </entry>
@@ -131,7 +135,7 @@
   </entry>
 
   <entry name="secondaryIcon" type="string">
-    <default>software-update-available.svg</default>
+    <default>view-refresh.svg</default>
   </entry>
 
   <entry name="separateResult" type="Bool">

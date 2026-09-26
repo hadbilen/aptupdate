@@ -41,19 +41,12 @@ Kirigami.ScrollablePage {
 
     Kirigami.FormLayout {
         id: popupFormLayout
-        wideMode: true
+        wideMode: false
 
         anchors {
             left: parent.left
             top: parent.top
             right: parent.right
-        }
-
-        Component.onCompleted: {
-            var lay = popupFormLayout.children[0];
-            lay.anchors.horizontalCenter = undefined;
-            lay.anchors.left = popupFormLayout.left;
-            lay.anchors.right = popupFormLayout.right;
         }
 
         Kirigami.Separator {

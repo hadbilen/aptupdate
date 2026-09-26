@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 18:32+0300\n"
+"POT-Creation-Date: 2026-09-26 19:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgid "Refresh list"
 msgstr ""
 
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:229
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:123
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:122
 msgid "A system restart is required to complete updates."
 msgstr ""
 
@@ -45,43 +45,43 @@ msgstr ""
 msgid "Hu ho something is wrong\n"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:36
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:37
 #, qt-format
 msgid "%1 update available"
 msgid_plural "%1 updates available"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:37
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:206
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:38
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:205
 msgid "System Updates"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:123
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:122
 msgid "System Restart Required"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:206
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:205
 msgid "All system updates were installed successfully."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:211
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:210
 msgid "Update Failed"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:211
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:210
 msgid "An error occurred during the background update."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:265
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:272
 msgid "Update"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:273
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:280
 msgid "Refresh"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:293
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:300
 msgctxt "@action:button set keyboard shortcut for"
 msgid "Activate widget as if clicked:"
 msgstr ""
@@ -130,15 +130,15 @@ msgstr ""
 msgid "Update %1"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:39
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:40
 msgid "Give the following command: <br/>"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:62
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:63
 msgid "This option enables logs for each command executed by the plugin."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:68
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:69
 msgid "General"
 msgstr ""
 
@@ -146,234 +146,242 @@ msgstr ""
 msgid "Update every: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:77
-msgid "minute(s)"
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
+msgid "Minute(s)"
 msgstr ""
 
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
+msgid "Hour(s)"
+msgstr ""
+
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
+msgid "Day(s)"
+msgstr ""
+
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:91
 msgid "Do not close the terminal at the end of the upgrade action"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:90
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:98
 msgid "Debug"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:97
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:105
 msgid "Retry \"Search & count\" cmd if they are in error"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:104
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:112
 msgid "Search & count"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:110
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:118
 msgid ""
 "Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally "
 "use the secondary command fields for Flatpak or Snap updates."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:118
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:126
 msgid "Enable Snap updates"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:119
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:127
 msgid "Enable Snap updates (not installed)"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:127
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:135
 msgid "Enable Flatpak updates"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:128
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:136
 msgid "Enable Flatpak updates (not installed)"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:134
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:142
 msgid "Include phased (staged) updates"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:141
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:149
 msgid "Count APT command (expected output = number): "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:147
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:155
 msgid "Count secondary (Snap/Flatpak) command: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:154
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:162
 msgid "List APT command (expected output = package oldver -> newver): "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:160
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:168
 msgid "List repository detail (optional): "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:166
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:174
 msgid "List secondary (Snap/Flatpak) command: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:172
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:180
 msgid "Update package"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:177
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:185
 msgid "Run updates in background silently (pkexec)"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:192
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:200
 msgid "Update all packages command: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:198
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:206
 msgid "Update one package command: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:204
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:212
 msgid "Command for the update action: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:210
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:218
 msgid "Command for the update action with do no close: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:216
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:224
 msgid "Command that run after the \"do not close\" command: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:51
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:44
 msgid "Icon"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:57
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:50
 msgid ""
 "You may need to refresh the widget to see any change if you choose another "
 "icon.\n"
 "A quick way to do that is just to hit 'Refresh' in the widget menu."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:63
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:56
 msgid "Main icon: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:69
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:62
 msgid "Refresh icon: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:79
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:72
 msgid "Custom icon color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:91
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:84
 msgid "Display"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:97
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:90
 msgid ""
 "The dot is shown only if update is needed.\n"
 "This is the recommended option if you want to use the widget in your system "
 "tray or if you tend to have a lot of updates that the label can't handle."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:103
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:96
 msgid "Show a dot in place of the label"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:115
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:108
 msgid "Custom main dot color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
 msgid "Top Right"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
 msgid "Top Left"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
 msgid "Bottom Right"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
 msgid "Bottom Left"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:134
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
 msgid "Separate the dot between the two commands"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:147
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:140
 msgid "Custom second dot color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:166
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
 msgid "Label display"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:172
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:165
 msgid "Expected result: APT + separator + Snap/Flatpak"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:178
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:171
 msgid "Separate result"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:186
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:148
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:179
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:141
 msgid "Separator: "
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:192
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:185
 msgid "Hide label when 0 updates"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:34
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:27
 msgid "Mouse action"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:42
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:35
 msgid "Left click to check, middle click to update"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:49
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:42
 msgid "Middle click to check, left click to update"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:56
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:49
 msgid "Main action behavior"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:62
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:55
 msgid "Doing both at the same time is prone to bug so it's not possible"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:68
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:61
 msgid "Do a refresh in place of opening the popup"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:33
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:26
 msgid "Desktop Notifications"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:39
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:32
 msgid ""
 "Critical update failures are always notified regardless of these settings to "
 "ensure system stability."
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:46
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:39
 msgid "Notify when new updates are found"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:52
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:45
 msgid "Notify when system restart is required"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:58
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:51
 msgid "Notify on silent update completion"
 msgstr ""
 
@@ -385,27 +393,27 @@ msgstr ""
 msgid "from source"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:61
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:54
 msgid "Popup color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:87
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:80
 msgid "Custom name color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:103
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:96
 msgid "Custom source color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:119
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:112
 msgid "Custom 'from version' color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:135
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:128
 msgid "Custom separator color"
 msgstr ""
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:157
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:150
 msgid "Custom 'to version' color"
 msgstr ""
 

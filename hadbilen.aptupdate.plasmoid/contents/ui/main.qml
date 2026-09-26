@@ -12,6 +12,7 @@ PlasmoidItem {
     id: main
 
     property int intervalConfig: plasmoid.configuration.updateInterval
+    property int intervalUnitConfig: plasmoid.configuration.updateIntervalUnit !== undefined ? plasmoid.configuration.updateIntervalUnit : 0
     property bool isOnDebug: plasmoid.configuration.debugMode
     property bool isOnUpdate: false
     property bool hasError: false
@@ -84,12 +85,10 @@ PlasmoidItem {
             main.activeJobs++
             isUpdating(true)
 
-            const isUp = source.indexOf("pkexec") !== -1 ||
+            const isUp = source.startsWith(plasmoid.configuration.termCmd) ||
+                         source.startsWith(plasmoid.configuration.termNoCloseCmd) ||
                          source.indexOf("konsole") !== -1 ||
-                         source.indexOf("apt ") !== -1 ||
-                         source.indexOf("apt-get ") !== -1 ||
-                         source.indexOf("snap refresh") !== -1 ||
-                         source.indexOf("flatpak update") !== -1 ||
+                         source.indexOf("pkexec") !== -1 ||
                          (updater.lastUpdateCmd !== "" && source === updater.lastUpdateCmd)
             if (isUp) {
                 main.isOnUpdate = true
@@ -239,10 +238,18 @@ PlasmoidItem {
         signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }
 
-    // execute function count each updateInterval minutes
+    // execute function count each updateInterval (minutes, hours, or days)
     Timer {
         id: timer
-        interval: intervalConfig * 60000 // minute to milisecond
+        interval: {
+            let mult = 60000;
+            if (main.intervalUnitConfig === 1) {
+                mult = 3600000;
+            } else if (main.intervalUnitConfig === 2) {
+                mult = 86400000;
+            }
+            return Math.max(60000, (main.intervalConfig || 30) * mult);
+        }
         running: true
         repeat: true
         triggeredOnStart: true // trigger on start for a first check

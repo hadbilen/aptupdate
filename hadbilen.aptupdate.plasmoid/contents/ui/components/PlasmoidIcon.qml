@@ -36,7 +36,10 @@ Item {
                 let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0];
                 return "file://" + home + src.slice(1);
             }
-            return Qt.resolvedUrl("../../assets/" + src);
+            if (src.indexOf(".") !== -1) {
+                return Qt.resolvedUrl("../../assets/" + src);
+            }
+            return src;
         }
     }
 }

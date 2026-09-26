@@ -11,8 +11,14 @@ import "components" as Components
 Item {
   id: row
 
-  property string iconUpdate: plasmoid.configuration.icon
-  property string iconRefresh: plasmoid.configuration.secondaryIcon
+  property string iconUpdate: plasmoid.configuration.icon || "software-update-available.svg"
+  property string iconRefresh: {
+    let sec = plasmoid.configuration.secondaryIcon
+    if (!sec || sec === "software-update-available.svg" || sec === "package-unknown.svg") {
+      return "view-refresh.svg"
+    }
+    return sec
+  }
 
   property string totalArch: "0"
   property string totalAur: "0"

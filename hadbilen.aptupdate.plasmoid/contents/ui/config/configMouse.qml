@@ -14,19 +14,12 @@ Kirigami.ScrollablePage {
 
     Kirigami.FormLayout {
         id: mouseFormLayout
-        wideMode: true
+        wideMode: false
 
         anchors {
             left: parent.left
             top: parent.top
             right: parent.right
-        }
-
-        Component.onCompleted: {
-            var lay = mouseFormLayout.children[0];
-            lay.anchors.horizontalCenter = undefined;
-            lay.anchors.left = mouseFormLayout.left;
-            lay.anchors.right = mouseFormLayout.right;
         }
 
         Kirigami.Separator {

@@ -13,19 +13,12 @@ Kirigami.ScrollablePage {
 
     Kirigami.FormLayout {
         id: notificationFormLayout
-        wideMode: true
+        wideMode: false
 
         anchors {
             left: parent.left
             top: parent.top
             right: parent.right
-        }
-
-        Component.onCompleted: {
-            var lay = notificationFormLayout.children[0];
-            lay.anchors.horizontalCenter = undefined;
-            lay.anchors.left = notificationFormLayout.left;
-            lay.anchors.right = notificationFormLayout.right;
         }
 
         Kirigami.Separator {

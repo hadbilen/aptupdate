@@ -28,7 +28,6 @@ Button {
       path = location ? "widgets/panel-background" : "widgets/background";
 
     }
-    console.log("APTUPDATE", defaultValue, value, path);
     return path;
   }
 
