@@ -39,7 +39,9 @@ Kirigami.ScrollablePage {
         return '<font color="' + fvc + '">1.0.0</font><font color="' + sc + '"> ' + cfg_separatorText + ' </font><font color="' + tvc + '">2.0.0</font>'
     }
 
-    ColumnLayout {
+    Kirigami.FormLayout {
+        id: popupFormLayout
+        wideMode: true
 
         anchors {
             left: parent.left
@@ -47,100 +49,121 @@ Kirigami.ScrollablePage {
             right: parent.right
         }
 
-        Kirigami.FormLayout {
-            wideMode: false
+        Component.onCompleted: {
+            var lay = popupFormLayout.children[0];
+            lay.anchors.horizontalCenter = undefined;
+            lay.anchors.left = popupFormLayout.left;
+            lay.anchors.right = popupFormLayout.right;
+        }
 
-            Kirigami.Separator {
-                Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: i18n("Popup color")
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Popup color")
+        }
+
+        ColumnLayout {
+            Kirigami.FormData.isSection: true
+            spacing: 2
+
+            Kirigami.Heading {
+                level: 3
+                Layout.fillWidth: true
+                text: generateName()
+            }
+
+            Controls.Label {
+                Layout.fillWidth: true
+                wrapMode: Text.Wrap
+                text: generateVersion()
             }
         }
 
-        Kirigami.FormLayout {
-            ColumnLayout {
-                spacing: 2
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
 
-                Kirigami.Heading {
-                    level: 3
-                    width: parent.width
-                    text: generateName()
-                }
+            Controls.CheckBox {
+                id: nameUseCustomColor
+                text: i18n("Custom name color")
+                checked: false
+            }
 
-                Controls.Label {
-                    width: parent.width
-                    wrapMode: Text.Wrap
-                    text: generateVersion()
-                }
+            KQuickControls.ColorButton {
+                id: nameColor
+                enabled: nameUseCustomColor.checked
             }
         }
 
-        Kirigami.FormLayout {
-            RowLayout {
-                Kirigami.FormData.label: i18n("Custom name color: ")
-                Controls.CheckBox {
-                    id: nameUseCustomColor
-                    checked: cfg_nameUseCustomColor
-                }
-                KQuickControls.ColorButton {
-                    id: nameColor
-                    enabled: nameUseCustomColor.checked
-                }
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+
+            Controls.CheckBox {
+                id: sourceUseCustomColor
+                text: i18n("Custom source color")
+                checked: false
             }
 
-            RowLayout {
-                Kirigami.FormData.label: i18n("Custom source color: ")
-                Controls.CheckBox {
-                    id: sourceUseCustomColor
-                    checked: cfg_sourceUseCustomColor
-                }
-                KQuickControls.ColorButton {
-                    id: sourceColor
-                    enabled: sourceUseCustomColor.checked
-                }
+            KQuickControls.ColorButton {
+                id: sourceColor
+                enabled: sourceUseCustomColor.checked
             }
-
-            RowLayout {
-                Kirigami.FormData.label: i18n("Custom 'from version' color: ")
-                Controls.CheckBox {
-                    id: fvUseCustomColor
-                    checked: cfg_fvUseCustomColor
-                }
-                KQuickControls.ColorButton {
-                    id: fvColor
-                    enabled: fvUseCustomColor.checked
-                }
-            }
-
-            RowLayout {
-                Kirigami.FormData.label: i18n("Custom separator color: ")
-                Controls.CheckBox {
-                    id: separatorUseCustomColor
-                    checked: cfg_separatorUseCustomColor
-                }
-                KQuickControls.ColorButton {
-                    id: separatorColor
-                    enabled: separatorUseCustomColor.checked
-                }
-            }
-            RowLayout {
-                Controls.TextField {
-                    id: separatorText
-                    Kirigami.FormData.label: i18n("Separator: ")
-                }
-            }
-
-            RowLayout {
-                Kirigami.FormData.label: i18n("Custom 'to version' color: ")
-                Controls.CheckBox {
-                    id: tvUseCustomColor
-                    checked: cfg_tvUseCustomColor
-                }
-                KQuickControls.ColorButton {
-                    id: tvColor
-                    enabled: tvUseCustomColor.checked
-                }
-            }
-
         }
+
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+
+            Controls.CheckBox {
+                id: fvUseCustomColor
+                text: i18n("Custom 'from version' color")
+                checked: false
+            }
+
+            KQuickControls.ColorButton {
+                id: fvColor
+                enabled: fvUseCustomColor.checked
+            }
+        }
+
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+
+            Controls.CheckBox {
+                id: separatorUseCustomColor
+                text: i18n("Custom separator color")
+                checked: false
+            }
+
+            KQuickControls.ColorButton {
+                id: separatorColor
+                enabled: separatorUseCustomColor.checked
+            }
+        }
+
+        Controls.TextField {
+            id: separatorText
+            Layout.fillWidth: true
+            Kirigami.FormData.label: i18n("Separator: ")
+        }
+
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+
+            Controls.CheckBox {
+                id: tvUseCustomColor
+                text: i18n("Custom 'to version' color")
+                checked: false
+            }
+
+            KQuickControls.ColorButton {
+                id: tvColor
+                enabled: tvUseCustomColor.checked
+            }
+        }
+
     }
+
 }

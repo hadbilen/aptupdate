@@ -41,6 +41,7 @@ Kirigami.ScrollablePage {
 
   Kirigami.FormLayout {
     id: mainFormLayout
+    wideMode: true
 
     anchors {
       left: parent.left
@@ -79,20 +80,23 @@ Kirigami.ScrollablePage {
 
     Controls.CheckBox {
       id: notCloseBox
-      Kirigami.FormData.label: i18n("Do not close the terminal at the end of the upgrade action: ")
+      text: i18n("Do not close the terminal at the end of the upgrade action")
       checked: false
+      Kirigami.FormData.isSection: true
     }
 
     Controls.CheckBox {
       id: debugModeBox
-      Kirigami.FormData.label: i18n("Debug: ")
+      text: i18n("Debug")
       checked: false
+      Kirigami.FormData.isSection: true
     }
 
     Controls.CheckBox {
       id: retryModeBox
-      Kirigami.FormData.label: i18n("Retry \"Search & count\" cmd if they are in error: ")
+      text: i18n("Retry \"Search & count\" cmd if they are in error")
       checked: false
+      Kirigami.FormData.isSection: true
     }
 
     Kirigami.Separator {
@@ -110,22 +114,25 @@ Kirigami.ScrollablePage {
     Controls.CheckBox {
       id: enableSnapUpdatesBox
       enabled: plasmoid.configuration.hasSnap
-      Kirigami.FormData.label: plasmoid.configuration.hasSnap
-        ? i18n("Enable Snap updates: ")
-        : i18n("Enable Snap updates (not installed): ")
+      text: plasmoid.configuration.hasSnap
+        ? i18n("Enable Snap updates")
+        : i18n("Enable Snap updates (not installed)")
+      Kirigami.FormData.isSection: true
     }
 
     Controls.CheckBox {
       id: enableFlatpakUpdatesBox
       enabled: plasmoid.configuration.hasFlatpak
-      Kirigami.FormData.label: plasmoid.configuration.hasFlatpak
-        ? i18n("Enable Flatpak updates: ")
-        : i18n("Enable Flatpak updates (not installed): ")
+      text: plasmoid.configuration.hasFlatpak
+        ? i18n("Enable Flatpak updates")
+        : i18n("Enable Flatpak updates (not installed)")
+      Kirigami.FormData.isSection: true
     }
 
     Controls.CheckBox {
       id: includePhasedUpdatesBox
-      Kirigami.FormData.label: i18n("Include phased (staged) updates: ")
+      text: i18n("Include phased (staged) updates")
+      Kirigami.FormData.isSection: true
     }
 
     Controls.TextField {
@@ -167,7 +174,8 @@ Kirigami.ScrollablePage {
 
     Controls.CheckBox {
       id: silentUpdateBox
-      Kirigami.FormData.label: i18n("Run updates in background silently (pkexec): ")
+      text: i18n("Run updates in background silently (pkexec)")
+      Kirigami.FormData.isSection: true
     }
 
     Kirigami.Heading {
@@ -175,6 +183,7 @@ Kirigami.ScrollablePage {
       Layout.fillWidth: true
       wrapMode: Text.Wrap
       text: generateCmdExample()
+      Kirigami.FormData.isSection: true
     }
 
     Controls.TextField {

@@ -13,6 +13,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.FormLayout {
         id: notificationFormLayout
+        wideMode: true
 
         anchors {
             left: parent.left
@@ -42,17 +43,20 @@ Kirigami.ScrollablePage {
 
         Controls.CheckBox {
             id: notifyOnUpdatesBox
-            Kirigami.FormData.label: i18n("Notify when new updates are found: ")
+            text: i18n("Notify when new updates are found")
+            Kirigami.FormData.isSection: true
         }
 
         Controls.CheckBox {
             id: notifyOnRebootRequiredBox
-            Kirigami.FormData.label: i18n("Notify when system restart is required: ")
+            text: i18n("Notify when system restart is required")
+            Kirigami.FormData.isSection: true
         }
 
         Controls.CheckBox {
             id: notifyOnSilentUpdateBox
-            Kirigami.FormData.label: i18n("Notify on silent update completion: ")
+            text: i18n("Notify on silent update completion")
+            Kirigami.FormData.isSection: true
         }
     }
 

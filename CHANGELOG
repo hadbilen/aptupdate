@@ -1,3 +1,10 @@
+### v1.1.0
+  - Full Left-Aligned Settings Architecture: Unified all 5 configuration tabs (`configCommand.qml`, `configNotification.qml`, `configDisplay.qml`, `configPopup.qml`, `configMouse.qml`, plus `showLog.qml`) into single, left-aligned, full-width `Kirigami.FormLayout` containers.
+  - CheckBox Inline Button/Text Atomic Alignment: Replaced detached `Kirigami.FormData.label` on checkboxes with native `text:` and section grouping. Activation buttons now sit alongside their text labels, preventing them from falling underneath sentences on compact/high-DPI displays (e.g. 12.5" FHD @ 120% scale) or being pushed to the far right margin.
+  - Multi-Monitor Responsive Stability: Enforced `wideMode: true` and DPI-resilient grid unit scaling across all settings tabs, eliminating spontaneous narrow-mode drops and layout jitter.
+  - Cleaned Obsolete Multi-FormLayouts: Eliminated fragmented nested FormLayouts inside ColumnLayouts that caused centered floating islands in Display, Popup, and Mouse action tabs.
+  - 100% Turkish Translation Coverage: Updated `.po` catalog and compiled `.mo` binary with 100 translated strings, 0 fuzzy, 0 untranslated.
+
 ### v1.0.9
   - Dedicated Notifications Settings Tab: Consolidated `configNotification.qml` grouping all notification controls (`notifyOnUpdates`, `notifyOnRebootRequired`, `notifyOnSilentUpdate`) with an explicit fail-safe policy notice
   - System Restart Desktop Notification: Automated, once-per-state-change desktop alert when `/var/run/reboot-required` is detected

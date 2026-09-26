@@ -12,7 +12,9 @@ Kirigami.ScrollablePage {
     property alias cfg_invertMouseAction: invertMouseAction.checked
     property alias cfg_mainIsRefresh: mainIsRefresh.checked
 
-    ColumnLayout {
+    Kirigami.FormLayout {
+        id: mouseFormLayout
+        wideMode: true
 
         anchors {
             left: parent.left
@@ -20,61 +22,54 @@ Kirigami.ScrollablePage {
             right: parent.right
         }
 
-        Kirigami.FormLayout {
-            wideMode: false
+        Component.onCompleted: {
+            var lay = mouseFormLayout.children[0];
+            lay.anchors.horizontalCenter = undefined;
+            lay.anchors.left = mouseFormLayout.left;
+            lay.anchors.right = mouseFormLayout.right;
+        }
 
-            Kirigami.Separator {
-                Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: i18n("Mouse action")
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Mouse action")
+        }
+
+        ColumnLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+
+            PlasmaComponents.RadioButton {
+                text: i18n("Left click to check, middle click to update")
+                checked: !invertMouseAction.checked
+                autoExclusive: true
+            }
+
+            PlasmaComponents.RadioButton {
+                id: invertMouseAction
+                text: i18n("Middle click to check, left click to update")
+                autoExclusive: true
             }
         }
 
-        Kirigami.FormLayout {
-
-            ColumnLayout {
-                PlasmaComponents.RadioButton {
-                    text: i18n("Left click to check, middle click to update")
-                    checked: true
-                    autoExclusive: true
-                }
-                PlasmaComponents.RadioButton {
-                    id: invertMouseAction
-                    text: i18n("Middle click to check, left click to update")
-                    autoExclusive: true
-                }
-            }
-
-        }
-
-        Kirigami.FormLayout {
-            wideMode: false
-
-            Kirigami.Separator {
-                Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: i18n("Main action behavior")
-            }
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Main action behavior")
         }
 
         Kirigami.InlineMessage {
             Layout.fillWidth: true
+            Kirigami.FormData.isSection: true
             text: i18n("Doing both at the same time is prone to bug so it's not possible")
             visible: true
         }
 
-        Kirigami.FormLayout {
-            RowLayout {
-                Kirigami.FormData.label: i18n("Do a refresh in place of opening the popup: ")
-                visible: true
-                Controls.CheckBox {
-                    id: mainIsRefresh
-                    checked: cfg_mainIsRefresh
-                }
-
-            }
-
+        Controls.CheckBox {
+            id: mainIsRefresh
+            text: i18n("Do a refresh in place of opening the popup")
+            checked: false
+            Kirigami.FormData.isSection: true
         }
 
     }
 
 }
-
