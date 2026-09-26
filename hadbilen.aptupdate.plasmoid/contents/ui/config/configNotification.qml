@@ -28,6 +28,13 @@ Kirigami.ScrollablePage {
             }
         }
 
+        Kirigami.InlineMessage {
+            Layout.fillWidth: true
+            text: i18n("Critical update failures are always notified regardless of these settings to ensure system stability.")
+            type: Kirigami.MessageType.Information
+            visible: true
+        }
+
         Kirigami.FormLayout {
             Controls.CheckBox {
                 id: notifyOnUpdatesBox
@@ -43,14 +50,6 @@ Kirigami.ScrollablePage {
                 id: notifyOnSilentUpdateBox
                 Kirigami.FormData.label: i18n("Notify on silent update completion: ")
             }
-        }
-
-        Kirigami.InlineMessage {
-            Layout.fillWidth: true
-            Layout.topMargin: Kirigami.Units.largeSpacing
-            text: i18n("Critical update failures are always notified regardless of these settings to ensure system stability.")
-            type: Kirigami.MessageType.Information
-            visible: true
         }
 
     }

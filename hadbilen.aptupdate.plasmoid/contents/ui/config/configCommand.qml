@@ -63,6 +63,7 @@ Kirigami.ScrollablePage {
     }
 
     Kirigami.FormLayout {
+      id: generalLayout
 
       Controls.SpinBox {
         id: updateIntervalSpin
@@ -110,6 +111,8 @@ Kirigami.ScrollablePage {
     }
 
     Kirigami.FormLayout {
+      id: searchLayout
+      twinFormLayouts: [generalLayout]
 
       Controls.CheckBox {
         id: enableSnapUpdatesBox
@@ -134,27 +137,32 @@ Kirigami.ScrollablePage {
 
       Controls.TextField {
         id: countArchCommandInput
+        Layout.fillWidth: true
         Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
       }
  
       Controls.TextField {
         id: countAurCommandInput
+        Layout.fillWidth: true
         Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
         enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
       }
 
       Controls.TextField {
         id: listArchCommandInput
+        Layout.fillWidth: true
         Kirigami.FormData.label: i18n("List APT command (expected output = package oldver -> newver): ")
       }
 
       Controls.TextField {
         id: listRepoArchCommandInput
+        Layout.fillWidth: true
         Kirigami.FormData.label: i18n("List repository detail (optional): ")
       }
 
       Controls.TextField {
         id: listAurCommandInput
+        Layout.fillWidth: true
         Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
         enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
       }
@@ -170,6 +178,8 @@ Kirigami.ScrollablePage {
       }
 
       Kirigami.FormLayout {
+        id: updateLayout
+        twinFormLayouts: [generalLayout, searchLayout]
 
         Controls.CheckBox {
           id: silentUpdateBox
@@ -178,32 +188,38 @@ Kirigami.ScrollablePage {
 
         Kirigami.Heading {
           level: 3
-          width: parent.width
+          Layout.fillWidth: true
+          wrapMode: Text.Wrap
           text: generateCmdExample()
         }
 
         Controls.TextField {
           id: updateCommandInput
+          Layout.fillWidth: true
           Kirigami.FormData.label: i18n("Update all packages command: ")
         }
 
         Controls.TextField {
           id: updateCommandOneInput
+          Layout.fillWidth: true
           Kirigami.FormData.label: i18n("Update one package command: ")
         }
 
         Controls.TextField {
           id: termCmdInput
+          Layout.fillWidth: true
           Kirigami.FormData.label: i18n("Command for the update action: ")
         }
 
         Controls.TextField {
           id: termNoCloseCmdInput
+          Layout.fillWidth: true
           Kirigami.FormData.label: i18n("Command for the update action with do no close: ")
         }
 
         Controls.TextField {
           id: termNoCloseSuffixInput
+          Layout.fillWidth: true
           Kirigami.FormData.label: i18n("Command that run after the \"do not close\" command: ")
         }
       }
