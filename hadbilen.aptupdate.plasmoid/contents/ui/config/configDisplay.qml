@@ -28,6 +28,7 @@ Kirigami.ScrollablePage {
   property alias cfg_iconUseCustomColor: iconUseCustomColor.checked
 
   property alias cfg_hideOnZero: hideOnZero.checked
+  property alias cfg_notifyOnUpdates: notifyOnUpdates.checked
 
   ColumnLayout {
 
@@ -42,41 +43,39 @@ Kirigami.ScrollablePage {
 
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "Icon"
+        Kirigami.FormData.label: i18n("Icon")
       }
     }
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "You may need to refresh the widget to see any change if you choose another icon.\nI'm working on the problem. A quick way to do that is just to hit 'Refresh' in the widget menu."
+      text: i18n("You may need to refresh the widget to see any change if you choose another icon.\nA quick way to do that is just to hit 'Refresh' in the widget menu.")
       visible: true
     }
 
     Kirigami.FormLayout {
-      anchors.left: parent.left
-      anchors.right: parent.right
+      Layout.fillWidth: true
 
       ConfigIcon {
         id: configMainIconField
-        Kirigami.FormData.label: "Main icon: "
+        Kirigami.FormData.label: i18n("Main icon: ")
         defaultValue: "software-update-available.svg"
       }
     }
 
     Kirigami.FormLayout {
-      anchors.left: parent.left
-      anchors.right: parent.right
+      Layout.fillWidth: true
 
       ConfigIcon {
         id: configSecondaryIconField
-        Kirigami.FormData.label: "Refresh icon: "
+        Kirigami.FormData.label: i18n("Refresh icon: ")
         defaultValue: "package-unknown.svg"
       }
     }
 
     Kirigami.FormLayout {
       RowLayout {
-        Kirigami.FormData.label: "Custom icon color: "
+        Kirigami.FormData.label: i18n("Custom icon color: ")
         visible: true
         Controls.CheckBox {
           id: iconUseCustomColor
@@ -96,25 +95,25 @@ Kirigami.ScrollablePage {
 
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "Display"
+        Kirigami.FormData.label: i18n("Display")
       }
     }
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "The dot is shown only if update is needed.\nThis is the recommended option if you want to use the widget in your system tray or if you tend to have a lot of update that the label can't handle."
+      text: i18n("The dot is shown only if update is needed.\nThis is the recommended option if you want to use the widget in your system tray or if you tend to have a lot of updates that the label can't handle.")
       visible: true
     }
 
     Kirigami.FormLayout {
       Controls.CheckBox {
         id: mainDot
-        Kirigami.FormData.label: "Show a dot in place of the label: "
+        Kirigami.FormData.label: i18n("Show a dot in place of the label: ")
         checked: false
       }
 
       RowLayout {
-        Kirigami.FormData.label: "Custom main dot options: "
+        Kirigami.FormData.label: i18n("Custom main dot options: ")
         visible: mainDot.checked
         Controls.CheckBox {
           id: mainDotUseCustomColor
@@ -129,7 +128,7 @@ Kirigami.ScrollablePage {
         Controls.ComboBox {
           id: mainDotPosition
           enabled: mainDot.checked
-          model: ["Top Right", "Top Left", "Bottom Right", "Bottom Left"]
+          model: [i18n("Top Right"), i18n("Top Left"), i18n("Bottom Right"), i18n("Bottom Left")]
           onActivated: cfg_mainDotPosition = index
         }
       }
@@ -139,7 +138,7 @@ Kirigami.ScrollablePage {
       visible: mainDot.checked
       Controls.CheckBox {
         id: secondDot
-        Kirigami.FormData.label: "Separate the dot between the two command: "
+        Kirigami.FormData.label: i18n("Separate the dot between the two commands: ")
         checked: false
       }
     }
@@ -148,7 +147,7 @@ Kirigami.ScrollablePage {
       visible: secondDot.checked && mainDot.checked
 
       RowLayout {
-        Kirigami.FormData.label: "Custom second dot options: "
+        Kirigami.FormData.label: i18n("Custom second dot options: ")
         visible: secondDot.checked
         Controls.CheckBox {
           id: secondDotUseCustomColor
@@ -163,7 +162,7 @@ Kirigami.ScrollablePage {
         Controls.ComboBox {
           id: secondDotPosition
           enabled: secondDot.checked
-          model: ["Top Right", "Top Left", "Bottom Right", "Bottom Left"]
+          model: [i18n("Top Right"), i18n("Top Left"), i18n("Bottom Right"), i18n("Bottom Left")]
           onActivated: cfg_secondDotPosition = currentIndex
         }
       }
@@ -174,37 +173,41 @@ Kirigami.ScrollablePage {
 
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "Label display"
+        Kirigami.FormData.label: i18n("Label display")
       }
     }
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "Expected result: APT + separator + Snap"
+      text: i18n("Expected result: APT + separator + Snap/Flatpak")
       visible: true
     }
 
     Kirigami.FormLayout {
       Controls.CheckBox {
         id: separateResult
-        Kirigami.FormData.label: "Separate result: "
+        Kirigami.FormData.label: i18n("Separate result: ")
         checked: false
       }
 
       Controls.TextField {
         id: separator
-        Kirigami.FormData.label: "Separator: "
+        Kirigami.FormData.label: i18n("Separator: ")
         visible: separateResult.checked
       }
 
       Controls.CheckBox {
         id: hideOnZero
-        Kirigami.FormData.label: "Hide label when 0 updates: "
+        Kirigami.FormData.label: i18n("Hide label when 0 updates: ")
+        checked: false
+      }
+
+      Controls.CheckBox {
+        id: notifyOnUpdates
+        Kirigami.FormData.label: i18n("Show desktop notification on new updates: ")
         checked: false
       }
     }
-
-
 
   }
 

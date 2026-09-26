@@ -165,6 +165,10 @@
   <entry name="hideOnZero" type="Bool">
     <default>false</default>
   </entry>
+
+  <entry name="notifyOnUpdates" type="Bool">
+    <default>false</default>
+  </entry>
 </group>
 
 <group name="popupConfigPage">

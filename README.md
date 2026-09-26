@@ -1,6 +1,6 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.2-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.3-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
 A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
 
@@ -16,6 +16,9 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 
 - **Multi-Ecosystem (APT, Snap & Flatpak):** Concurrently tracks core system APT packages and modern containerized Snap and Flatpak applications.
 - **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
+- **Reboot Required Indicator:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and displays clear restart warnings in both the tooltip and popup.
+- **Desktop Notifications:** Optionally sends native KDE desktop notifications whenever new system updates are discovered (toggleable in Display settings).
+- **Internationalization (i18n):** Full GNU Gettext localization support. The canonical source code is 100% English, while automatically displaying in the user's desktop language (Turkish catalog included, community translations welcome).
 - **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade && sudo snap refresh && flatpak update`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
 - **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).
 - **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with separators, colors), and fully editable commands.
@@ -79,10 +82,23 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 
 ---
 
+## Contributing & Translations
+
+Translations are managed using standard GNU Gettext under `translate/`:
+
+```bash
+# To update template.pot and compile all .po files to .mo:
+./translate/build.sh
+```
+
+To contribute a new language, copy `translate/template.pot` to `translate/<lang>.po`, translate the strings, and submit a pull request.
+
+---
+
 ## Credits & Upstream
 
 - **Original Creator & UI Design:** [Alan Bouteiller (A2N)](https://github.com/bouteillerAlan) - [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate).
-- **Debian / Ubuntu / Snap / Flatpak Port & Packaging:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
+- **Debian / Ubuntu / Snap / Flatpak Port & Maintainer:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
 
 ## License
 

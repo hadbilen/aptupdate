@@ -39,10 +39,15 @@ Item {
     if (listRepoArchCommand !== '') cmd.exec(listRepoArchCommand)
   }
 
+  function checkReboot() {
+    cmd.exec("test -f /var/run/reboot-required && echo 1 || echo 0")
+  }
+
   function countAll() {
     countArch()
     countAur()
     listArchRepo()
+    checkReboot()
   }
 
   function listAll() {

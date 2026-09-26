@@ -13,6 +13,7 @@ ColumnLayout {
     property var dividerOpacity: 0.1
     property string totalArch: "0"
     property string totalAur: "0"
+    property bool rebootRequired: false
 
     function noUpdateAvailable() {
         return totalArch === "0" && totalAur === "0"
@@ -29,6 +30,10 @@ ColumnLayout {
         function onTotalArch(total) {
             root.totalArch = total
         }
+
+        function onRebootStatus(required) {
+            root.rebootRequired = required
+        }
     }
 
     ColumnLayout {
@@ -43,13 +48,27 @@ ColumnLayout {
             id: tooltipMaintext
             level: 3
             elide: Text.ElideRight
-            text: noUpdateAvailable() ? "No updates available" : "Updates are available"
+            text: noUpdateAvailable() ? i18n("No updates available") : i18n("Updates are available")
+        }
+
+        RowLayout {
+            visible: root.rebootRequired
+            Kirigami.Icon {
+                source: "system-reboot"
+                implicitWidth: Kirigami.Units.iconSizes.small
+                implicitHeight: Kirigami.Units.iconSizes.small
+            }
+            PlasmaComponents3.Label {
+                text: i18n("System restart required")
+                color: Kirigami.Theme.negativeTextColor
+                font.bold: true
+            }
         }
 
         RowLayout {
             RowLayout {
                 PlasmaComponents3.Label {
-                    text: "APT:"
+                    text: i18n("APT:")
                     opacity: 1
                 }
                 PlasmaComponents3.Label {
@@ -61,7 +80,7 @@ ColumnLayout {
             RowLayout {
                 visible: totalAur !== "" && totalAur !== "0"
                 PlasmaComponents3.Label {
-                    text: "Extra:"
+                    text: i18n("Extra:")
                     opacity: 1
                 }
                 PlasmaComponents3.Label {

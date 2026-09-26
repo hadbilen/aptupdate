@@ -20,6 +20,18 @@ PlasmoidItem {
     property string listAur: ""
     property string listArch: ""
     property string listArchRepo: ""
+    property bool rebootRequired: false
+    property int previousTotal: -1
+
+    function checkNotification() {
+        if (!plasmoid.configuration.notifyOnUpdates) return
+        const currentTotal = (parseInt(main.tArch, 10) || 0) + (parseInt(main.tAur, 10) || 0)
+        if (main.previousTotal >= 0 && currentTotal > main.previousTotal && currentTotal > 0) {
+            const msg = i18np("%1 update available", "%1 updates available", currentTotal)
+            cmd.exec("notify-send -a 'APT Update Counter' -i system-software-update '" + i18n("System Updates") + "' '" + msg + "'")
+        }
+        main.previousTotal = currentTotal
+    }
 
     // load one instance of each needed service
     Sv.Updater{ id: updater }
@@ -51,6 +63,12 @@ PlasmoidItem {
             if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({cmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
             if (stderr !== '') cmd.exec("kdialog --passivepopup 'APT Update counter throw " + stderr + " error on cmd: " + cmd + "'")
 
+            // handle reboot required
+            if (cmd === "test -f /var/run/reboot-required && echo 1 || echo 0") {
+                main.rebootRequired = (stdout.trim() === "1")
+                rebootStatus(main.rebootRequired)
+            }
+
             // handle the result for the count
             const cmdIsAur = cmd === plasmoid.configuration.countAurCommand
             const cmdIsArch = cmd === plasmoid.configuration.countArchCommand
@@ -59,12 +77,14 @@ PlasmoidItem {
                 totalArch(total)
                 main.tArch = total
                 updater.listArch()
+                checkNotification()
             }
             if (cmdIsAur) {
                 let total = stdout.replace(/\n/g, '')
                 totalAur(total)
                 main.tAur = total
                 updater.listAur()
+                checkNotification()
             }
 
             // handle the result for the list
@@ -110,6 +130,7 @@ PlasmoidItem {
         signal packagesList(string listAur, string listArch, string listArchRepo)
         signal totalAur(string total)
         signal totalArch(string total)
+        signal rebootStatus(bool required)
         signal connected(string source)
         signal exited(string cmd, int exitCode, int exitStatus, string stdout, string stderr)
     }

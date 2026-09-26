@@ -52,7 +52,7 @@ Kirigami.ScrollablePage {
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "Popup color"
+                Kirigami.FormData.label: i18n("Popup color")
             }
         }
 
@@ -76,7 +76,7 @@ Kirigami.ScrollablePage {
 
         Kirigami.FormLayout {
             RowLayout {
-                Kirigami.FormData.label: "Custom name color: "
+                Kirigami.FormData.label: i18n("Custom name color: ")
                 Controls.CheckBox {
                     id: nameUseCustomColor
                     checked: cfg_nameUseCustomColor
@@ -88,7 +88,7 @@ Kirigami.ScrollablePage {
             }
 
             RowLayout {
-                Kirigami.FormData.label: "Custom source color: "
+                Kirigami.FormData.label: i18n("Custom source color: ")
                 Controls.CheckBox {
                     id: sourceUseCustomColor
                     checked: cfg_sourceUseCustomColor
@@ -100,7 +100,7 @@ Kirigami.ScrollablePage {
             }
 
             RowLayout {
-                Kirigami.FormData.label: "Custom 'from version' color: "
+                Kirigami.FormData.label: i18n("Custom 'from version' color: ")
                 Controls.CheckBox {
                     id: fvUseCustomColor
                     checked: cfg_fvUseCustomColor
@@ -112,7 +112,7 @@ Kirigami.ScrollablePage {
             }
 
             RowLayout {
-                Kirigami.FormData.label: "Custom separator color: "
+                Kirigami.FormData.label: i18n("Custom separator color: ")
                 Controls.CheckBox {
                     id: separatorUseCustomColor
                     checked: cfg_separatorUseCustomColor
@@ -125,12 +125,12 @@ Kirigami.ScrollablePage {
             RowLayout {
                 Controls.TextField {
                     id: separatorText
-                    Kirigami.FormData.label: "Separator: "
+                    Kirigami.FormData.label: i18n("Separator: ")
                 }
             }
 
             RowLayout {
-                Kirigami.FormData.label: "Custom 'to version' color: "
+                Kirigami.FormData.label: i18n("Custom 'to version' color: ")
                 Controls.CheckBox {
                     id: tvUseCustomColor
                     checked: cfg_tvUseCustomColor

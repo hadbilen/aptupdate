@@ -32,7 +32,7 @@ Kirigami.ScrollablePage {
     const cmdB = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommandOne + "</font> packageName'<br/>"
     const cmdC = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termNoCloseCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommand + "</font>" + shell
     const cmdD = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termNoCloseCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommandOne + "</font> packageName" + shell
-    return "Give the following command: <br/>" + cmdA + cmdB + cmdC + cmdD
+    return i18n("Give the following command: <br/>") + cmdA + cmdB + cmdC + cmdD
   }
 
   ColumnLayout {
@@ -45,7 +45,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "This option enable log for each cmd exec by the plugin. (regex: APTUPDATE)"
+      text: i18n("This option enables logs for each command executed by the plugin.")
       visible: debugModeBox.checked
     }
 
@@ -54,7 +54,7 @@ Kirigami.ScrollablePage {
 
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "General"
+        Kirigami.FormData.label: i18n("General")
       }
     }
 
@@ -62,29 +62,29 @@ Kirigami.ScrollablePage {
 
       Controls.SpinBox {
         id: updateIntervalSpin
-        Kirigami.FormData.label: "Update every: "
+        Kirigami.FormData.label: i18n("Update every: ")
         from: 1
         to: 1440 // 1 day
         editable: true
-        textFromValue: (value) => value + " minute(s)"
+        textFromValue: (value) => value + " " + i18n("minute(s)")
         valueFromText: (text) => parseInt(text)
       }
 
       Controls.CheckBox {
         id: notCloseBox
-        Kirigami.FormData.label: "Do not close the terminal at the end of the upgrade action: "
+        Kirigami.FormData.label: i18n("Do not close the terminal at the end of the upgrade action: ")
         checked: false
       }
 
       Controls.CheckBox {
         id: debugModeBox
-        Kirigami.FormData.label: "Debug: "
+        Kirigami.FormData.label: i18n("Debug: ")
         checked: false
       }
 
       Controls.CheckBox {
         id: retryModeBox
-        Kirigami.FormData.label: "Retry \"Search & count\" cmd if they are in error: "
+        Kirigami.FormData.label: i18n("Retry \"Search & count\" cmd if they are in error: ")
         checked: false
       }
 
@@ -95,13 +95,13 @@ Kirigami.ScrollablePage {
 
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
-        Kirigami.FormData.label: "Search & count"
+        Kirigami.FormData.label: i18n("Search & count")
       }
     }
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally use the secondary command fields for Flatpak or Snap updates."
+      text: i18n("Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally use the secondary command fields for Flatpak or Snap updates.")
       visible: true
     }
 
@@ -110,27 +110,27 @@ Kirigami.ScrollablePage {
 
       Controls.TextField {
         id: countArchCommandInput
-        Kirigami.FormData.label: "Count APT command (expected output = number): "
+        Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
       }
  
       Controls.TextField {
         id: countAurCommandInput
-        Kirigami.FormData.label: "Count secondary (Snap/Flatpak) command: "
+        Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
       }
 
       Controls.TextField {
         id: listArchCommandInput
-        Kirigami.FormData.label: "List APT command (expected output = package oldver -> newver): "
+        Kirigami.FormData.label: i18n("List APT command (expected output = package oldver -> newver): ")
       }
 
       Controls.TextField {
         id: listRepoArchCommandInput
-        Kirigami.FormData.label: "List repository detail (optional): "
+        Kirigami.FormData.label: i18n("List repository detail (optional): ")
       }
 
       Controls.TextField {
         id: listAurCommandInput
-        Kirigami.FormData.label: "List secondary (Snap/Flatpak) command: "
+        Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
       }
     }
 
@@ -139,7 +139,7 @@ Kirigami.ScrollablePage {
 
         Kirigami.Separator {
           Kirigami.FormData.isSection: true
-          Kirigami.FormData.label: "Update package"
+          Kirigami.FormData.label: i18n("Update package")
         }
       }
 
@@ -154,27 +154,27 @@ Kirigami.ScrollablePage {
 
         Controls.TextField {
           id: updateCommandInput
-          Kirigami.FormData.label: "Update all packages command: "
+          Kirigami.FormData.label: i18n("Update all packages command: ")
         }
 
         Controls.TextField {
           id: updateCommandOneInput
-          Kirigami.FormData.label: "Update one package command: "
+          Kirigami.FormData.label: i18n("Update one package command: ")
         }
 
         Controls.TextField {
           id: termCmdInput
-          Kirigami.FormData.label: "Command for the update action: "
+          Kirigami.FormData.label: i18n("Command for the update action: ")
         }
 
         Controls.TextField {
           id: termNoCloseCmdInput
-          Kirigami.FormData.label: "Command for the update action with do no close: "
+          Kirigami.FormData.label: i18n("Command for the update action with do no close: ")
         }
 
         Controls.TextField {
           id: termNoCloseSuffixInput
-          Kirigami.FormData.label: "Command that run after the \"do not close\" command: "
+          Kirigami.FormData.label: i18n("Command that run after the \"do not close\" command: ")
         }
       }
 

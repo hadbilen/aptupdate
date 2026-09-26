@@ -20,6 +20,7 @@ PlasmaExtras.Representation {
   property bool onRefresh: false
   property bool onError: false
   property string errorMessage: ""
+  property bool rebootRequired: false
 
   focus: true
   anchors.fill: parent
@@ -101,6 +102,10 @@ PlasmaExtras.Representation {
 
     function onTotalArch(total) {
       full.totalArch = total
+    }
+
+    function onRebootStatus(required) {
+      full.rebootRequired = required
     }
 
     function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
@@ -196,6 +201,17 @@ PlasmaExtras.Representation {
      visible: true
    }
 
+   // reboot required banner
+   Kirigami.InlineMessage {
+     id: rebootMsg
+     visible: full.rebootRequired
+     type: Kirigami.MessageType.Warning
+     text: i18n("A system restart is required to complete updates.")
+     anchors.top: headerSeparator.bottom
+     anchors.left: parent.left
+     anchors.right: parent.right
+   }
+
    // page view for the list
    Kirigami.ScrollablePage {
      id: scrollView
@@ -204,7 +220,7 @@ PlasmaExtras.Representation {
        anchors.fill: parent
        color: "transparent"
      }
-     anchors.top: headerSeparator.bottom
+     anchors.top: full.rebootRequired ? rebootMsg.bottom : headerSeparator.bottom
      anchors.bottom: parent.bottom
      anchors.left: parent.left
      anchors.right: parent.right

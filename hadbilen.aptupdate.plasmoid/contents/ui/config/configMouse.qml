@@ -25,7 +25,7 @@ Kirigami.ScrollablePage {
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "Mouse action"
+                Kirigami.FormData.label: i18n("Mouse action")
             }
         }
 
@@ -51,19 +51,19 @@ Kirigami.ScrollablePage {
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "Main action behavior"
+                Kirigami.FormData.label: i18n("Main action behavior")
             }
         }
 
         Kirigami.InlineMessage {
             Layout.fillWidth: true
-            text: "Doing both at the same time is prone to bug so it's not possible"
+            text: i18n("Doing both at the same time is prone to bug so it's not possible")
             visible: true
         }
 
         Kirigami.FormLayout {
             RowLayout {
-                Kirigami.FormData.label: "Do a refresh in place of openning the popup: "
+                Kirigami.FormData.label: i18n("Do a refresh in place of opening the popup: ")
                 visible: true
                 Controls.CheckBox {
                     id: mainIsRefresh

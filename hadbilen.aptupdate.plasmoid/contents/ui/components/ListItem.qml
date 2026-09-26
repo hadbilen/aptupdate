@@ -28,10 +28,10 @@ PlasmaComponents.ItemDelegate {
     }
 
     // generate & style the name of the package
-    function generateName() {
+        function generateName() {
         const nc = plasmoid.configuration.nameUseCustomColor ? plasmoid.configuration.nameColor : Kirigami.Theme.textColor
         const sc = plasmoid.configuration.sourceUseCustomColor ? plasmoid.configuration.sourceColor : Kirigami.Theme.disabledTextColor
-        return '<font color="' + nc + '"> ' + name + ' </font><font color="' + sc + '"> from ' + (repo) + '</font>'
+        return '<font color="' + nc + '"> ' + name + ' </font><font color="' + sc + '"> ' + i18n("from %1", repo) + '</font>'
     }
 
     // generate & style the version of the package
@@ -77,7 +77,7 @@ PlasmaComponents.ItemDelegate {
                 id: actionToolButton
                 icon.name: "system-run-symbolic"
                 display: PlasmaComponents.AbstractButton.IconOnly
-                text: i18n("Update " + name)
+                text: i18n("Update %1", name)
                 onClicked: updateOne()
                 PlasmaComponents.ToolTip {
                     text: parent.text
