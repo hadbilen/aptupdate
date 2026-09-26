@@ -110,7 +110,6 @@ Kirigami.ScrollablePage {
     }
 
     Kirigami.FormLayout {
-      wideMode: false
 
       Controls.CheckBox {
         id: enableSnapUpdatesBox
@@ -171,7 +170,6 @@ Kirigami.ScrollablePage {
       }
 
       Kirigami.FormLayout {
-        wideMode: false
 
         Controls.CheckBox {
           id: silentUpdateBox

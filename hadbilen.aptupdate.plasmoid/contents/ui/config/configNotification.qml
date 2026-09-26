@@ -26,7 +26,9 @@ Kirigami.ScrollablePage {
                 Kirigami.FormData.isSection: true
                 Kirigami.FormData.label: i18n("Desktop Notifications")
             }
+        }
 
+        Kirigami.FormLayout {
             Controls.CheckBox {
                 id: notifyOnUpdatesBox
                 Kirigami.FormData.label: i18n("Notify when new updates are found: ")
