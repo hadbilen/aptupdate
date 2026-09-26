@@ -16,7 +16,7 @@
         "Id": "hadbilen.aptupdate.plasmoid",
         "License": "GPL-3.0+",
         "Name": "APT Update Counter",
-        "Version": "1.0.3",
+        "Version": "1.0.4",
         "Website": "https://github.com/hadbilen/aptupdate",
         "Depends": ["konsole"],
         "EnabledByDefault": false

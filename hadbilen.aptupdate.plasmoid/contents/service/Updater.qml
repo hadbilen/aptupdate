@@ -18,13 +18,70 @@ Item {
   property string termNoCloseCmd: Plasmoid.configuration.termNoCloseCmd
   property bool notCloseCommand: Plasmoid.configuration.notCloseCommand
   property string termNoCloseSuffix: Plasmoid.configuration.termNoCloseSuffix
+  property bool enableSnapUpdates: Plasmoid.configuration.enableSnapUpdates
+  property bool enableFlatpakUpdates: Plasmoid.configuration.enableFlatpakUpdates
+
+  property string lastCountAurCmd: ""
+  property string lastListAurCmd: ""
+
+  function getCountAurCmd() {
+    if (!enableSnapUpdates && !enableFlatpakUpdates) return ""
+    if (enableSnapUpdates && enableFlatpakUpdates) {
+      return countAurCommand !== "" ? countAurCommand : "s=0; f=0; which snap >/dev/null 2>&1 && s=$(snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0); which flatpak >/dev/null 2>&1 && f=$(flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0); echo $((s + f))"
+    }
+    if (enableSnapUpdates) {
+      return "which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | tail -n +2 | wc -l || echo 0"
+    }
+    if (enableFlatpakUpdates) {
+      return "which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | wc -l || echo 0"
+    }
+    return ""
+  }
+
+  function getListAurCmd() {
+    if (!enableSnapUpdates && !enableFlatpakUpdates) return ""
+    if (enableSnapUpdates && enableFlatpakUpdates) {
+      return listAurCommand !== "" ? listAurCommand : "(which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}') ; (which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}')"
+    }
+    if (enableSnapUpdates) {
+      return "which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null | awk 'NR>1 {print $1, \"snap\", \"->\", $2}'"
+    }
+    if (enableFlatpakUpdates) {
+      return "which flatpak >/dev/null 2>&1 && flatpak remote-ls --updates 2>/dev/null | awk '{print $1, \"flatpak\", \"->\", $2}'"
+    }
+    return ""
+  }
+
+  function getEffectiveUpdateCommand() {
+    if (enableSnapUpdates && enableFlatpakUpdates) {
+      return updateCommand
+    }
+    var parts = ["sudo apt update && sudo apt upgrade"]
+    if (enableSnapUpdates) {
+      parts.push("(which snap >/dev/null 2>&1 && sudo snap refresh || true)")
+    }
+    if (enableFlatpakUpdates) {
+      parts.push("(which flatpak >/dev/null 2>&1 && flatpak update -y || true)")
+    }
+    return parts.join(" && ")
+  }
 
   function countArch() {
     if (countArchCommand !== '') cmd.exec(countArchCommand)
   }
 
   function countAur() {
-    if (countAurCommand !== '') cmd.exec(countAurCommand)
+    if (!enableSnapUpdates && !enableFlatpakUpdates) {
+      main.tAur = "0"
+      cmd.totalAur("0")
+      main.listAur = ""
+      cmd.packagesList(main.listAur, main.listArch, main.listArchRepo)
+      main.checkNotification()
+      return
+    }
+    var c = getCountAurCmd()
+    lastCountAurCmd = c
+    if (c !== '') cmd.exec(c)
   }
 
   function listArch() {
@@ -32,7 +89,14 @@ Item {
   }
 
   function listAur() {
-    if (listAurCommand !== '') cmd.exec(listAurCommand)
+    if (!enableSnapUpdates && !enableFlatpakUpdates) {
+      main.listAur = ""
+      cmd.packagesList(main.listAur, main.listArch, main.listArchRepo)
+      return
+    }
+    var c = getListAurCmd()
+    lastListAurCmd = c
+    if (c !== '') cmd.exec(c)
   }
 
   function listArchRepo() {
@@ -56,11 +120,12 @@ Item {
   }
 
   function launchUpdate() {
-    if (updateCommand !== '') {
+    var effCmd = getEffectiveUpdateCommand()
+    if (effCmd !== '') {
       if (notCloseCommand) {
-        cmd.exec(termNoCloseCmd + " '" + updateCommand + " " + termNoCloseSuffix + "'")
+        cmd.exec(termNoCloseCmd + " '" + effCmd + " " + termNoCloseSuffix + "'")
       } else {
-        cmd.exec(termCmd + " '" + updateCommand + "'")
+        cmd.exec(termCmd + " '" + effCmd + "'")
       }
     }
   }

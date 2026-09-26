@@ -1,3 +1,9 @@
+### v1.0.4
+  - Independent selective toggles for Snap and Flatpak updates (`enableSnapUpdates` and `enableFlatpakUpdates`)
+  - Dynamic generation of count, list, and full upgrade commands according to active package managers
+  - Zero-cycle resource optimization when secondary managers are disabled (APT-only mode)
+  - Updated settings UI and documentation
+
 ### v1.0.3
   - Automatically detect `/var/run/reboot-required` and alert user in tooltip and popup
   - Optional native KDE desktop notifications on new updates (toggleable in Display settings)

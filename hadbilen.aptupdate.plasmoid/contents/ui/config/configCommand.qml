@@ -12,6 +12,8 @@ Kirigami.ScrollablePage {
   property alias cfg_debugMode: debugModeBox.checked
   property alias cfg_retryMode: retryModeBox.checked
   property alias cfg_notCloseCommand: notCloseBox.checked
+  property alias cfg_enableSnapUpdates: enableSnapUpdatesBox.checked
+  property alias cfg_enableFlatpakUpdates: enableFlatpakUpdatesBox.checked
 
   property alias cfg_updateCommand: updateCommandInput.text
   property alias cfg_updateCommandOne: updateCommandOneInput.text
@@ -108,6 +110,16 @@ Kirigami.ScrollablePage {
     Kirigami.FormLayout {
       wideMode: false
 
+      Controls.CheckBox {
+        id: enableSnapUpdatesBox
+        Kirigami.FormData.label: i18n("Enable Snap updates: ")
+      }
+
+      Controls.CheckBox {
+        id: enableFlatpakUpdatesBox
+        Kirigami.FormData.label: i18n("Enable Flatpak updates: ")
+      }
+
       Controls.TextField {
         id: countArchCommandInput
         Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
@@ -116,6 +128,7 @@ Kirigami.ScrollablePage {
       Controls.TextField {
         id: countAurCommandInput
         Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
+        enabled: enableSnapUpdatesBox.checked || enableFlatpakUpdatesBox.checked
       }
 
       Controls.TextField {
@@ -131,6 +144,7 @@ Kirigami.ScrollablePage {
       Controls.TextField {
         id: listAurCommandInput
         Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
+        enabled: enableSnapUpdatesBox.checked || enableFlatpakUpdatesBox.checked
       }
     }
 

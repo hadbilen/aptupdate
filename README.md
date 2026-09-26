@@ -1,6 +1,6 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.3-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.4-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
 A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
 
@@ -15,6 +15,7 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 ## Features
 
 - **Multi-Ecosystem (APT, Snap & Flatpak):** Concurrently tracks core system APT packages and modern containerized Snap and Flatpak applications.
+- **Selective Ecosystem Toggles:** Independent toggles for Snap and Flatpak updates. Run both, Snap only, Flatpak only, or disable secondary managers completely for a lightweight APT-only setup with zero idle background overhead.
 - **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
 - **Reboot Required Indicator:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and displays clear restart warnings in both the tooltip and popup.
 - **Desktop Notifications:** Optionally sends native KDE desktop notifications whenever new system updates are discovered (toggleable in Display settings).
@@ -72,6 +73,8 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 
 | Setting | Default Command | Description |
 | :--- | :--- | :--- |
+| **Enable Snap Updates** | `true` | Toggle tracking and upgrading Snap packages |
+| **Enable Flatpak Updates** | `true` | Toggle tracking and upgrading Flatpak packages |
 | **Count APT Command** | `apt list --upgradable 2>/dev/null \| grep -c '\['` | Counts pending APT package updates |
 | **Count Secondary (Snap/Flatpak)** | `s=0; f=0; which snap >/dev/null 2>&1 && s=$(snap refresh --list 2>/dev/null \| tail -n +2 \| wc -l \|\| echo 0); which flatpak >/dev/null 2>&1 && f=$(flatpak remote-ls --updates 2>/dev/null \| wc -l \|\| echo 0); echo $((s + f))` | Concurrently counts Snap and Flatpak updates |
 | **List APT Command** | `apt list --upgradable 2>/dev/null \| grep '\[' \| awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "->", $3}'` | Formats package name and version difference |

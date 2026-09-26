@@ -70,7 +70,7 @@ PlasmoidItem {
             }
 
             // handle the result for the count
-            const cmdIsAur = cmd === plasmoid.configuration.countAurCommand
+            const cmdIsAur = cmd === plasmoid.configuration.countAurCommand || (updater.lastCountAurCmd !== "" && cmd === updater.lastCountAurCmd)
             const cmdIsArch = cmd === plasmoid.configuration.countArchCommand
             if (cmdIsArch) {
                 let total = stdout.replace(/\n/g, '')
@@ -88,7 +88,7 @@ PlasmoidItem {
             }
 
             // handle the result for the list
-            const cmdIsListAur = cmd === plasmoid.configuration.listAurCommand
+            const cmdIsListAur = cmd === plasmoid.configuration.listAurCommand || (updater.lastListAurCmd !== "" && cmd === updater.lastListAurCmd)
             const cmdIsListArch = cmd === plasmoid.configuration.listArchCommand
             const cmdIsListArchRepo = cmd === plasmoid.configuration.listRepoArchCommand
             if (cmdIsListAur) listAur = stdout
