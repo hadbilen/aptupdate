@@ -28,7 +28,7 @@ Button {
       path = location ? "widgets/panel-background" : "widgets/background";
 
     }
-    console.log("A2NARCHUPATE", defaultValue, value, path);
+    console.log("APTUPDATE", defaultValue, value, path);
     return path;
   }
 

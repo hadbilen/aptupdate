@@ -45,7 +45,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "This option enable log for each cmd exec by the plugin. (regex: ARCHUPDATE)"
+      text: "This option enable log for each cmd exec by the plugin. (regex: APTUPDATE)"
       visible: debugModeBox.checked
     }
 
@@ -115,7 +115,7 @@ Kirigami.ScrollablePage {
  
       Controls.TextField {
         id: countAurCommandInput
-        Kirigami.FormData.label: "Count secondary/Flatpak command (optional): "
+        Kirigami.FormData.label: "Count Snap command: "
       }
 
       Controls.TextField {
@@ -130,7 +130,7 @@ Kirigami.ScrollablePage {
 
       Controls.TextField {
         id: listAurCommandInput
-        Kirigami.FormData.label: "List secondary/Flatpak command (optional): "
+        Kirigami.FormData.label: "List Snap command (expected output = package oldver -> newver): "
       }
     }
 

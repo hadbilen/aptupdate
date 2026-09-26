@@ -3,16 +3,20 @@
         "Authors": [
             {
                 "Email": "temroa@gmail.com",
-                "Name": "hadbilen"
+                "Name": "hadbilen (Ubuntu / Debian / Snap Port)"
+            },
+            {
+                "Email": "a2n.dev@pm.me",
+                "Name": "Bouteiller <a2n> Alan (Original Archupdate Creator)"
             }
         ],
         "Category": "System Information",
-        "Description": "Show and handle pending APT updates for Kubuntu / Ubuntu / Debian",
-        "Icon": "software-update-available",
+        "Description": "Show and handle pending APT and Snap updates for Kubuntu / Ubuntu / Debian",
+        "Icon": "system-software-update",
         "Id": "hadbilen.aptupdate.plasmoid",
         "License": "GPL-3.0+",
         "Name": "APT Update Counter",
-        "Version": "1.0.0",
+        "Version": "1.0.1",
         "Website": "https://github.com/hadbilen/aptupdate",
         "Depends": ["konsole"],
         "EnabledByDefault": false

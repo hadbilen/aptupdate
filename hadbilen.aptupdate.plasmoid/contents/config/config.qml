@@ -23,6 +23,11 @@ ConfigModel {
         source: "config/configMouse.qml"
     }
     ConfigCategory {
+        name: i18nc("@title", "About")
+        icon: "help-about-relative"
+        source: "config/configAbout.qml"
+    }
+    ConfigCategory {
         name: i18nc("@title", "Debug log")
         icon: "backup-relative"
         source: "config/showLog.qml"

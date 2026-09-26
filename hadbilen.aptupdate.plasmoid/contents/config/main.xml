@@ -52,7 +52,7 @@
   </entry>
 
   <entry name="updateCommand" type="String">
-    <default>sudo apt update &amp;&amp; sudo apt upgrade</default>
+    <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true)</default>
   </entry>
 
   <entry name="updateCommandOne" type="String">
@@ -64,7 +64,7 @@
   </entry>
 
   <entry name="countAurCommand" type="String">
-    <default></default>
+    <default>which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | tail -n +2 | wc -l || echo 0</default>
   </entry>
 
   <entry name="listArchCommand" type="String">
@@ -76,7 +76,7 @@
   </entry>
 
   <entry name="listAurCommand" type="String">
-    <default></default>
+    <default>which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | awk 'NR&gt;1 {print $1, "snap", "-&gt;", $2}'</default>
   </entry>
 
   <entry name="termCmd" type="String">

@@ -36,95 +36,37 @@ PlasmaExtras.Representation {
     if (!onRefresh) updater.countAll()
   }
 
-  /**
-   * Extracts package details from a list of Arch Linux repository entries.
-  */
-  function getPackageDetails(listRepo, packageName) {
-    // find the block for the specified package
-    const regex = new RegExp(`\nName\\s+:\\s${packageName}`)
-    const targetBlock = listRepo.find(e => regex.exec(e))
-
-    if (!targetBlock) {
-      return null
-    }
-
-    // parse the block into an object
-    const lines = targetBlock.trim().split('\n')
-    const packageDetails = {}
-
-    lines.forEach((line, index) => {
-      if (index === 0) {
-        packageDetails["repo"] = line
-      } else {
-        const match = line.match(/^(\w[^:]+)\s*:\s*(.*)$/)
-        if (match) {
-          const key = match[1].trim().toLowerCase()
-          const value = match[2].trim()
-          packageDetails[key] = value
-        }
-      }
-    })
-
-    return packageDetails
-  }
 
   /**
    * inject the list into the component
    */
-  function injectList(list: string, listArchRepo: string) {
-    const lines = list.split("\n")
+  function injectList(list: string) {
+    if (!list) return
+    const lines = list.trim().split("\n")
 
     lines.sort((a, b) => {
-      const aDetails = a.split(/\s+/)
-      const bDetails = b.split(/\s+/)
-      return aDetails[0].localeCompare(bDetails[0])
+      const aName = a.trim().split(/\s+/)[0] || ""
+      const bName = b.trim().split(/\s+/)[0] || ""
+      return aName.localeCompare(bName)
     })
 
     lines.forEach(line => {
-      const packageDetails = line.split(/\s+/)
+      if (!line || !line.trim()) return
+      const packageDetails = line.trim().split(/\s+/)
       const name = packageDetails[0]
-      const fv = packageDetails[1]
-      const tv = packageDetails[3]
-      let pdetail = null
-
-      try {
-        // split the input into blocks for each package, this remove the "Repository" word!
-        // we also remove the null and empty
-        const listRepo = listArchRepo.split(/Repository\s+:\s/)
-        if (listRepo && listRepo.length > 0) {
-          const listRepoClean = listRepo.filter(e => e)
-          const detail = getPackageDetails(listRepoClean, name)
-          if (detail) {
-            let websiteUrl = ''
-            switch(detail.repo) {
-              case "aur": // just in case
-              websiteUrl = `https://aur.archlinux.org/packages/${name}`
-              break;
-              case "endeavouros":
-              websiteUrl = `https://github.com/endeavouros-team/PKGBUILDS/tree/master/${name}`
-              break;
-              default:
-              websiteUrl = `https://archlinux.org/packages/${detail.repo}/${detail.architecture}/${name}/`
-              break;
-            }
-            detail.websiteUrl = websiteUrl
-            pdetail = detail
-          }
-        }
-      } catch(err) {
-        console.log("APTUPDATE: err:", err)
-      }
+      const fv = packageDetails[1] || ""
+      const tv = packageDetails[3] || packageDetails[2] || ""
 
       if (name && name.trim() !== "") {
+        const isSnap = (fv === "snap" || line.indexOf(" snap ") !== -1)
         packageListModel.append({
           name: name,
-          fv: fv,
+          fv: isSnap ? "-" : fv,
           tv: tv,
-          repo: pdetail && pdetail.repo ? pdetail.repo : 'apt',
-          websiteUrl: pdetail && pdetail.websiteUrl ? pdetail.websiteUrl : 'https://packages.ubuntu.com/search?keywords=' + name
+          repo: isSnap ? 'snap' : 'apt',
+          websiteUrl: isSnap ? ('https://snapcraft.io/' + name) : ('https://packages.ubuntu.com/search?keywords=' + name)
         });
       }
-
     });
   }
 
@@ -160,9 +102,9 @@ PlasmaExtras.Representation {
 
     function onPackagesList(listAur, listArch, listArchRepo) {
       packageListModel.clear()
-      full.packageList = listArch + listAur
-      injectList(listAur, listArchRepo)
-      injectList(listArch, listArchRepo)
+      full.packageList = (listArch || "") + (listAur ? "\n" + listAur : "")
+      if (listAur) injectList(listAur)
+      if (listArch) injectList(listArch)
     }
    }
 
@@ -180,7 +122,14 @@ PlasmaExtras.Representation {
 
        Controls.Label {
          height: Kirigami.Units.iconSizes.medium
-         text: 'Arch ' + full.totalArch + ' - Aur ' + full.totalAur
+         text: {
+           const aptCount = parseInt(full.totalArch, 10) || 0
+           const snapCount = parseInt(full.totalAur, 10) || 0
+           if (snapCount > 0) {
+             return 'APT ' + aptCount + ' - Snap ' + snapCount
+           }
+           return 'APT ' + aptCount
+         }
        }
      }
 

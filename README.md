@@ -1,10 +1,10 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.1-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
-A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending APT package updates on Kubuntu, Ubuntu, and Debian systems.
+A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT** and **Snap** package updates on Kubuntu, Ubuntu, and Debian systems.
 
-Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) project with native APT support.
+Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) project with native APT and Snap support.
 
 ![APT Update Counter Preview](git-assets/img/allalt.png)
 
@@ -14,12 +14,13 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 
 ## Features
 
-- **APT Integration:** Automatically counts and lists upgradable packages via `apt` without requiring root locks.
-- **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com).
-- **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
+- **Dual Ecosystem (APT & Snap):** Automatically tracks both system APT packages and modern Snap application updates.
+- **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT packages and [snapcraft.io](https://snapcraft.io) for Snap packages.
+- **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade && sudo snap refresh`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
 - **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).
-- **Fully Customizable:** Custom refresh intervals, appearance styles (dots, badge labels, colors), and fully editable commands.
-- **Secondary Manager Support:** Easily configure the secondary counter for Flatpak (`flatpak remote-ls --updates | wc -l`) or Snap packages.
+- **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with `APT ~ Snap` separators, colors), and fully editable commands.
+- **Native Breeze Theming:** Integrates with KDE Plasma's `system-software-update` icon for full theme consistency.
+- **Graceful Fallbacks:** Operates seamlessly even if Snap is absent or removed from the system.
 
 ---
 
@@ -45,6 +46,9 @@ git clone https://github.com/hadbilen/aptupdate.git /tmp/aptupdate
 mkdir -p ~/.local/share/plasma/plasmoids
 cp -r /tmp/aptupdate/hadbilen.aptupdate.plasmoid ~/.local/share/plasma/plasmoids/
 
+# Refresh KDE system cache
+kbuildsycoca6 --noincremental
+
 # Clean up temporary clone
 rm -rf /tmp/aptupdate
 ```
@@ -62,9 +66,11 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 
 | Setting | Default Command | Description |
 | :--- | :--- | :--- |
-| **Count APT Command** | `apt list --upgradable 2>/dev/null \| grep -c '\['` | Counts pending package updates |
+| **Count APT Command** | `apt list --upgradable 2>/dev/null \| grep -c '\['` | Counts pending APT package updates |
+| **Count Snap Command** | `which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null \| tail -n +2 \| wc -l \|\| echo 0` | Counts pending Snap updates (falls back to 0) |
 | **List APT Command** | `apt list --upgradable 2>/dev/null \| grep '\[' \| awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "->", $3}'` | Formats package name and version difference |
-| **Update All Command** | `sudo apt update && sudo apt upgrade` | Full system upgrade |
+| **List Snap Command** | `which snap >/dev/null 2>&1 && snap refresh --list 2>/dev/null \| awk 'NR>1 {print $1, "snap", "->", $2}'` | Formats Snap updates |
+| **Update All Command** | `sudo apt update && sudo apt upgrade && (which snap >/dev/null 2>&1 && sudo snap refresh \|\| true)` | Full system upgrade (APT + Snap) |
 | **Update One Command** | `sudo apt install --only-upgrade` | Upgrade single selected package |
 | **Terminal Command** | `konsole -e` | Terminal emulator wrapper |
 
@@ -72,9 +78,9 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 
 ## Credits & Upstream
 
-- Original Arch Linux project and UI design: [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) by Alan Bouteiller.
-- APT adaptation and packaging for Kubuntu / Debian: [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
+- **Original Creator & UI Design:** [Alan Bouteiller (A2N)](https://github.com/bouteillerAlan) - [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate).
+- **Debian / Ubuntu / Snap Port & Packaging:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
 
 ## License
 
-GPL-3.0 License. See [LICENSE](LICENSE) for details.
+GNU General Public License v3.0 (GPL-3.0). See [LICENSE](LICENSE) for details.

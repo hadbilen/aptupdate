@@ -70,7 +70,7 @@ Kirigami.ScrollablePage {
       ConfigIcon {
         id: configSecondaryIconField
         Kirigami.FormData.label: "Refresh icon: "
-        defaultValue: "arch-unknown.svg"
+        defaultValue: "package-unknown.svg"
       }
     }
 
@@ -180,7 +180,7 @@ Kirigami.ScrollablePage {
 
     Kirigami.InlineMessage {
       Layout.fillWidth: true
-      text: "Expected result: arch + seprator + aur"
+      text: "Expected result: APT + separator + Snap"
       visible: true
     }
 

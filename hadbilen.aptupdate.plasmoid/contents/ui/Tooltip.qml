@@ -61,7 +61,7 @@ ColumnLayout {
             RowLayout {
                 visible: totalAur !== "" && totalAur !== "0"
                 PlasmaComponents3.Label {
-                    text: "Other:"
+                    text: "Snap:"
                     opacity: 1
                 }
                 PlasmaComponents3.Label {
