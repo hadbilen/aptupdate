@@ -59,6 +59,18 @@
     <default>true</default>
   </entry>
 
+  <entry name="silentUpdate" type="Bool">
+    <default>false</default>
+  </entry>
+
+  <entry name="notifyOnSilentUpdate" type="Bool">
+    <default>true</default>
+  </entry>
+
+  <entry name="includePhasedUpdates" type="Bool">
+    <default>false</default>
+  </entry>
+
   <entry name="updateCommand" type="String">
     <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true) &amp;&amp; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak update -y || true)</default>
   </entry>

@@ -15,6 +15,7 @@ PlasmoidItem {
     property int intervalConfig: plasmoid.configuration.updateInterval
     property bool isOnDebug: plasmoid.configuration.debugMode
     property bool isOnUpdate: false
+    property bool hasError: false
     property string tArch: "0"
     property string tAur: "0"
     property string listAur: ""
@@ -55,6 +56,13 @@ PlasmoidItem {
 
         onSourceConnected: function (source) {
             if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd connected: ' + source, false)
+            const isUp = source.indexOf("pkexec") !== -1 || source.indexOf("konsole") !== -1 || (updater.lastUpdateCmd !== "" && source === updater.lastUpdateCmd)
+            if (isUp) {
+                main.isOnUpdate = true
+                main.hasError = false
+                errorStatus(false)
+                updateRunning(true)
+            }
             isUpdating(true)
             connected(source)
         }
@@ -62,7 +70,11 @@ PlasmoidItem {
         onExited: function (sourceCmd, exitCode, exitStatus, stdout, stderr) {
             if (isOnDebug) debug.log('APTUPDATE - '+plasmoid.id+' - cmd exited: ' + JSON.stringify({sourceCmd, exitCode, exitStatus, stdout, stderr}), stderr !== "")
 
-            const isUpdateCmd = sourceCmd.startsWith(plasmoid.configuration.termCmd) || sourceCmd.startsWith(plasmoid.configuration.termNoCloseCmd) || sourceCmd.indexOf("konsole") !== -1
+            const isUpdateCmd = sourceCmd.startsWith(plasmoid.configuration.termCmd) ||
+                                sourceCmd.startsWith(plasmoid.configuration.termNoCloseCmd) ||
+                                sourceCmd.indexOf("konsole") !== -1 ||
+                                sourceCmd.indexOf("pkexec") !== -1 ||
+                                (updater.lastUpdateCmd !== "" && sourceCmd === updater.lastUpdateCmd)
             const isOnError = exitCode !== 0 && stderr !== ""
 
             // handle reboot required
@@ -73,7 +85,7 @@ PlasmoidItem {
 
             // handle the result for the count
             const cmdIsAur = sourceCmd === plasmoid.configuration.countAurCommand || (updater.lastCountAurCmd !== "" && sourceCmd === updater.lastCountAurCmd)
-            const cmdIsArch = sourceCmd === plasmoid.configuration.countArchCommand
+            const cmdIsArch = sourceCmd === plasmoid.configuration.countArchCommand || (updater.lastCountArchCmd !== "" && sourceCmd === updater.lastCountArchCmd)
             if (cmdIsArch) {
                 let total = stdout.replace(/\n/g, '')
                 totalArch(total)
@@ -91,7 +103,7 @@ PlasmoidItem {
 
             // handle the result for the list
             const cmdIsListAur = sourceCmd === plasmoid.configuration.listAurCommand || (updater.lastListAurCmd !== "" && sourceCmd === updater.lastListAurCmd)
-            const cmdIsListArch = sourceCmd === plasmoid.configuration.listArchCommand
+            const cmdIsListArch = sourceCmd === plasmoid.configuration.listArchCommand || (updater.lastListArchCmd !== "" && sourceCmd === updater.lastListArchCmd)
             const cmdIsListArchRepo = sourceCmd === plasmoid.configuration.listRepoArchCommand
             if (cmdIsListAur) listAur = stdout
             if (cmdIsListArch) listArch = stdout
@@ -110,9 +122,25 @@ PlasmoidItem {
                 cmd.exec(sourceCmd)
             }
 
-            // refresh after an update action
+            // refresh and notifications after an update action
             if (isUpdateCmd) {
                 if (isOnDebug) debug.log('APTUPDATE - an update end, refreshing : ' + sourceCmd, false)
+                main.isOnUpdate = false
+                updateRunning(false)
+                const isSilent = sourceCmd.indexOf("pkexec") !== -1 || (updater.lastUpdateCmd !== "" && sourceCmd === updater.lastUpdateCmd && plasmoid.configuration.silentUpdate)
+                if (isSilent) {
+                    if (exitCode === 0) {
+                        main.hasError = false
+                        errorStatus(false)
+                        if (plasmoid.configuration.notifyOnSilentUpdate) {
+                            cmd.exec("notify-send -a 'APT Update Counter' -i system-software-update '" + i18n("System Updates") + "' '" + i18n("All system updates were installed successfully.") + "'")
+                        }
+                    } else {
+                        main.hasError = true
+                        errorStatus(true)
+                        cmd.exec("notify-send -u critical -a 'APT Update Counter' -i dialog-error '" + i18n("Update Failed") + "' '" + i18n("An error occurred during the background update.") + "'")
+                    }
+                }
                 updater.countAll()
             }
 
@@ -126,6 +154,8 @@ PlasmoidItem {
         }
 
         signal isUpdating(bool status)
+        signal updateRunning(bool running)
+        signal errorStatus(bool error)
         signal packagesList(string listAur, string listArch, string listArchRepo)
         signal totalAur(string total)
         signal totalArch(string total)

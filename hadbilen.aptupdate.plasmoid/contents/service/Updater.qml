@@ -20,9 +20,29 @@ Item {
   property string termNoCloseSuffix: Plasmoid.configuration.termNoCloseSuffix
   property bool enableSnapUpdates: Plasmoid.configuration.enableSnapUpdates
   property bool enableFlatpakUpdates: Plasmoid.configuration.enableFlatpakUpdates
+  property bool silentUpdate: Plasmoid.configuration.silentUpdate
+  property bool notifyOnSilentUpdate: Plasmoid.configuration.notifyOnSilentUpdate
+  property bool includePhasedUpdates: Plasmoid.configuration.includePhasedUpdates
 
+  property string lastCountArchCmd: ""
+  property string lastListArchCmd: ""
   property string lastCountAurCmd: ""
   property string lastListAurCmd: ""
+  property string lastUpdateCmd: ""
+
+  function getCountArchCmd() {
+    if (includePhasedUpdates) {
+      return "apt-get -s upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | grep -c '^Inst ' || echo 0"
+    }
+    return "apt-get -s upgrade 2>/dev/null | grep -c '^Inst ' || echo 0"
+  }
+
+  function getListArchCmd() {
+    if (includePhasedUpdates) {
+      return "apt-get -s upgrade -o APT::Get::Always-Include-Phased-Updates=true 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
+    }
+    return "apt-get -s upgrade 2>/dev/null | awk '/^Inst / {gsub(/[\\[\\]\\(\\)]/, \"\"); print $2, $3, \"->\", $4}'"
+  }
 
   function getCountAurCmd() {
     if (!enableSnapUpdates && !enableFlatpakUpdates) return ""
@@ -53,10 +73,11 @@ Item {
   }
 
   function getEffectiveUpdateCommand() {
-    if (enableSnapUpdates && enableFlatpakUpdates) {
-      return updateCommand
+    var aptUpgrade = "sudo apt upgrade"
+    if (includePhasedUpdates) {
+      aptUpgrade = "sudo apt -o APT::Get::Always-Include-Phased-Updates=true upgrade"
     }
-    var parts = ["sudo apt update && sudo apt upgrade"]
+    var parts = ["sudo apt update && " + aptUpgrade]
     if (enableSnapUpdates) {
       parts.push("(which snap >/dev/null 2>&1 && sudo snap refresh || true)")
     }
@@ -66,8 +87,26 @@ Item {
     return parts.join(" && ")
   }
 
+  function getEffectiveSilentUpdateCommand() {
+    var aptUpgrade = "apt-get upgrade -yq"
+    if (includePhasedUpdates) {
+      aptUpgrade = "apt-get -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq"
+    }
+    var parts = ["apt-get update && " + aptUpgrade]
+    if (enableSnapUpdates) {
+      parts.push("(which snap >/dev/null 2>&1 && snap refresh || true)")
+    }
+    if (enableFlatpakUpdates) {
+      parts.push("(which flatpak >/dev/null 2>&1 && flatpak update -y || true)")
+    }
+    var innerCmd = parts.join(" && ")
+    return "pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + innerCmd + "'"
+  }
+
   function countArch() {
-    if (countArchCommand !== '') cmd.exec(countArchCommand)
+    var c = getCountArchCmd()
+    lastCountArchCmd = c
+    if (c !== '') cmd.exec(c)
   }
 
   function countAur() {
@@ -85,7 +124,9 @@ Item {
   }
 
   function listArch() {
-    if (listArchCommand !== '') cmd.exec(listArchCommand)
+    var c = getListArchCmd()
+    lastListArchCmd = c
+    if (c !== '') cmd.exec(c)
   }
 
   function listAur() {
@@ -120,16 +161,24 @@ Item {
   }
 
   function launchUpdate() {
+    if (silentUpdate) {
+      var silentCmd = getEffectiveSilentUpdateCommand()
+      lastUpdateCmd = silentCmd
+      cmd.exec(silentCmd)
+      return
+    }
     var effCmd = getEffectiveUpdateCommand()
     if (effCmd !== '') {
       if (notCloseCommand) {
-        cmd.exec(termNoCloseCmd + " '" + effCmd + " " + termNoCloseSuffix + "'")
+        lastUpdateCmd = termNoCloseCmd + " '" + effCmd + " " + termNoCloseSuffix + "'"
+        cmd.exec(lastUpdateCmd)
       } else {
         var baseTerm = termCmd.trim()
         if (baseTerm.indexOf("bash -c") === -1 && baseTerm.indexOf("sh -c") === -1) {
           baseTerm += " bash -c"
         }
-        cmd.exec(baseTerm + " '" + effCmd + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'")
+        lastUpdateCmd = baseTerm + " '" + effCmd + " || (echo \"\"; echo \"An error occurred during update. Press Enter to close...\"; read -r)'"
+        cmd.exec(lastUpdateCmd)
       }
     }
   }

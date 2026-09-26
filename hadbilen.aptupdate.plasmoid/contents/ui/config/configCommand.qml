@@ -14,6 +14,9 @@ Kirigami.ScrollablePage {
   property alias cfg_notCloseCommand: notCloseBox.checked
   property alias cfg_enableSnapUpdates: enableSnapUpdatesBox.checked
   property alias cfg_enableFlatpakUpdates: enableFlatpakUpdatesBox.checked
+  property alias cfg_silentUpdate: silentUpdateBox.checked
+  property alias cfg_notifyOnSilentUpdate: notifyOnSilentUpdateBox.checked
+  property alias cfg_includePhasedUpdates: includePhasedUpdatesBox.checked
 
   property alias cfg_updateCommand: updateCommandInput.text
   property alias cfg_updateCommandOne: updateCommandOneInput.text
@@ -120,6 +123,11 @@ Kirigami.ScrollablePage {
         Kirigami.FormData.label: i18n("Enable Flatpak updates: ")
       }
 
+      Controls.CheckBox {
+        id: includePhasedUpdatesBox
+        Kirigami.FormData.label: i18n("Include phased (staged) updates: ")
+      }
+
       Controls.TextField {
         id: countArchCommandInput
         Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
@@ -159,6 +167,17 @@ Kirigami.ScrollablePage {
 
       Kirigami.FormLayout {
         wideMode: false
+
+        Controls.CheckBox {
+          id: silentUpdateBox
+          Kirigami.FormData.label: i18n("Run updates in background silently (pkexec): ")
+        }
+
+        Controls.CheckBox {
+          id: notifyOnSilentUpdateBox
+          Kirigami.FormData.label: i18n("Notify on silent update completion (errors are always notified): ")
+          enabled: silentUpdateBox.checked
+        }
 
         Kirigami.Heading {
           level: 3

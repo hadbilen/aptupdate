@@ -43,25 +43,33 @@ PlasmaComponents.ItemDelegate {
     }
 
     contentItem: RowLayout {
+        spacing: Kirigami.Units.smallSpacing
+
         ColumnLayout {
+            Layout.fillWidth: true
             spacing: 2
 
             Kirigami.Heading {
                 id: itemHeading
                 level: 3
-                width: parent.width
+                Layout.fillWidth: true
+                elide: Text.ElideRight
                 text: generateName()
             }
 
             Controls.Label {
                 id: itemLabel
-                width: parent.width
-                wrapMode: Text.Wrap
+                Layout.fillWidth: true
+                elide: Text.ElideRight
+                wrapMode: Text.NoWrap
                 text: generateVersion()
             }
         }
         RowLayout {
-            Layout.alignment: Qt.AlignRight
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            Layout.fillWidth: false
+            spacing: Kirigami.Units.smallSpacing
+
             PlasmaComponents.ToolButton {
                 id: repoToolButton
                 icon.name: "internet-services-symbolic"

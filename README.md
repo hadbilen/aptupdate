@@ -1,6 +1,6 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.5-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.0.6-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
 A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
 
@@ -16,11 +16,16 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 
 - **Multi-Ecosystem (APT, Snap & Flatpak):** Concurrently tracks core system APT packages and modern containerized Snap and Flatpak applications.
 - **Selective Ecosystem Toggles:** Independent toggles for Snap and Flatpak updates. Run both, Snap only, Flatpak only, or disable secondary managers completely for a lightweight APT-only setup with zero idle background overhead.
+- **Ubuntu Phased Updates Management:** Intelligently filter out staged/deferred phased updates so your badge accurately reflects immediately installable updates, or choose to include and forcibly upgrade phased packages. Individual package clicks always install directly.
+- **Silent Background Updates:** Optional non-interactive background upgrade mode via `pkexec` without opening a terminal window.
+- **Rich Icon States & Animation:** Active updates feature a smooth rotation animation and theme accent color; update errors display a negative red error badge (`!`) with diagnostic tooltips.
+- **Fail-Safe Desktop Notifications:** Optional completion desktop notification after background upgrades, with critical error notifications always guaranteed to surface even if completion notifications are disabled.
+- **Responsive Popup Layout:** Dynamically constrained popup width (320px - 580px) with elegant text truncation (`...`) for long package names, keeping action buttons aligned and accessible.
 - **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
 - **Reboot Required Indicator:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and displays clear restart warnings in both the tooltip and popup.
 - **Desktop Notifications:** Optionally sends native KDE desktop notifications whenever new system updates are discovered (toggleable in Display settings).
 - **Internationalization (i18n):** Full GNU Gettext localization support. The canonical source code is 100% English, while automatically displaying in the user's desktop language (Turkish catalog included, community translations welcome).
-- **One-Click Upgrades:** Launch full system upgrades (`sudo apt update && sudo apt upgrade && sudo snap refresh && flatpak update`) or upgrade individual packages in Konsole directly from the applet or via mouse middle-click.
+- **One-Click Upgrades:** Launch full system upgrades or upgrade individual packages in Konsole or silently in the background directly from the applet or via mouse middle-click.
 - **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).
 - **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with separators, colors), and fully editable commands.
 - **Native Breeze Theming:** Integrates with KDE Plasma's `system-software-update` icon for full theme consistency.
@@ -75,6 +80,9 @@ The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
 | :--- | :--- | :--- |
 | **Enable Snap Updates** | `true` | Toggle tracking and upgrading Snap packages |
 | **Enable Flatpak Updates** | `true` | Toggle tracking and upgrading Flatpak packages |
+| **Include Phased Updates** | `false` | Include staged/deferred phased updates in count/list (and force in full upgrade) |
+| **Silent Background Updates** | `false` | Run upgrades silently via `pkexec` without opening a terminal window |
+| **Notify on Silent Update** | `true` | Desktop notification upon completion (critical failure errors are always notified) |
 | **Count APT Command** | `apt list --upgradable 2>/dev/null \| grep -c '\['` | Counts pending APT package updates |
 | **Count Secondary (Snap/Flatpak)** | `s=0; f=0; which snap >/dev/null 2>&1 && s=$(snap refresh --list 2>/dev/null \| tail -n +2 \| wc -l \|\| echo 0); which flatpak >/dev/null 2>&1 && f=$(flatpak remote-ls --updates 2>/dev/null \| wc -l \|\| echo 0); echo $((s + f))` | Concurrently counts Snap and Flatpak updates |
 | **List APT Command** | `apt list --upgradable 2>/dev/null \| grep '\[' \| awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "->", $3}'` | Formats package name and version difference |

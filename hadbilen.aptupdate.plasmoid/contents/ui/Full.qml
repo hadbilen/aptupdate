@@ -25,9 +25,10 @@ PlasmaExtras.Representation {
   focus: true
   anchors.fill: parent
 
-  Layout.minimumHeight: 200
-  Layout.minimumWidth: 200
-  Layout.maximumWidth: 400
+  Layout.minimumHeight: Kirigami.Units.gridUnit * 12
+  Layout.minimumWidth: Kirigami.Units.gridUnit * 18
+  Layout.preferredWidth: Kirigami.Units.gridUnit * 24
+  Layout.maximumWidth: Kirigami.Units.gridUnit * 35
 
   function updateAll() {
     if (!onRefresh) updater.launchUpdate()

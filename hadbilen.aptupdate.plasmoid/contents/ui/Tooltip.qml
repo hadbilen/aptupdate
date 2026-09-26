@@ -48,11 +48,25 @@ ColumnLayout {
             id: tooltipMaintext
             level: 3
             elide: Text.ElideRight
-            text: noUpdateAvailable() ? i18n("No updates available") : i18n("Updates are available")
+            text: main.hasError ? i18n("Update Error") : (noUpdateAvailable() ? i18n("No updates available") : i18n("Updates are available"))
         }
 
         RowLayout {
-            visible: root.rebootRequired
+            visible: main.hasError
+            Kirigami.Icon {
+                source: "dialog-error"
+                implicitWidth: Kirigami.Units.iconSizes.small
+                implicitHeight: Kirigami.Units.iconSizes.small
+            }
+            PlasmaComponents3.Label {
+                text: i18n("An error occurred during update")
+                color: Kirigami.Theme.negativeTextColor
+                font.bold: true
+            }
+        }
+
+        RowLayout {
+            visible: root.rebootRequired && !main.hasError
             Kirigami.Icon {
                 source: "system-reboot"
                 implicitWidth: Kirigami.Units.iconSizes.small

@@ -1,3 +1,11 @@
+### v1.0.6
+  - Silent Background Updates: Run upgrades in the background via `pkexec` without opening a terminal window (`silentUpdate`)
+  - Fail-Safe Desktop Notifications: Optional completion notification with guaranteed critical failure notifications (`notifyOnSilentUpdate`)
+  - Ubuntu Phased Updates Management: Accurately exclude or forcibly include staged phased updates (`includePhasedUpdates`)
+  - Rich Lifecycle Tray/Panel Icon States: Smooth rotation animation while updating, distinct negative error state (`!`), and badge indicators
+  - Responsive Popup Layout: Grid-unit width constraints (320px - 580px) and right-elided package names preventing UI overflow
+  - Updated Translations: Turkish localization for all new configuration toggles and lifecycle states
+
 ### v1.0.5
   - Fix terminal closing prematurely on upgrade by enforcing a `bash -c` wrapper for compound shell pipelines (`sudo apt update && sudo apt upgrade`)
   - Fix `cmd` variable shadowing in `main.qml` `onExited` that caused `TypeError` and stuck refresh spinner

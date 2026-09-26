@@ -34,6 +34,7 @@ Item {
 
   property bool onUpdate: false
   property bool onRefresh: false
+  property bool hasError: main.hasError
 
   property bool isPanelVertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
   readonly property bool inTray: parent.objectName === "org.kde.desktop-CompactApplet"
@@ -55,7 +56,7 @@ Item {
   // updates the icon according to the refresh status
   function updateUi(refresh: bool) {
     onRefresh = refresh
-    if (refresh) {
+    if (refresh || onUpdate) {
       updateIcon.source = iconRefresh
     } else {
       updateIcon.source = iconUpdate
@@ -64,11 +65,15 @@ Item {
 
   // event handler for the left click on MouseArea
   function onLClick() {
+    row.hasError = false
+    main.hasError = false
     if (!onRefresh || !onUpdate) updater.countAll()
   }
 
   // event handler for the middle click on MouseArea
   function onMClick() {
+    row.hasError = false
+    main.hasError = false
     if (!onRefresh || !onUpdate) {
       onUpdate = true
       updater.launchUpdate()
@@ -82,7 +87,8 @@ Item {
 
   // generate the text for the count result
   function generateResult() {
-    if (onRefresh) return " ↻ "
+    if (row.hasError) return " ! "
+    if (onRefresh || onUpdate) return " ↻ "
     if (separateResult) return ' ' + totalArch + separator + totalAur + ' '
     return ` ${parseInt(totalArch, 10) + parseInt(totalAur, 10)} `
   }
@@ -108,9 +114,21 @@ Item {
 
     function onIsUpdating(status) {
       updateUi(status)
-      if (!status) {
-        row.onUpdate = false
+      if (!status && !row.onUpdate) {
+        updateIcon.rotation = 0
       }
+    }
+
+    function onUpdateRunning(running) {
+      row.onUpdate = running
+      updateUi(running)
+      if (!running) {
+        updateIcon.rotation = 0
+      }
+    }
+
+    function onErrorStatus(err) {
+      row.hasError = err
     }
 
     function onTotalAur(total) {
@@ -134,6 +152,17 @@ Item {
       height: container.height
       width: height
       source: iconUpdate
+      transformOrigin: Item.Center
+
+      RotationAnimation {
+        target: updateIcon
+        property: "rotation"
+        from: 0
+        to: 360
+        duration: 1200
+        loops: Animation.Infinite
+        running: row.onUpdate
+      }
     }
 
     // MAIN BR
@@ -246,7 +275,7 @@ Item {
         right: container.right
       }
       text: generateResult()
-      visible: !isPanelVertical && !mainDot && !(hideOnZero && !isUpdateNeeded() && !onRefresh)
+      visible: !isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh))
       icon: updateIcon
     }
 
@@ -256,7 +285,7 @@ Item {
         right: container.right
       }
       text: generateResult()
-      visible: isPanelVertical && !mainDot && !(hideOnZero && !isUpdateNeeded() && !onRefresh)
+      visible: isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh))
       icon: updateIcon
     }
 
