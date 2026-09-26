@@ -28,7 +28,7 @@ Kirigami.ScrollablePage {
     function generateName() {
         const nc = cfg_nameUseCustomColor ? cfg_nameColor : Kirigami.Theme.textColor
         const sc = cfg_sourceUseCustomColor ? cfg_sourceColor : Kirigami.Theme.disabledTextColor
-        return '<font color="' + nc + '"> PackageName </font><font color="' + sc + '"> from source</font>'
+        return '<font color="' + nc + '"> ' + i18n("PackageName") + ' </font><font color="' + sc + '"> ' + i18n("from source") + '</font>'
     }
 
     // generate & style the version of the package

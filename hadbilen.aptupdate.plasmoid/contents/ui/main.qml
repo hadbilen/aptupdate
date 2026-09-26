@@ -212,6 +212,11 @@ PlasmoidItem {
         source: "Tooltip.qml"
     }
 
+    // Fallback translation hooks for Plasma Desktop configuration tabs
+    function _plasmaConfigTabTranslations() {
+        i18nc("@action:button set keyboard shortcut for", "Activate widget as if clicked:")
+    }
+
     Component.onCompleted: {
         plasmoid.configuration.debugLog = "" // clear log window
     }

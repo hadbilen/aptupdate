@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hadbilen.aptupdate.plasmoid 1.0.6\n"
+"Project-Id-Version: hadbilen.aptupdate.plasmoid 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:00+0300\n"
+"POT-Creation-Date: 2026-09-26 14:45+0300\n"
 "PO-Revision-Date: 2026-09-26 12:47+0300\n"
 "Last-Translator: hadbilen <temroa@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -69,6 +69,11 @@ msgstr "Güncelle"
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:197
 msgid "Refresh"
 msgstr "Yenile"
+
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:217
+msgctxt "@action:button set keyboard shortcut for"
+msgid "Activate widget as if clicked:"
+msgstr "Gereci tıklanmış gibi etkinleştir:"
 
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:51
 msgid "Update Error"
@@ -347,6 +352,14 @@ msgstr "İkisini aynı anda yapmak hataya meyillidir, bu yüzden mümkün değil
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:66
 msgid "Do a refresh in place of opening the popup: "
 msgstr "Açılır pencereyi açmak yerine yerinde yenileme yap: "
+
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:31
+msgid "PackageName"
+msgstr "PaketAdı"
+
+#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:31
+msgid "from source"
+msgstr "kaynaktan"
 
 #: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:55
 msgid "Popup color"

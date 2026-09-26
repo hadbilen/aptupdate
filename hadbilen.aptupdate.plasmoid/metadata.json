@@ -3,20 +3,22 @@
         "Authors": [
             {
                 "Email": "temroa@gmail.com",
-                "Name": "hadbilen (Ubuntu, Debian, Snap & Flatpak Port)"
+                "Name": "hadbilen (Ubuntu, Debian, Snap & Flatpak Portu)"
             },
             {
                 "Email": "a2n.dev@pm.me",
-                "Name": "Alan Bouteiller <a2n> (Original Archupdate Creator)"
+                "Name": "Alan Bouteiller <a2n> (Orijinal Archupdate Geliştiricisi)"
             }
         ],
         "Category": "System Information",
         "Description": "KDE Plasma 6 update monitor for APT, Snap, and Flatpak on Kubuntu, Ubuntu, and Debian. Derived with gratitude from the original Archupdate widget by Alan Bouteiller.",
+        "Description[tr]": "Kubuntu, Ubuntu ve Debian sistemlerde APT, Snap ve Flatpak paket güncellemelerini takip eden ve yöneten KDE Plasma 6 gereci. Alan Bouteiller'in orijinal Archupdate gerecinden teşekkürlerle uyarlanmıştır.",
         "Icon": "system-software-update",
         "Id": "hadbilen.aptupdate.plasmoid",
         "License": "GPL-3.0+",
         "Name": "APT Update Counter",
-        "Version": "1.0.6",
+        "Name[tr]": "APT Güncelleme Sayacı",
+        "Version": "1.0.7",
         "Website": "https://github.com/hadbilen/aptupdate",
         "Depends": ["konsole"],
         "EnabledByDefault": false
