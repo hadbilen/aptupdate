@@ -27,7 +27,7 @@ Item {
             let src = root.source || "";
             return !src.startsWith("/") && !src.startsWith("~/") && !src.includes("://");
         }
-        color: iconUseCustomColor ? iconColor : Kirigami.Theme.colorSet
+        color: iconUseCustomColor ? iconColor : Kirigami.Theme.textColor
         source: {
             let src = root.source || "software-update-available.svg";
             if (src.includes("://")) return src;

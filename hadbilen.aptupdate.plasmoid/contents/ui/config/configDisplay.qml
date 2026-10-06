@@ -11,7 +11,7 @@ Kirigami.ScrollablePage {
   property alias cfg_icon: configMainIconField.value
   property alias cfg_secondaryIcon: configSecondaryIconField.value
 
-  property alias cfg_separateResult: separateResult.checked
+  property alias cfg_separateResult: radioSeparated.checked
   property alias cfg_separator: separator.text
 
   property alias cfg_mainDot: mainDot.checked
@@ -200,11 +200,11 @@ Kirigami.ScrollablePage {
       Layout.preferredWidth: Math.min(mainColumnLayout.width - Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 32)
     }
 
-    // --- BÖLÜM 3: ETİKET GÖRÜNÜMÜ (LABEL DISPLAY) ---
+    // --- BÖLÜM 3: GÜNCELLEME SAYISI GÖRÜNÜMÜ (COUNT DISPLAY FORMAT) ---
     Kirigami.Heading {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter
-      text: i18n("Label display")
+      text: i18n("Count Display Format")
       type: Kirigami.Heading.Type.Primary
       level: 2
     }
@@ -212,23 +212,40 @@ Kirigami.ScrollablePage {
     Kirigami.InlineMessage {
       Layout.alignment: Qt.AlignHCenter
       Layout.preferredWidth: Math.min(mainColumnLayout.width - Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 32)
-      text: i18n("Expected result: APT + separator + Snap/Flatpak")
+      text: i18n("Choose how the pending update count is displayed on the panel icon.")
       visible: true
+    }
+
+    Controls.ButtonGroup {
+      id: countDisplayGroup
     }
 
     ColumnLayout {
       Layout.alignment: Qt.AlignHCenter
       spacing: Kirigami.Units.smallSpacing
 
-      Controls.CheckBox {
-        id: separateResult
-        text: i18n("Separate result")
-        checked: false
+      Controls.RadioButton {
+        id: radioMerged
+        Controls.ButtonGroup.group: countDisplayGroup
+        text: i18n("Merged (single total count, e.g. 45)")
+        checked: !radioSeparated.checked
+      }
+
+      Controls.RadioButton {
+        id: radioSeparated
+        Controls.ButtonGroup.group: countDisplayGroup
+        text: i18n("Separated (split by package source, e.g. 41 ~ 0 ~ 4)")
+        onCheckedChanged: {
+          if (!checked) {
+            radioMerged.checked = true
+          }
+        }
       }
 
       RowLayout {
-        visible: separateResult.checked
+        visible: radioSeparated.checked
         spacing: Kirigami.Units.smallSpacing
+        Layout.leftMargin: Kirigami.Units.largeSpacing
 
         Controls.Label {
           text: i18n("Separator: ")

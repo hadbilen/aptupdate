@@ -14,11 +14,14 @@ PlasmaComponents.ItemDelegate {
     // name       = package name
     // fv         = from version
     // tv         = to version
+    // appId      = application ID (reverse-DNS for flatpak)
+
+    property string appId: (typeof model !== "undefined" && model !== null && typeof model.appId !== "undefined") ? model.appId : ""
 
     width: ListView.view ? ListView.view.width : (parent ? parent.width : implicitWidth)
 
     function updateOne() {
-        updater.launchOneUpdate(name, repo)
+        updater.launchOneUpdate(name, repo, appId)
     }
 
     function openRepoPage() {
@@ -27,11 +30,21 @@ PlasmaComponents.ItemDelegate {
         }
     }
 
+    function escapeHtml(text) {
+        if (text === undefined || text === null) return ""
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;")
+    }
+
     // generate & style the name of the package
-        function generateName() {
+    function generateName() {
         const nc = plasmoid.configuration.nameUseCustomColor ? plasmoid.configuration.nameColor : Kirigami.Theme.textColor
         const sc = plasmoid.configuration.sourceUseCustomColor ? plasmoid.configuration.sourceColor : Kirigami.Theme.disabledTextColor
-        return '<font color="' + nc + '"> ' + name + ' </font><font color="' + sc + '"> ' + i18n("from %1", repo) + '</font>'
+        return '<font color="' + nc + '"> ' + escapeHtml(name) + ' </font><font color="' + sc + '"> ' + i18n("from %1", escapeHtml(repo)) + '</font>'
     }
 
     // generate & style the version of the package
@@ -39,7 +52,7 @@ PlasmaComponents.ItemDelegate {
         const fvc = plasmoid.configuration.fvUseCustomColor ? plasmoid.configuration.fvColor : Kirigami.Theme.negativeTextColor
         const sc = plasmoid.configuration.separatorUseCustomColor ? plasmoid.configuration.separatorColor : Kirigami.Theme.textColor
         const tvc = plasmoid.configuration.tvUseCustomColor ? plasmoid.configuration.tvColor : Kirigami.Theme.positiveTextColor
-        return '<font color="' + fvc + '">' + fv + '</font><font color="' + sc + '"> ' + plasmoid.configuration.separatorText + ' </font><font color="' + tvc + '">' + tv + '</font>'
+        return '<font color="' + fvc + '">' + escapeHtml(fv) + '</font><font color="' + sc + '"> ' + escapeHtml(plasmoid.configuration.separatorText) + ' </font><font color="' + tvc + '">' + escapeHtml(tv) + '</font>'
     }
 
     contentItem: RowLayout {
@@ -70,6 +83,14 @@ PlasmaComponents.ItemDelegate {
             Layout.fillWidth: false
             spacing: Kirigami.Units.smallSpacing
 
+            PlasmaComponents.BusyIndicator {
+                id: itemBusyIndicator
+                Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                visible: !main.isUpdatingAll && !Boolean(main.updatingRepos[repo]) && main.isPackageBusy(repo, name, appId)
+                running: visible
+            }
+
             PlasmaComponents.ToolButton {
                 id: repoToolButton
                 icon.name: "internet-services-symbolic"
@@ -86,10 +107,10 @@ PlasmaComponents.ItemDelegate {
                 icon.name: "system-run-symbolic"
                 display: PlasmaComponents.AbstractButton.IconOnly
                 text: i18n("Update %1", name)
-                enabled: !main.isPkgManagerBusy
+                enabled: main.canUpdatePackage(repo, name, appId)
                 onClicked: updateOne()
                 PlasmaComponents.ToolTip {
-                    text: main.isPkgManagerBusy ? i18n("Package manager is currently in use by another process.") : parent.text
+                    text: (repo === "apt" && main.isPkgManagerBusy) ? i18n("Package manager is currently in use by another process.") : (!main.canUpdatePackage(repo, name, appId) ? i18n("An update is already in progress.") : parent.text)
                 }
             }
         }

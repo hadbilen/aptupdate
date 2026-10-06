@@ -20,8 +20,9 @@ Item {
     return sec
   }
 
-  property string totalArch: "0"
-  property string totalAur: "0"
+  property string totalApt: main.tApt
+  property string totalSnap: main.tSnap
+  property string totalFlatpak: main.tFlatpak
 
   property bool separateResult: plasmoid.configuration.separateResult
   property string separator: plasmoid.configuration.separator
@@ -43,21 +44,11 @@ Item {
   property bool hasError: main.hasError
 
   property bool isPanelVertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
-  readonly property bool inTray: parent.objectName === "org.kde.desktop-CompactApplet"
 
   property real itemSize: Math.min(row.height, row.width)
 
   property bool invertMouseAction: plasmoid.configuration.invertMouseAction
   property bool mainIsRefresh: plasmoid.configuration.mainIsRefresh
-
-  // TODO not use
-  function generateMainIconPath() {
-    if (!iconUpdate) return "software-update-available.svg";
-    if (iconUpdate.split("/").lenght > 1) return iconUpdate;
-    // https://invent.kde.org/plasma/plasma-desktop/-/tree/master/applets/kickoff
-    const location = plasmoid.location === PlasmaCore.Types.Vertical || plasmoid.location === PlasmaCore.Types.Horizontal;
-    return location ? "widgets/panel-background" + iconUpdate : "widgets/background" + iconUpdate;
-  }
 
   // updates the icon according to the refresh status
   function updateUi(refresh: bool) {
@@ -73,45 +64,53 @@ Item {
   function onLClick() {
     row.hasError = false
     main.hasError = false
-    if (!onRefresh || !onUpdate) updater.countAll()
+    if (!onRefresh && !onUpdate) updater.countAll()
   }
 
   // event handler for the middle click on MouseArea
   function onMClick() {
     row.hasError = false
     main.hasError = false
-    if (!onRefresh || !onUpdate) {
+    if (!onRefresh && !onUpdate) {
       onUpdate = true
       updater.launchUpdate()
     }
   }
 
-  // return true if the widget area is vertical
-  function isBarVertical() {
-    return row.width < row.height;
-  }
-
   // generate the text for the count result
   function generateResult() {
     if (row.hasError) return " ! "
-    if (onRefresh || onUpdate) return " ↻ "
-    if (separateResult) return ' ' + totalArch + separator + totalAur + ' '
-    return ` ${parseInt(totalArch, 10) + parseInt(totalAur, 10)} `
+    if (onRefresh) return " ↻ "
+    const apt = parseInt(row.totalApt, 10) || 0
+    const snap = parseInt(row.totalSnap, 10) || 0
+    const flatpak = parseInt(row.totalFlatpak, 10) || 0
+    if (separateResult && !isPanelVertical) {
+      let parts = [row.totalApt || "0"]
+      if (plasmoid.configuration.enableSnapUpdates && plasmoid.configuration.hasSnap) {
+        parts.push(row.totalSnap || "0")
+      }
+      if (plasmoid.configuration.enableFlatpakUpdates && plasmoid.configuration.hasFlatpak) {
+        parts.push(row.totalFlatpak || "0")
+      }
+      return ' ' + parts.join(separator) + ' '
+    }
+    return `${apt + snap + flatpak}`
   }
 
   // return true if update is needed (total > 0)
   function isUpdateNeeded() {
-    return (parseInt(totalArch, 10) + parseInt(totalAur, 10)) > 0
+    const apt = parseInt(row.totalApt, 10) || 0
+    const snap = parseInt(row.totalSnap, 10) || 0
+    const flatpak = parseInt(row.totalFlatpak, 10) || 0
+    return (apt + snap + flatpak) > 0
   }
 
-  // return true if update is needed (total > 0)
-  function isArchUpdateNeeded() {
-    return (parseInt(totalArch, 10) > 0)
+  function isAptUpdateNeeded() {
+    return (parseInt(row.totalApt, 10) > 0)
   }
 
-  // return true if update is needed (total > 0)
-  function isAurUpdateNeeded() {
-    return (parseInt(totalAur, 10) > 0)
+  function isSecondaryUpdateNeeded() {
+    return ((parseInt(row.totalSnap, 10) || 0) + (parseInt(row.totalFlatpak, 10) || 0) > 0)
   }
 
   // map the cmd signal
@@ -128,21 +127,13 @@ Item {
     function onUpdateRunning(running) {
       row.onUpdate = running
       updateUi(running)
-      if (!running) {
+      if (!running && !row.onRefresh) {
         updateIcon.rotation = 0
       }
     }
 
     function onErrorStatus(err) {
       row.hasError = err
-    }
-
-    function onTotalAur(total) {
-      row.totalAur = total
-    }
-
-    function onTotalArch(total) {
-      row.totalArch = total
     }
   }
 
@@ -160,20 +151,24 @@ Item {
       source: iconUpdate
       transformOrigin: Item.Center
 
-      RotationAnimation {
+      RotationAnimator {
         target: updateIcon
-        property: "rotation"
         from: 0
         to: 360
         duration: 1200
         loops: Animation.Infinite
-        running: row.onUpdate
+        running: row.onUpdate || row.onRefresh
+        onRunningChanged: {
+          if (!running) {
+            updateIcon.rotation = 0
+          }
+        }
       }
     }
 
     // MAIN BR
     Rectangle {
-      visible: (secondDot ? mainDot && isArchUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 2
+      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 2
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -186,7 +181,7 @@ Item {
 
     // MAIN BL
     Rectangle {
-      visible: (secondDot ? mainDot && isArchUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 3
+      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 3
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -199,7 +194,7 @@ Item {
 
     // MAIN TR
     Rectangle {
-      visible: (secondDot ? mainDot && isArchUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 0
+      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 0
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -212,7 +207,7 @@ Item {
 
     // MAIN TL
     Rectangle {
-      visible: (secondDot ? mainDot && isArchUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 1
+      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 1
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -225,7 +220,7 @@ Item {
 
     // SECOND BR
     Rectangle {
-      visible: (secondDot && mainDot && isAurUpdateNeeded()) && secondDotPosition === 2
+      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 2
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -238,7 +233,7 @@ Item {
 
     // SECOND BL
     Rectangle {
-      visible: (secondDot && mainDot && isAurUpdateNeeded()) && secondDotPosition === 3
+      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 3
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -251,7 +246,7 @@ Item {
 
     // SECOND TR
     Rectangle {
-      visible: (secondDot && mainDot && isAurUpdateNeeded()) && secondDotPosition === 0
+      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 0
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -264,7 +259,7 @@ Item {
 
     // SECOND TL
     Rectangle {
-      visible: (secondDot && mainDot && isAurUpdateNeeded()) && secondDotPosition === 1
+      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 1
       height: container.height / 2.5
       width: height
       radius: height / 2
@@ -278,20 +273,20 @@ Item {
     WorkspaceComponents.BadgeOverlay { // for the horizontal bar
       anchors {
         bottom: container.bottom
-        right: container.right
+        horizontalCenter: container.horizontalCenter
       }
       text: generateResult()
-      visible: !isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh))
+      visible: !isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh && !row.onUpdate))
       icon: updateIcon
     }
 
     WorkspaceComponents.BadgeOverlay { // for the vertical bar
       anchors {
-        verticalCenter: container.bottom
-        right: container.right
+        bottom: container.bottom
+        horizontalCenter: container.horizontalCenter
       }
       text: generateResult()
-      visible: isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh))
+      visible: isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh && !row.onUpdate))
       icon: updateIcon
     }
 

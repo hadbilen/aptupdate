@@ -8,7 +8,13 @@ Kirigami.ScrollablePage {
 
     id: debugConfigPage
 
-    property alias cfg_debugLog: logWindow.text
+    Component.onCompleted: {
+        if (typeof plasmoid !== "undefined" && plasmoid.rootItem && plasmoid.rootItem.debugService) {
+            logWindow.text = plasmoid.rootItem.debugService.getFormattedLog()
+        } else if (typeof plasmoid !== "undefined" && plasmoid.configuration && plasmoid.configuration.debugLog && plasmoid.configuration.debugLog !== "Nothing") {
+            logWindow.text = plasmoid.configuration.debugLog
+        }
+    }
 
     Kirigami.FormLayout {
         id: debugFormLayout
@@ -20,13 +26,6 @@ Kirigami.ScrollablePage {
             right: parent.right
         }
 
-        Component.onCompleted: {
-            var lay = debugFormLayout.children[0];
-            lay.anchors.horizontalCenter = undefined;
-            lay.anchors.left = debugFormLayout.left;
-            lay.anchors.right = debugFormLayout.right;
-        }
-
         Kirigami.Separator {
             Kirigami.FormData.isSection: true
             Kirigami.FormData.label: i18n("Debug log")
@@ -34,8 +33,16 @@ Kirigami.ScrollablePage {
 
         PlasmaComponents.Button {
             Kirigami.FormData.isSection: true
-            text: i18n("Clear log data (hit apply after)")
-            onClicked: logWindow.text = ''
+            text: i18n("Clear log data")
+            onClicked: {
+                logWindow.text = ''
+                if (typeof plasmoid !== "undefined" && plasmoid.rootItem && plasmoid.rootItem.debugService) {
+                    plasmoid.rootItem.debugService.clear()
+                }
+                if (typeof plasmoid !== "undefined" && plasmoid.configuration) {
+                    plasmoid.configuration.debugLog = ""
+                }
+            }
         }
 
         Controls.Label {

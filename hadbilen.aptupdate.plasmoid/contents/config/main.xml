@@ -5,11 +5,6 @@
   http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 <kcfgfile name=""/>
 
-<group name="shadow">
-  <entry name="cmdIsRunning" type="Bool">
-    <default>false</default>
-  </entry>
-</group>
 
 <group name="debugConfigPage">
   <entry name="debugLog" type="String">
@@ -33,6 +28,14 @@
 
   <entry name="updateIntervalUnit" type="Int">
     <default>0</default>
+  </entry>
+
+  <entry name="startupCheckMode" type="Int">
+    <default>2</default>
+  </entry>
+
+  <entry name="startupDelaySeconds" type="Int">
+    <default>30</default>
   </entry>
 
   <entry name="debugMode" type="Bool">
@@ -87,32 +90,20 @@
     <default>true</default>
   </entry>
 
-  <entry name="updateCommand" type="String">
-    <default>sudo apt update &amp;&amp; sudo apt upgrade &amp;&amp; (which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; sudo snap refresh || true) &amp;&amp; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak update -y || true)</default>
-  </entry>
-
   <entry name="updateCommandOne" type="String">
     <default>sudo apt install --only-upgrade</default>
   </entry>
 
   <entry name="countArchCommand" type="String">
-    <default>apt list --upgradable 2&gt;/dev/null | grep -c '\['</default>
-  </entry>
-
-  <entry name="countAurCommand" type="String">
-    <default>s=0; f=0; which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; s=$(snap refresh --list 2&gt;/dev/null | tail -n +2 | wc -l || echo 0); which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; f=$(flatpak remote-ls --updates 2&gt;/dev/null | wc -l || echo 0); echo $((s + f))</default>
+    <default>bash -c &quot;set -o pipefail; LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade 2&gt;/dev/null | awk '/^Inst [^ ]+ \\[/ {c++} END {print c+0}'&quot;</default>
   </entry>
 
   <entry name="listArchCommand" type="String">
-    <default>apt list --upgradable 2&gt;/dev/null | grep '\[' | awk -F'[/ ]+' '{old=$NF; sub(/\]/,"",old); print $1, old, "-&gt;", $3}'</default>
+    <default>LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade 2&gt;/dev/null | awk '/^Inst [^ ]+ \\[/ {orig=$0; gsub(/[][()]/, &quot;&quot;); $1=$1; origins=&quot;&quot;; for(i=5;i&lt;=NF;i++) origins=(origins==&quot;&quot; ? $i : origins &quot; &quot; $i); print $2, $3, &quot;-&gt;&quot;, $4, origins }'</default>
   </entry>
 
   <entry name="listRepoArchCommand" type="String">
     <default></default>
-  </entry>
-
-  <entry name="listAurCommand" type="String">
-    <default>(which snap &gt;/dev/null 2&gt;&amp;1 &amp;&amp; snap refresh --list 2&gt;/dev/null | awk 'NR&gt;1 {print $1, "snap", "-&gt;", $2}') ; (which flatpak &gt;/dev/null 2&gt;&amp;1 &amp;&amp; flatpak remote-ls --updates 2&gt;/dev/null | awk '{print $1, "flatpak", "-&gt;", $2}')</default>
   </entry>
 
   <entry name="termCmd" type="String">
@@ -130,11 +121,11 @@
 
 <group name="displayConfigPage">
 
-  <entry name="icon" type="string">
+  <entry name="icon" type="String">
     <default>software-update-available.svg</default>
   </entry>
 
-  <entry name="secondaryIcon" type="string">
+  <entry name="secondaryIcon" type="String">
     <default>view-refresh.svg</default>
   </entry>
 
@@ -205,6 +196,20 @@
   <entry name="notifyOnUpdates" type="Bool">
     <default>false</default>
   </entry>
+
+  <entry name="notificationThreshold" type="Int">
+    <default>1</default>
+    <min>1</min>
+    <max>20</max>
+  </entry>
+
+  <entry name="notifyOnStartup" type="Bool">
+    <default>false</default>
+  </entry>
+
+  <entry name="notifyOnReleaseUpgrade" type="Bool">
+    <default>true</default>
+  </entry>
 </group>
 
 <group name="popupConfigPage">
@@ -247,6 +252,36 @@
     <default>white</default>
   </entry>
 
+  <entry name="groupUpdates" type="Bool">
+    <default>true</default>
+  </entry>
+  <entry name="adaptiveGrouping" type="Bool">
+    <default>true</default>
+  </entry>
+  <entry name="adaptiveGroupingThreshold" type="Int">
+    <default>5</default>
+    <min>1</min>
+    <max>25</max>
+  </entry>
+
+</group>
+
+<group name="cache">
+  <entry name="cachedAptCount" type="String">
+    <default>0</default>
+  </entry>
+  <entry name="cachedSnapCount" type="String">
+    <default>0</default>
+  </entry>
+  <entry name="cachedFlatpakCount" type="String">
+    <default>0</default>
+  </entry>
+  <entry name="cachedPackageList" type="String">
+    <default></default>
+  </entry>
+  <entry name="cachedLastCheckTime" type="String">
+    <default></default>
+  </entry>
 </group>
 
 </kcfg>

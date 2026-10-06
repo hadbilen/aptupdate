@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg2"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="materia">
+    <style id="current-color-scheme" type="text/css">
+      .ColorScheme-Background { color:#181818; }
+      .ColorScheme-ButtonBackground { color:#343434; }
+      .ColorScheme-Highlight { color:#4285f4; }
+      .ColorScheme-Text { color:#dfdfdf; }
+      .ColorScheme-ViewBackground { color:#242424; }
+      .ColorScheme-NegativeText { color:#f44336; }
+      .ColorScheme-PositiveText { color:#4caf50; }
+      .ColorScheme-NeutralText { color:#ff9800; }
+    </style>
+  </defs>
+  <g id="icon" class="ColorScheme-Text" style="opacity:1;fill:currentColor">
+    <rect style="opacity:0.001" width="32" height="32" x="0" y="0" id="rect2" />
+    <g transform="translate(16, 16) scale(1.65) translate(-8, -8)">
+      <path d="m8 1.9140625-5 3.0546875v6.0625l5 3.054688 5-3.054688v-6.0625zm0 1.1699219v4.328125l-.476562.2929687-3.523438-2.1738281zm4 3.0351562v4.3496094l-4 2.445312v-4.3261714z" class="ColorScheme-Text" fill="currentColor"/>
+    </g>
+  </g>
+</svg>

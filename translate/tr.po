@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hadbilen.aptupdate.plasmoid 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 19:27+0300\n"
+"POT-Creation-Date: 2026-10-06 18:21+0300\n"
 "PO-Revision-Date: 2026-09-26 18:32+0300\n"
 "Last-Translator: hadbilen <temroa@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -17,166 +17,379 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:184
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:214
+msgid ""
+"Failed to check for updates. Please verify your connection or package "
+"manager."
+msgstr ""
+"Güncellemeler denetlenemedi. Lütfen bağlantınızı veya paket yöneticinizi "
+"kontrol edin."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:304
+#, qt-format
+msgid "Last check: %1"
+msgstr "Son denetim: %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:320
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:818
+msgid "Installing updates…"
+msgstr "Güncellemeler kuruluyor…"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:329
+msgid "Cancel update"
+msgstr "Güncellemeyi iptal et"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:333
+msgid "Abort running update process"
+msgstr "Çalışan güncelleme sürecini iptal et"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:342
 msgid "Install all updates"
 msgstr "Tüm güncellemeleri kur"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:189
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:240
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:92
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:347
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:433
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:563
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:113
 msgid "Package manager is currently in use by another process."
 msgstr "Paket yöneticisi şu anda başka bir işlem tarafından kullanılıyor."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:203
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:347
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:563
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:755
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:113
+msgid "An update is already in progress."
+msgstr "Zaten bir güncelleme devam ediyor."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:361
 msgid "Refresh list"
 msgstr "Listeyi yenile"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:229
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:122
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:389
+#, qt-format
+msgid "Upgrade Available: Ubuntu %1"
+msgstr "Yükseltme Mevcut: Ubuntu %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:389
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:78
+msgid "Distribution upgrade available"
+msgstr "Dağıtım sürümü yükseltmesi mevcut"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:392
+msgid "Open in Terminal"
+msgstr "Terminalde Aç"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:399
+msgid "Press Enter to close..."
+msgstr "Kapatmak için Enter'a basın..."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:414
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:558
 msgid "A system restart is required to complete updates."
 msgstr ""
 "Güncellemelerin tamamlanması için sistemin yeniden başlatılması gerekiyor."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:269
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:417
+msgid "Restart..."
+msgstr "Yeniden Başlat..."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:532
+#, qt-format
+msgid "APT (%1)"
+msgstr "APT (%1)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:549
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:645
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:741
+msgid "Repository Home"
+msgstr "Depo Ana Sayfası"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:552
+msgid "Open APT repository website"
+msgstr "APT depo web sitesini aç"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:559
+msgid "Install APT updates"
+msgstr "APT güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:563
+msgid "Install all APT updates"
+msgstr "Tüm APT güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:628
+#, qt-format
+msgid "Snap (%1)"
+msgstr "Snap (%1)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:648
+msgid "Open Snapcraft store"
+msgstr "Snapcraft mağazasını aç"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:655
+msgid "Install Snap updates"
+msgstr "Snap güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
+msgid "Install all Snap updates"
+msgstr "Tüm Snap güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:724
+#, qt-format
+msgid "Flatpak (%1)"
+msgstr "Flatpak (%1)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:744
+msgid "Open Flathub website"
+msgstr "Flathub web sitesini aç"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:751
+msgid "Install Flatpak updates"
+msgstr "Flatpak güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:755
+msgid "Install all Flatpak updates"
+msgstr "Tüm Flatpak güncellemelerini kur"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:780
+msgid "Waiting for update check…"
+msgstr "Güncelleme denetimi bekleniyor…"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:788
 msgid "You're up-to-date !"
 msgstr "Sisteminiz güncel!"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:278
-msgid "Hu ho something is wrong\n"
-msgstr "Bir sorun oluştu\n"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:797
+msgid "Check log for details."
+msgstr "Ayrıntılar için günlüğü kontrol edin."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:37
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:797
+#, qt-format
+msgid ""
+"Something went wrong:\n"
+"%1"
+msgstr ""
+"Bir sorun oluştu:\n"
+"%1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:818
+msgid "Checking for updates…"
+msgstr "Güncellemeler denetleniyor…"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:76
+msgid "Update Aborted"
+msgstr "Güncelleme İptal Edildi"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:76
+msgid "Update operation timed out or was cancelled."
+msgstr "Güncelleme işlemi zaman aşımına uğradı veya iptal edildi."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:239
+#, qt-format
+msgid "Update failed for: %1"
+msgstr "Güncelleme başarısız oldu: %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:241
+msgid "An error occurred during the background update."
+msgstr "Arka plan güncellemesi sırasında bir hata oluştu."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:247
+msgid "Update Failed"
+msgstr "Güncelleme Başarısız Oldu"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:411
+#, qt-format
+msgid "%1 update available: %2"
+msgid_plural "%1 updates available: %2"
+msgstr[0] "%1 güncelleme mevcut: %2"
+msgstr[1] "%1 güncelleme mevcut: %2"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:413
 #, qt-format
 msgid "%1 update available"
 msgid_plural "%1 updates available"
 msgstr[0] "%1 güncelleme mevcut"
 msgstr[1] "%1 güncelleme mevcut"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:38
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:205
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:417
+msgid "Critical System Updates"
+msgstr "Kritik Sistem Güncellemeleri"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:420
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:722
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:744
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:766
 msgid "System Updates"
 msgstr "Sistem Güncellemeleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:122
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:558
 msgid "System Restart Required"
 msgstr "Sistem Yeniden Başlatma Gerekli"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:205
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:573
+msgid "Distribution Upgrade Available"
+msgstr "Dağıtım Sürümü Yükseltmesi Mevcut"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:573
+#, qt-format
+msgid "Ubuntu %1 is now available for upgrade."
+msgstr "Ubuntu %1 sürümüne yükseltme mevcut."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:722
 msgid "All system updates were installed successfully."
 msgstr "Tüm sistem güncellemeleri başarıyla kuruldu."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:210
-msgid "Update Failed"
-msgstr "Güncelleme Başarısız Oldu"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:744
+#, qt-format
+msgid "%1 updates were installed successfully."
+msgstr "%1 güncellemeleri başarıyla kuruldu."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:210
-msgid "An error occurred during the background update."
-msgstr "Arka plan güncellemesi sırasında bir hata oluştu."
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:766
+#, qt-format
+msgid "%1 was updated successfully."
+msgstr "%1 başarıyla güncellendi."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:272
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:888
 msgid "Update"
 msgstr "Güncelle"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:896
 msgid "Refresh"
 msgstr "Yenile"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:300
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:917
 msgctxt "@action:button set keyboard shortcut for"
 msgid "Activate widget as if clicked:"
 msgstr "Gereci tıklanmış gibi etkinleştir:"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:51
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:213
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:219
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:292
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:298
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:371
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:379
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:403
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:409
 msgid "Update Error"
 msgstr "Güncelleme Hatası"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:51
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
+msgid "Upgrade Available"
+msgstr "Yükseltme Mevcut"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
 msgid "No updates available"
 msgstr "Kullanılabilir güncelleme yok"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:51
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
 msgid "Updates are available"
 msgstr "Güncellemeler mevcut"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:62
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:50
 msgid "An error occurred during update"
 msgstr "Güncelleme sırasında bir hata oluştu"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:76
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:64
 msgid "System restart required"
 msgstr "Sistemin yeniden başlatılması gerekiyor"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:85
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:78
+#, qt-format
+msgid "Distribution upgrade available: Ubuntu %1"
+msgstr "Dağıtım sürümü yükseltmesi mevcut: Ubuntu %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:92
 msgid "APT:"
 msgstr "APT:"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:97
-msgid "Extra:"
-msgstr "Ek (Snap/Flatpak):"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:105
+msgid "Snap:"
+msgstr "Snap:"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:34
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:118
+msgid "Flatpak:"
+msgstr "Flatpak:"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:47
 #, qt-format
 msgid "from %1"
 msgstr "%1 kaynağından"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:77
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:98
 msgid "See repository"
 msgstr "Depoyu gör"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:88
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:109
 #, qt-format
 msgid "Update %1"
 msgstr "%1 paketini güncelle"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:40
-msgid "Give the following command: <br/>"
-msgstr "Şu komut çalıştırılacak: <br/>"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:117
+msgid "General"
+msgstr "Genel"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:63
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:127
+msgid "Update every: "
+msgstr "Denetleme sıklığı: "
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:139
+msgid "Minute(s)"
+msgstr "Dakika"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:139
+msgid "Hour(s)"
+msgstr "Saat"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:139
+msgid "Day(s)"
+msgstr "Gün"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:148
+msgid "Startup check: "
+msgstr "Başlangıç denetimi: "
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:154
+msgid "Do not check on startup"
+msgstr "Başlangıçta denetleme"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:155
+msgid "Check immediately"
+msgstr "Hemen denetle"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:156
+msgid "Check after delay"
+msgstr "Gecikmeli denetle"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:167
+msgid "Startup delay: "
+msgstr "Başlangıç gecikmesi: "
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:179
+msgid "seconds"
+msgstr "saniye"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:186
+msgid "Do not close the terminal at the end of the upgrade action"
+msgstr "Yükseltme işlemi bittiğinde uçbirimi kapatma"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:193
+msgid "Debug"
+msgstr "Hata ayıklama"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:200
 msgid "This option enables logs for each command executed by the plugin."
 msgstr ""
 "Bu seçenek, eklentinin çalıştırdığı her komut için günlük kaydını "
 "etkinleştirir."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:69
-msgid "General"
-msgstr "Genel"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:73
-msgid "Update every: "
-msgstr "Denetleme sıklığı: "
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
-msgid "Minute(s)"
-msgstr "Dakika"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
-msgid "Hour(s)"
-msgstr "Saat"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:83
-msgid "Day(s)"
-msgstr "Gün"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:91
-msgid "Do not close the terminal at the end of the upgrade action"
-msgstr "Yükseltme işlemi bittiğinde uçbirimi kapatma"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:98
-msgid "Debug"
-msgstr "Hata ayıklama"
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:105
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:207
 msgid "Retry \"Search & count\" cmd if they are in error"
 msgstr "Hata durumunda \"Ara ve say\" komutunu yeniden dene"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:112
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:231
 msgid "Search & count"
 msgstr "Arama ve sayım"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:118
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:237
 msgid ""
 "Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally "
 "use the secondary command fields for Flatpak or Snap updates."
@@ -185,79 +398,80 @@ msgstr ""
 "bağlı olarak ikincil komut alanlarını Flatpak veya Snap güncellemeleri için "
 "kullanabilirsiniz."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:126
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:245
 msgid "Enable Snap updates"
 msgstr "Snap güncellemelerini etkinleştir"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:127
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:246
 msgid "Enable Snap updates (not installed)"
 msgstr "Snap güncellemelerini etkinleştir (kurulu değil)"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:135
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:254
 msgid "Enable Flatpak updates"
 msgstr "Flatpak güncellemelerini etkinleştir"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:136
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:255
 msgid "Enable Flatpak updates (not installed)"
 msgstr "Flatpak güncellemelerini etkinleştir (kurulu değil)"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:142
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:261
 msgid "Include phased (staged) updates"
 msgstr "Aşamalı (kademeli) güncellemeleri dahil et"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:149
-msgid "Count APT command (expected output = number): "
-msgstr "APT sayım komutu (beklenen çıktı = sayı): "
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:269
+msgid ""
+"Search and count commands are managed internally to match the backend "
+"parser's expected output format and are provided as read-only preview."
+msgstr ""
+"Arama ve sayma komutları, arka uç ayrıştırıcısının beklediği çıktı biçimiyle "
+"eşleşmesi için dahili olarak yönetilir ve salt-okunur önizleme olarak "
+"sunulur."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:155
-msgid "Count secondary (Snap/Flatpak) command: "
-msgstr "İkincil (Snap/Flatpak) sayım komutu: "
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:279
+msgid "Count APT command (preview): "
+msgstr "APT sayma komutu (önizleme): "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:162
-msgid "List APT command (expected output = package oldver -> newver): "
-msgstr "APT listeleme komutu (beklenen çıktı = paket eski -> yeni): "
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:289
+msgid "List APT command (preview): "
+msgstr "APT listeleme komutu (önizleme): "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:168
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:298
 msgid "List repository detail (optional): "
 msgstr "Depo ayrıntılarını listele (isteğe bağlı): "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:174
-msgid "List secondary (Snap/Flatpak) command: "
-msgstr "İkincil (Snap/Flatpak) listeleme komutu: "
-
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:180
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:303
 msgid "Update package"
 msgstr "Paket güncelleme"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:185
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:308
 msgid "Run updates in background silently (pkexec)"
 msgstr "Güncellemeleri arka planda sessizce çalıştır (pkexec)"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:200
-msgid "Update all packages command: "
-msgstr "Tüm paketleri güncelleme komutu: "
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:318
+msgid "Final update command preview: "
+msgstr "Çalıştırılacak nihai komut önizlemesi: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:206
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:327
 msgid "Update one package command: "
 msgstr "Tek paketi güncelleme komutu: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:212
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:335
 msgid "Command for the update action: "
 msgstr "Güncelleme işlemi komutu: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:218
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:343
 msgid "Command for the update action with do no close: "
 msgstr "Kapanmayan güncelleme işlemi komutu: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:224
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:351
 msgid "Command that run after the \"do not close\" command: "
 msgstr "\"Kapatma\" komutundan sonra çalışacak komut: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:44
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:46
 msgid "Icon"
 msgstr "Simge"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:50
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:54
 msgid ""
 "You may need to refresh the widget to see any change if you choose another "
 "icon.\n"
@@ -267,23 +481,23 @@ msgstr ""
 "gerekebilir.\n"
 "Bunu yapmanın hızlı bir yolu gereç menüsünden 'Yenile' seçeneğine basmaktır."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:56
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:68
 msgid "Main icon: "
 msgstr "Ana simge: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:62
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:85
 msgid "Refresh icon: "
 msgstr "Yenileme simgesi: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:72
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:103
 msgid "Custom icon color"
 msgstr "Özel simge rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:84
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:122
 msgid "Display"
 msgstr "Görünüm"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:90
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:130
 msgid ""
 "The dot is shown only if update is needed.\n"
 "This is the recommended option if you want to use the widget in your system "
@@ -293,158 +507,204 @@ msgstr ""
 "Gereci sistem tepsisinde kullanmak istiyorsanız veya etiketin sığamayacağı "
 "kadar çok güncellemeniz oluyorsa önerilen seçenek budur."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:96
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:140
 msgid "Show a dot in place of the label"
 msgstr "Etiket yerine nokta göster"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:108
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:150
 msgid "Custom main dot color"
 msgstr "Özel ana nokta rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:162
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:192
 msgid "Top Right"
 msgstr "Sağ Üst"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:162
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:192
 msgid "Top Left"
 msgstr "Sol Üst"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:162
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:192
 msgid "Bottom Right"
 msgstr "Sağ Alt"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:120
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:152
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:162
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:192
 msgid "Bottom Left"
 msgstr "Sol Alt"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:127
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:169
 msgid "Separate the dot between the two commands"
 msgstr "İki komut için noktayı ayır"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:140
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:180
 msgid "Custom second dot color"
 msgstr "Özel ikinci nokta rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:159
-msgid "Label display"
-msgstr "Etiket görünümü"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:207
+msgid "Count Display Format"
+msgstr "Güncelleme Sayısı Görünümü"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:165
-msgid "Expected result: APT + separator + Snap/Flatpak"
-msgstr "Beklenen sonuç: APT + ayırıcı + Snap/Flatpak"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:215
+msgid "Choose how the pending update count is displayed on the panel icon."
+msgstr "Panel simgesinde bekleyen güncellemelerin nasıl gösterileceğini seçin."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:171
-msgid "Separate result"
-msgstr "Sonuçları ayır"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:230
+msgid "Merged (single total count, e.g. 45)"
+msgstr "Birleşik (tek bir toplam sayı, örn: 45)"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:179
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:141
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:237
+msgid "Separated (split by package source, e.g. 41 ~ 0 ~ 4)"
+msgstr "Ayrık (paket yöneticisine göre, örn: 41 ~ 0 ~ 4)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:251
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:155
 msgid "Separator: "
 msgstr "Ayırıcı: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:185
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:262
 msgid "Hide label when 0 updates"
 msgstr "0 güncellemede etiketi gizle"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:27
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:27
 msgid "Mouse action"
 msgstr "Fare eylemleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:35
-msgid "Left click to check, middle click to update"
-msgstr "Kontrol etmek için sol tık, güncellemek için orta tık"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:35
+msgid "Left click to open popup, middle click to update"
+msgstr "Açılır pencereyi açmak için sol tık, güncellemek için orta tık"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:42
-msgid "Middle click to check, left click to update"
-msgstr "Kontrol etmek için orta tık, güncellemek için sol tık"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:42
+msgid "Middle click to open popup, left click to update"
+msgstr "Açılır pencereyi açmak için orta tık, güncellemek için sol tık"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:49
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:49
 msgid "Main action behavior"
 msgstr "Ana eylem davranışı"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:55
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:55
 msgid "Doing both at the same time is prone to bug so it's not possible"
 msgstr "İkisini aynı anda yapmak hataya meyillidir, bu yüzden mümkün değildir"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:61
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:61
 msgid "Do a refresh in place of opening the popup"
 msgstr "Açılır pencereyi açmak yerine yerinde yenileme yap"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:26
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:29
 msgid "Desktop Notifications"
 msgstr "Masaüstü Bildirimleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:32
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:35
 msgid ""
 "Critical update failures are always notified regardless of these settings to "
-"ensure system stability."
+"ensure system stability.\n"
+"Even if desktop notifications are turned off, system restart requirements "
+"will still be shown as a status banner in the popup."
 msgstr ""
-"Sistem kararlılığını korumak için, kritik güncelleme hataları bu ayarlardan "
-"bağımsız olarak her zaman bildirilir."
+"Kritik güncelleme hataları, sistem kararlılığını sağlamak için bu ayarlardan "
+"bağımsız olarak her zaman bildirilir.\n"
+"Masaüstü bildirimleri kapatılsa dahi sistem yeniden başlatma gereksinimi "
+"eklenti açılır penceresinde durum uyarısı olarak gösterilmeye devam eder."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:39
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:42
 msgid "Notify when new updates are found"
 msgstr "Yeni güncellemeler bulunduğunda bildir"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:45
-msgid "Notify when system restart is required"
-msgstr "Sistem yeniden başlatması gerektiğinde bildir"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:52
+msgid "Minimum pending updates required to notify: "
+msgstr "Bildirim için gereken en az bekleyen güncelleme sayısı: "
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:51
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:64
+msgid "updates"
+msgstr "güncelleme"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:70
+msgid "Notify if updates exceed threshold on session login"
+msgstr "Oturum açılışında güncellemeler eşiği aşıyorsa bildir"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:77
+msgid "Send desktop notification when system restart is required"
+msgstr "Sistem yeniden başlatması gerektiğinde masaüstü bildirimi gönder"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:83
+msgid "Notify when a new distribution release is available"
+msgstr "Yeni bir dağıtım sürümü yükseltmesi mevcut olduğunda bildir"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:89
 msgid "Notify on silent update completion"
 msgstr "Sessiz güncelleme tamamlandığında bildir"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:31
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:45
 msgid "PackageName"
 msgstr "PaketAdı"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:31
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:45
 msgid "from source"
 msgstr "kaynaktan"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:54
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:68
 msgid "Popup color"
 msgstr "Açılır pencere renkleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:80
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:94
 msgid "Custom name color"
 msgstr "Özel ad rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:96
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:110
 msgid "Custom source color"
 msgstr "Özel kaynak rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:112
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:126
 msgid "Custom 'from version' color"
 msgstr "Özel 'eski sürüm' rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:128
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:142
 msgid "Custom separator color"
 msgstr "Özel ayırıcı rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:150
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:164
 msgid "Custom 'to version' color"
 msgstr "Özel 'yeni sürüm' rengi"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:32
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:176
+msgid "Grouping"
+msgstr "Gruplama"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:181
+msgid "Group updates by repository"
+msgstr "Güncellemeleri depoya göre grupla"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:188
+msgid "Adaptive accordion (auto-expand groups with few updates)"
+msgstr "Adaptif akordiyon (az güncellemeli grupları otomatik aç)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:200
+msgid "Auto-expand threshold: "
+msgstr "Otomatik açma eşiği: "
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:212
+msgid "packages"
+msgstr "paket"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:31
 msgid "Debug log"
 msgstr "Hata ayıklama günlüğü"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:37
-msgid "Clear log data (hit apply after)"
-msgstr "Günlük verilerini temizle (ardından uygula'ya basın)"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:36
+msgid "Clear log data"
+msgstr "Günlük verilerini temizle"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:175
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:203
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:243
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:358
 msgid "Package Manager Busy"
 msgstr "Paket Yöneticisi Meşgul"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:175
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:203
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:243
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:358
 msgid ""
 "Another package management process is currently running. Please wait for it "
 "to complete."
@@ -452,40 +712,96 @@ msgstr ""
 "Şu anda başka bir paket yönetimi işlemi çalışıyor. Lütfen tamamlanmasını "
 "bekleyin."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:213
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:264
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:343
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:423
+msgid "An error occurred during update. Press Enter to close..."
+msgstr "Güncelleme sırasında bir hata oluştu. Kapatmak için Enter'a basın..."
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:292
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:379
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:403
 msgid "Snap is not installed on this system."
 msgstr "Snap bu sistemde kurulu değil."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:219
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:298
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:371
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:409
 msgid "Flatpak is not installed on this system."
 msgstr "Flatpak bu sistemde kurulu değil."
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:6
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:6
 msgctxt "@title"
 msgid "Command & debug"
 msgstr "Komut ve hata ayıklama"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:11
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:11
 msgctxt "@title"
 msgid "Display"
 msgstr "Görünüm"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:16
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:16
 msgctxt "@title"
 msgid "Notifications"
 msgstr "Bildirimler"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:21
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:21
 msgctxt "@title"
 msgid "Popup"
 msgstr "Açılır pencere"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:26
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:26
 msgctxt "@title"
 msgid "Mouse action"
 msgstr "Fare eylemleri"
 
-#: /home/tugay/.gemini/antigravity/scratch/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:31
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/config/config.qml:31
 msgctxt "@title"
 msgid "Debug log"
 msgstr "Hata ayıklama günlüğü"
+
+#, qt-format
+#~ msgid "Updating: %1 / %2 packages completed (%3%)"
+#~ msgstr "Güncelleniyor: %1 / %2 paket tamamlandı (%3%)"
+
+#~ msgid "Count APT command (expected output = number): "
+#~ msgstr "APT sayım komutu (beklenen çıktı = sayı): "
+
+#~ msgid "List APT command (expected output = package oldver -> newver): "
+#~ msgstr "APT listeleme komutu (beklenen çıktı = paket eski -> yeni): "
+
+#~ msgid "Notification threshold: "
+#~ msgstr "Bildirim eşiği: "
+
+#~ msgid "Give the following command: <br/>"
+#~ msgstr "Şu komut çalıştırılacak: <br/>"
+
+#~ msgid "Count secondary (Snap/Flatpak) command: "
+#~ msgstr "İkincil (Snap/Flatpak) sayım komutu: "
+
+#~ msgid "List secondary (Snap/Flatpak) command: "
+#~ msgstr "İkincil (Snap/Flatpak) listeleme komutu: "
+
+#~ msgid "Update all packages command: "
+#~ msgstr "Tüm paketleri güncelleme komutu: "
+
+#~ msgid "Collapse"
+#~ msgstr "Daralt"
+
+#~ msgid "Expand"
+#~ msgstr "Genişlet"
+
+#~ msgid "Grouping threshold (minimum packages): "
+#~ msgstr "Gruplama eşiği (en az paket sayısı): "
+
+#~ msgid "Label display"
+#~ msgstr "Etiket görünümü"
+
+#~ msgid "Expected result: APT + separator + Snap/Flatpak"
+#~ msgstr "Beklenen sonuç: APT + ayırıcı + Snap/Flatpak"
+
+#~ msgid "Separate result"
+#~ msgstr "Sonuçları ayır"
+
+#~ msgid "Extra:"
+#~ msgstr "Ek (Snap/Flatpak):"

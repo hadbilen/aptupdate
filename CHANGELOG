@@ -1,3 +1,11 @@
+### v1.2.0
+  - Multi-Ecosystem Accordion UI: Redesigned popup with dedicated collapsible accordion sections for APT, Snap, and Flatpak package updates, featuring native vector backend icons, individual ecosystem counts, and per-backend upgrade action triggers.
+  - Ecosystem-Aware Package Management: Granular handling and routing of updates across APT, Snap, and Flatpak with individual ecosystem counters, badges, and configurable visibility.
+  - Enhanced Lock Awareness & Conflict Detection: Advanced pre-flight checks detecting package manager locks across all backends to safely defer operations and prevent conflicts with terminal installations or unattended upgrades.
+  - Configurable Startup Check Delay: Introduces intelligent startup delay for initial update checks after system login, avoiding boot-time disk I/O bottlenecks and lock contention.
+  - Refreshed Visual Assets: Updated screenshots and previews across `git-assets/img/` reflecting KDE Plasma 6 multi-ecosystem accordion interface, tooltip previews, and configuration pages.
+  - Complete Localization: Comprehensive Turkish translation coverage across all new multi-ecosystem controls, accordion headers, tooltips, and lock banners.
+
 ### v1.1.2
   - Fixed Continuous Spinning & Refresh State Bug: Eliminated over-broad `source.indexOf("apt ")` check in `main.qml` that falsely classified package count checks (`apt list`) as running upgrades, which permanently locked the widget in `isOnUpdate = true` and caused the icon animation and `↻` badge to run infinitely.
   - Refresh Spinner Icon: Replaced awkward diagonal arrow spinning animation with the standard Breeze circular refresh arrows (`view-refresh.svg`), delivering a smooth and natural loading animation during package upgrades.

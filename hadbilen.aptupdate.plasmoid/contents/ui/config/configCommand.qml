@@ -36,6 +36,8 @@ Kirigami.ScrollablePage {
 
   property alias cfg_updateInterval: updateIntervalSpin.value
   property alias cfg_updateIntervalUnit: updateIntervalUnitCombo.currentIndex
+  property alias cfg_startupCheckMode: startupCheckModeCombo.currentIndex
+  property alias cfg_startupDelaySeconds: startupDelaySecondsSpin.value
   property alias cfg_debugMode: debugModeBox.checked
   property alias cfg_retryMode: retryModeBox.checked
   property alias cfg_notCloseCommand: notCloseBox.checked
@@ -44,26 +46,49 @@ Kirigami.ScrollablePage {
   property alias cfg_silentUpdate: silentUpdateBox.checked
   property alias cfg_includePhasedUpdates: includePhasedUpdatesBox.checked
 
-  property alias cfg_updateCommand: updateCommandInput.text
   property alias cfg_updateCommandOne: updateCommandOneInput.text
-  property alias cfg_countArchCommand: countArchCommandInput.text
-  property alias cfg_countAurCommand: countAurCommandInput.text
-
-  property alias cfg_listArchCommand: listArchCommandInput.text
   property alias cfg_listRepoArchCommand: listRepoArchCommandInput.text
-  property alias cfg_listAurCommand: listAurCommandInput.text
 
   property alias cfg_termCmd: termCmdInput.text
   property alias cfg_termNoCloseCmd: termNoCloseCmdInput.text
   property alias cfg_termNoCloseSuffix: termNoCloseSuffixInput.text
 
-  function generateCmdExample() {
-    const shell = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termNoCloseSuffix + "</font>'<br/>"
-    const cmdA = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommand + "</font>'<br/>"
-    const cmdB = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommandOne + "</font> packageName'<br/>"
-    const cmdC = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termNoCloseCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommand + "</font>" + shell
-    const cmdD = "<font color=\"" + Kirigami.Theme.disabledTextColor + "\">" + cfg_termNoCloseCmd + "</font> '<font color=\"" + Kirigami.Theme.positiveTextColor + "\">" + cfg_updateCommandOne + "</font> packageName" + shell
-    return i18n("Give the following command: <br/>") + cmdA + cmdB + cmdC + cmdD
+  function getEffectiveCountCommand() {
+    var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
+    return "bash -c \"set -o pipefail; LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\\\[/ {c++} END {print c+0}'\""
+  }
+
+  function getEffectiveListCommand() {
+    var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
+    return "LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\[/ {orig=$0; gsub(/[][()]/, \"\"); $1=$1; origins=\"\"; for(i=5;i<=NF;i++) origins=(origins==\"\" ? $i : origins \" \" $i); print $2, $3, \"->\", $4, origins }'"
+  }
+
+  function getEffectivePreviewCommand() {
+    var aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 upgrade"
+    if (includePhasedUpdatesBox.checked) {
+      aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade"
+    }
+    var parts = ["sudo apt -o DPkg::Lock::Timeout=10 update && " + aptUpgrade]
+    if (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) {
+      parts.push("sudo snap refresh")
+    }
+    if (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak) {
+      parts.push("flatpak update -y")
+    }
+    var effCmd = parts.length > 1 ? ("err=0; " + parts.map(p => "(" + p + ") || err=1").join("; ") + "; [ $err -eq 0 ]") : (parts[0] || "")
+    if (silentUpdateBox.checked) {
+      var silentApt = "(apt-get -o DPkg::Lock::Timeout=10 update && " + (includePhasedUpdatesBox.checked ? "apt-get -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq --with-new-pkgs" : "apt-get -o DPkg::Lock::Timeout=10 upgrade -yq --with-new-pkgs") + ")"
+      var rootParts = [silentApt]
+      if (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) {
+        rootParts.push("snap refresh")
+      }
+      var steps = ["pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + rootParts.join("; ") + "'"]
+      if (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak) {
+        steps.push("flatpak update -y")
+      }
+      return steps.join("; ")
+    }
+    return effCmd
   }
 
   ColumnLayout {
@@ -112,6 +137,46 @@ Kirigami.ScrollablePage {
           Controls.ComboBox {
             id: updateIntervalUnitCombo
             model: [i18n("Minute(s)"), i18n("Hour(s)"), i18n("Day(s)")]
+          }
+        }
+
+        RowLayout {
+          Layout.alignment: Qt.AlignHCenter
+          spacing: Kirigami.Units.smallSpacing
+
+          Controls.Label {
+            text: i18n("Startup check: ")
+          }
+
+          Controls.ComboBox {
+            id: startupCheckModeCombo
+            model: [
+              i18n("Do not check on startup"),
+              i18n("Check immediately"),
+              i18n("Check after delay")
+            ]
+          }
+        }
+
+        RowLayout {
+          Layout.alignment: Qt.AlignHCenter
+          spacing: Kirigami.Units.smallSpacing
+          visible: startupCheckModeCombo.currentIndex === 2
+
+          Controls.Label {
+            text: i18n("Startup delay: ")
+          }
+
+          Controls.SpinBox {
+            id: startupDelaySecondsSpin
+            from: 5
+            to: 3600
+            stepSize: 5
+            editable: true
+          }
+
+          Controls.Label {
+            text: i18n("seconds")
           }
         }
 
@@ -197,29 +262,32 @@ Kirigami.ScrollablePage {
       Kirigami.FormData.isSection: true
     }
 
-    Controls.TextField {
-      id: countArchCommandInput
-      selectByMouse: true
+    Kirigami.InlineMessage {
       Layout.fillWidth: true
-      Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("Count APT command (expected output = number): ")
+      Kirigami.FormData.isSection: true
+      type: Kirigami.MessageType.Information
+      text: i18n("Search and count commands are managed internally to match the backend parser's expected output format and are provided as read-only preview.")
+      visible: true
     }
 
     Controls.TextField {
-      id: countAurCommandInput
+      id: countArchCommandInput
+      readOnly: true
       selectByMouse: true
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("Count secondary (Snap/Flatpak) command: ")
-      enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
+      Kirigami.FormData.label: i18n("Count APT command (preview): ")
+      text: getEffectiveCountCommand()
     }
 
     Controls.TextField {
       id: listArchCommandInput
+      readOnly: true
       selectByMouse: true
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("List APT command (expected output = package oldver -> newver): ")
+      Kirigami.FormData.label: i18n("List APT command (preview): ")
+      text: getEffectiveListCommand()
     }
 
     Controls.TextField {
@@ -228,15 +296,6 @@ Kirigami.ScrollablePage {
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
       Kirigami.FormData.label: i18n("List repository detail (optional): ")
-    }
-
-    Controls.TextField {
-      id: listAurCommandInput
-      selectByMouse: true
-      Layout.fillWidth: true
-      Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("List secondary (Snap/Flatpak) command: ")
-      enabled: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) || (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
     }
 
     Kirigami.Separator {
@@ -250,20 +309,14 @@ Kirigami.ScrollablePage {
       Kirigami.FormData.isSection: true
     }
 
-    Kirigami.Heading {
-      level: 3
-      Layout.fillWidth: true
-      wrapMode: Text.Wrap
-      text: generateCmdExample()
-      Kirigami.FormData.isSection: true
-    }
-
     Controls.TextField {
-      id: updateCommandInput
+      id: updateCommandPreview
+      readOnly: true
       selectByMouse: true
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("Update all packages command: ")
+      Kirigami.FormData.label: i18n("Final update command preview: ")
+      text: getEffectivePreviewCommand()
     }
 
     Controls.TextField {

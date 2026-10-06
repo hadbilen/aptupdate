@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtCore
 import org.kde.plasma.core as PlasmaCore
-import org.kde.kquickcontrolsaddons as KQuickAddons
 import org.kde.ksvg as KSvg
 import org.kde.kirigami as Kirigami
 import org.kde.iconthemes as KIconThemes
@@ -18,15 +17,14 @@ Button {
     if (value === defaultValue) {
       path = "../../assets";
     }
-    if (value.split("/").lenght > 1) {
-      const path = defaultValue.split("/");
-      path.pop();
-      path = path.toString();
+    if (value.split("/").length > 1) {
+      let parts = value.split("/");
+      parts.pop();
+      path = parts.join("/");
     }
     if (path === value) {
-      const location = plasmoid.location === PlasmaCore.Types.Vertical || plasmoid.location === PlasmaCore.Types.Horizontal;
-      path = location ? "widgets/panel-background" : "widgets/background";
-
+      const isPanel = plasmoid.formFactor === PlasmaCore.Types.Vertical || plasmoid.formFactor === PlasmaCore.Types.Horizontal;
+      path = isPanel ? "widgets/panel-background" : "widgets/background";
     }
     return path;
   }

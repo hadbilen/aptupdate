@@ -8,7 +8,10 @@ Kirigami.ScrollablePage {
     id: notificationConfigPage
 
     property alias cfg_notifyOnUpdates: notifyOnUpdatesBox.checked
+    property alias cfg_notificationThreshold: notificationThresholdSpin.value
+    property alias cfg_notifyOnStartup: notifyOnStartupBox.checked
     property alias cfg_notifyOnRebootRequired: notifyOnRebootRequiredBox.checked
+    property alias cfg_notifyOnReleaseUpgrade: notifyOnReleaseUpgradeBox.checked
     property alias cfg_notifyOnSilentUpdate: notifyOnSilentUpdateBox.checked
 
     Kirigami.FormLayout {
@@ -29,7 +32,7 @@ Kirigami.ScrollablePage {
         Kirigami.InlineMessage {
             Layout.fillWidth: true
             Kirigami.FormData.isSection: true
-            text: i18n("Critical update failures are always notified regardless of these settings to ensure system stability.")
+            text: i18n("Critical update failures are always notified regardless of these settings to ensure system stability.\nEven if desktop notifications are turned off, system restart requirements will still be shown as a status banner in the popup.")
             type: Kirigami.MessageType.Information
             visible: true
         }
@@ -40,9 +43,44 @@ Kirigami.ScrollablePage {
             Kirigami.FormData.isSection: true
         }
 
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+            enabled: notifyOnUpdatesBox.checked
+
+            Controls.Label {
+                text: i18n("Minimum pending updates required to notify: ")
+            }
+
+            Controls.SpinBox {
+                id: notificationThresholdSpin
+                from: 1
+                to: 20
+                value: 1
+                editable: true
+            }
+
+            Controls.Label {
+                text: i18n("updates")
+            }
+        }
+
+        Controls.CheckBox {
+            id: notifyOnStartupBox
+            text: i18n("Notify if updates exceed threshold on session login")
+            enabled: notifyOnUpdatesBox.checked
+            Kirigami.FormData.isSection: true
+        }
+
         Controls.CheckBox {
             id: notifyOnRebootRequiredBox
-            text: i18n("Notify when system restart is required")
+            text: i18n("Send desktop notification when system restart is required")
+            Kirigami.FormData.isSection: true
+        }
+
+        Controls.CheckBox {
+            id: notifyOnReleaseUpgradeBox
+            text: i18n("Notify when a new distribution release is available")
             Kirigami.FormData.isSection: true
         }
 

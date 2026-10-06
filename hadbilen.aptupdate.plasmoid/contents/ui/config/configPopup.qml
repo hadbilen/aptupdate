@@ -24,6 +24,20 @@ Kirigami.ScrollablePage {
     property alias cfg_tvUseCustomColor: tvUseCustomColor.checked
     property alias cfg_tvColor: tvColor.color
 
+    property alias cfg_groupUpdates: groupUpdatesBox.checked
+    property alias cfg_adaptiveGrouping: adaptiveGroupingBox.checked
+    property alias cfg_adaptiveGroupingThreshold: adaptiveGroupingThresholdSpin.value
+
+    function escapeHtml(text) {
+        if (text === undefined || text === null) return ""
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;")
+    }
+
     // generate & style the name of the package
     function generateName() {
         const nc = cfg_nameUseCustomColor ? cfg_nameColor : Kirigami.Theme.textColor
@@ -36,7 +50,7 @@ Kirigami.ScrollablePage {
         const fvc = cfg_fvUseCustomColor ? cfg_fvColor : Kirigami.Theme.negativeTextColor
         const sc = cfg_separatorUseCustomColor ? cfg_separatorColor : Kirigami.Theme.textColor
         const tvc = cfg_tvUseCustomColor ? cfg_tvColor : Kirigami.Theme.positiveTextColor
-        return '<font color="' + fvc + '">1.0.0</font><font color="' + sc + '"> ' + cfg_separatorText + ' </font><font color="' + tvc + '">2.0.0</font>'
+        return '<font color="' + fvc + '">1.0.0</font><font color="' + sc + '"> ' + escapeHtml(cfg_separatorText) + ' </font><font color="' + tvc + '">2.0.0</font>'
     }
 
     Kirigami.FormLayout {
@@ -154,6 +168,48 @@ Kirigami.ScrollablePage {
             KQuickControls.ColorButton {
                 id: tvColor
                 enabled: tvUseCustomColor.checked
+            }
+        }
+
+        Kirigami.Separator {
+            Kirigami.FormData.isSection: true
+            Kirigami.FormData.label: i18n("Grouping")
+        }
+
+        Controls.CheckBox {
+            id: groupUpdatesBox
+            text: i18n("Group updates by repository")
+            checked: true
+            Kirigami.FormData.isSection: true
+        }
+
+        Controls.CheckBox {
+            id: adaptiveGroupingBox
+            text: i18n("Adaptive accordion (auto-expand groups with few updates)")
+            checked: true
+            enabled: groupUpdatesBox.checked
+            Kirigami.FormData.isSection: true
+        }
+
+        RowLayout {
+            Kirigami.FormData.isSection: true
+            spacing: Kirigami.Units.smallSpacing
+            enabled: groupUpdatesBox.checked && adaptiveGroupingBox.checked
+
+            Controls.Label {
+                text: i18n("Auto-expand threshold: ")
+            }
+
+            Controls.SpinBox {
+                id: adaptiveGroupingThresholdSpin
+                from: 1
+                to: 25
+                value: 5
+                editable: true
+            }
+
+            Controls.Label {
+                text: i18n("packages")
             }
         }
 

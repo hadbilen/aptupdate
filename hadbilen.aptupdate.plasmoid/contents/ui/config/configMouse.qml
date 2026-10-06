@@ -32,14 +32,14 @@ Kirigami.ScrollablePage {
             spacing: Kirigami.Units.smallSpacing
 
             PlasmaComponents.RadioButton {
-                text: i18n("Left click to check, middle click to update")
+                text: i18n("Left click to open popup, middle click to update")
                 checked: !invertMouseAction.checked
                 autoExclusive: true
             }
 
             PlasmaComponents.RadioButton {
                 id: invertMouseAction
-                text: i18n("Middle click to check, left click to update")
+                text: i18n("Middle click to open popup, left click to update")
                 autoExclusive: true
             }
         }

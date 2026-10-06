@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
-import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components as PlasmaComponents3
 import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.plasmoid
@@ -11,29 +10,18 @@ ColumnLayout {
 
     property var dividerColor: Kirigami.Theme.textColor
     property var dividerOpacity: 0.1
-    property string totalArch: "0"
-    property string totalAur: "0"
-    property bool rebootRequired: false
+    property string totalApt: main.tApt
+    property string totalSnap: main.tSnap
+    property string totalFlatpak: main.tFlatpak
+    property bool rebootRequired: main.rebootRequired
+    property bool releaseUpgradeAvailable: main.releaseUpgradeAvailable
+    property string releaseUpgradeVersion: main.releaseUpgradeVersion
 
     function noUpdateAvailable() {
-        return totalArch === "0" && totalAur === "0"
-    }
-
-    // map the cmd signal
-    Connections {
-        target: cmd
-
-        function onTotalAur(total) {
-            root.totalAur = total
-        }
-
-        function onTotalArch(total) {
-            root.totalArch = total
-        }
-
-        function onRebootStatus(required) {
-            root.rebootRequired = required
-        }
+        const apt = parseInt(totalApt, 10) || 0
+        const snap = parseInt(totalSnap, 10) || 0
+        const flatpak = parseInt(totalFlatpak, 10) || 0
+        return (apt + snap + flatpak) === 0
     }
 
     ColumnLayout {
@@ -48,7 +36,7 @@ ColumnLayout {
             id: tooltipMaintext
             level: 3
             elide: Text.ElideRight
-            text: main.hasError ? i18n("Update Error") : (noUpdateAvailable() ? i18n("No updates available") : i18n("Updates are available"))
+            text: main.hasError ? i18n("Update Error") : (noUpdateAvailable() ? (root.releaseUpgradeAvailable ? i18n("Upgrade Available") : i18n("No updates available")) : i18n("Updates are available"))
         }
 
         RowLayout {
@@ -80,25 +68,58 @@ ColumnLayout {
         }
 
         RowLayout {
+            visible: root.releaseUpgradeAvailable && !main.hasError
+            Kirigami.Icon {
+                source: "system-software-update"
+                implicitWidth: Kirigami.Units.iconSizes.small
+                implicitHeight: Kirigami.Units.iconSizes.small
+            }
+            PlasmaComponents3.Label {
+                text: root.releaseUpgradeVersion !== "" ? i18n("Distribution upgrade available: Ubuntu %1", root.releaseUpgradeVersion) : i18n("Distribution upgrade available")
+                color: Kirigami.Theme.neutralTextColor
+                font.bold: true
+            }
+        }
+
+        RowLayout {
+            spacing: Kirigami.Units.largeSpacing
+            visible: !root.noUpdateAvailable() && !main.hasError
+
             RowLayout {
+                spacing: Kirigami.Units.smallSpacing
+                visible: (parseInt(root.totalApt, 10) || 0) > 0
                 PlasmaComponents3.Label {
                     text: i18n("APT:")
                     opacity: 1
                 }
                 PlasmaComponents3.Label {
-                    text: totalArch
+                    text: root.totalApt
                     opacity: .7
                 }
             }
-            Item { Layout.fillWidth: true }
+
             RowLayout {
-                visible: totalAur !== "" && totalAur !== "0"
+                spacing: Kirigami.Units.smallSpacing
+                visible: plasmoid.configuration.enableSnapUpdates && plasmoid.configuration.hasSnap && (parseInt(root.totalSnap, 10) || 0) > 0
                 PlasmaComponents3.Label {
-                    text: i18n("Extra:")
+                    text: i18n("Snap:")
                     opacity: 1
                 }
                 PlasmaComponents3.Label {
-                    text: totalAur
+                    text: root.totalSnap
+                    opacity: .7
+                }
+            }
+
+            RowLayout {
+                spacing: Kirigami.Units.smallSpacing
+                visible: plasmoid.configuration.enableFlatpakUpdates && plasmoid.configuration.hasFlatpak && (parseInt(root.totalFlatpak, 10) || 0) > 0
+                PlasmaComponents3.Label {
+                    text: i18n("Flatpak:")
+                    opacity: 1
+                }
+                PlasmaComponents3.Label {
+                    text: root.totalFlatpak
                     opacity: .7
                 }
             }
