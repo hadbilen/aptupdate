@@ -1,10 +1,8 @@
 # APT Update Counter - KDE Plasma 6 Widget
 
-<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.2.1-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
+<img alt="Platform" src="https://img.shields.io/badge/Platform-KDE%20Plasma%206-blue"> <img alt="Distro" src="https://img.shields.io/badge/Distro-Kubuntu%20%7C%20Ubuntu%20%7C%20Debian-E95420"> <img alt="Version" src="https://img.shields.io/badge/Version-1.2.2-brightgreen"> <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-green">
 
-A clean, responsive, and customizable KDE Plasma 6 widget / system tray applet to monitor and manage pending **APT**, **Snap**, and **Flatpak** package updates on Kubuntu, Ubuntu, and Debian systems.
-
-Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate) project with native APT, Snap, and Flatpak support.
+A KDE Plasma 6 panel widget and system tray applet for monitoring and applying **APT**, **Snap**, and **Flatpak** updates on Kubuntu, Ubuntu, and Debian systems. Derived with gratitude from [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate).
 
 ![APT Update Counter Preview](git-assets/img/allalt.png)
 
@@ -14,108 +12,145 @@ Forked and adapted from the excellent [bouteillerAlan/archupdate](https://github
 
 ## Features
 
-- **Multi-Ecosystem (APT, Snap & Flatpak):** Concurrently tracks core system APT packages and modern containerized Snap and Flatpak applications.
-- **Selective Ecosystem Toggles:** Independent toggles for Snap and Flatpak updates. Run both, Snap only, Flatpak only, or disable secondary managers completely for a lightweight APT-only setup with zero idle background overhead.
-- **Ubuntu Phased Updates Management:** Intelligently filter out staged/deferred phased updates so your badge accurately reflects immediately installable updates, or choose to include and forcibly upgrade phased packages. Individual package clicks always install directly.
-- **Optional Nala Support:** Automatically detects if `nala` is installed and lets you opt into faster, more readable terminal upgrades while keeping APT simulations and silent `pkexec` updates on deterministic `apt-get`.
-- **Silent Background Updates:** Optional non-interactive background upgrade mode via `pkexec` without opening a terminal window.
-- **Rich Icon States & Animation:** Active updates feature a smooth rotation animation and theme accent color; update errors display a negative red error badge (`!`) with diagnostic tooltips.
-- **Dedicated Notifications Tab:** Consolidated settings tab for desktop notifications: alerts for newly discovered updates, system restart required alerts, and silent background upgrade completion.
-- **Fail-Safe Policy:** Critical package management errors and failure alerts are guaranteed to surface even if optional notifications are turned off.
-- **Responsive Popup Layout:** Dynamically constrained popup width (320px - 580px) with elegant text truncation (`...`) for long package names, keeping action buttons aligned and accessible.
-- **Interactive Popup:** Click to view available updates (`<package> <installed-version> -> <new-version>`), with direct links to [packages.ubuntu.com](https://packages.ubuntu.com) for APT, [snapcraft.io](https://snapcraft.io) for Snap, and [flathub.org](https://flathub.org) for Flatpak packages.
-- **Reboot Required Detection & Notification:** Automatically detects `/var/run/reboot-required` (e.g. following kernel, systemd, or glibc updates) and sends a native desktop alert while displaying clear restart warnings in both the tooltip and popup.
-- **Internationalization (i18n):** Full GNU Gettext localization support. The canonical source code is 100% English, while automatically displaying in the user's desktop language (Turkish catalog included, community translations welcome).
-- **One-Click Upgrades:** Launch full system upgrades or upgrade individual packages in Konsole or silently in the background directly from the applet or via mouse middle-click.
-- **System Tray & Panel Friendly:** Works both as an independent panel widget or integrated into the KDE System Tray (with auto-hide when up to date).
-- **Fully Customizable:** Custom refresh intervals, appearance styles (dual dots, badge labels with separators, colors), and fully editable commands.
-- **Native Breeze Theming:** Integrates with KDE Plasma's `system-software-update` icon for full theme consistency.
-- **Graceful Fallbacks:** Operates seamlessly even if Snap or Flatpak is not installed on the system.
+- **Multi-Ecosystem Tracking (APT, Snap & Flatpak):** Monitors APT packages alongside Snap and Flatpak applications, with independent toggles to disable unneeded backends and eliminate idle checks.
+- **Ubuntu & Debian Distribution Awareness:** Reads `/etc/os-release` to route APT package info links to `packages.ubuntu.com` or `packages.debian.org` and hides Ubuntu-only `do-release-upgrade` banners on Debian.
+- **Phased Updates Control:** Filters out deferred Ubuntu phased updates by default or optionally includes them via `-o APT::Get::Always-Include-Phased-Updates=true`.
+- **Safe Silent Background Updates (`pkexec`) & Terminal Upgrades (`konsole`):** Runs non-interactive `apt-get` upgrades cleanly (`--force-confdef`, `--force-confold`, closed stdin) under `systemd-inhibit` and isolated user scopes, or launches interactive upgrades in Konsole (optionally with `nala`).
+- **Package Manager Lock & Connectivity Resilience:** Detects active `dpkg`, `apt`, and `org.freedesktop.PackageKit` D-Bus transactions cleanly without false positives on idle `packagekitd`, warns when local `/var/lib/apt/lists` metadata becomes stale, and preserves cached updates while offline.
+- **Clear Error & Status Visibility:** Displays negative theme error indicators on both badge and dot modes, surfaces diagnostic summaries in tooltips, and isolates partial repository errors without hiding healthy package lists.
+- **Reboot & Desktop Notifications:** Detects `/var/run/reboot-required`, prompts through KDE's Session D-Bus (`org.kde.LogoutPrompt`), and delivers origin-aware security update notifications with configurable thresholds.
+- **Clean XDG Storage:** Stores volatile update cache (`cache.json`) and capped debug logs (`debug.log`) in `$XDG_CACHE_HOME/hadbilen.aptupdate.plasmoid/` and transient failure/exit/process-group logs in `$XDG_RUNTIME_DIR/aptupdate` (falling back to `$XDG_CACHE_HOME/hadbilen.aptupdate.plasmoid/logs`) with private `0700`/`0600` permissions rather than polluting KDE configuration files.
 
 ---
 
-## Installation
+## How Update Checking Works (Explanation)
 
-### 1. Requirements
+### Coexistence with KDE Discover Notifier & `apt-daily.timer`
 
-Ensure you have `konsole` installed on your system (default on Kubuntu):
+Passive update checks run unprivileged without invoking `sudo apt update`. Because `/var/lib/apt/lists` requires root privileges to refresh, the widget relies on your distribution's scheduled `apt-daily.timer` (or KDE Discover / manual upgrades) to keep local APT package indexes fresh:
+
+- When you run a full upgrade from the widget, it runs `apt-get -o DPkg::Lock::Timeout=10 update` before upgrading packages.
+- If `/var/lib/apt/lists` has not been updated for more than 3 days, the popup displays an informational notice reminding you that local APT package metadata is stale.
+- Because the widget probes `org.freedesktop.PackageKit` over D-Bus in addition to `dpkg` frontend locks, running upgrades concurrently with KDE Discover safely disables APT install triggers until Discover finishes.
+
+### Nala `--no-autoremove` & `--with-new-pkgs` Behavior
+
+When **Use Nala for APT upgrades (terminal mode only)** is enabled, interactive full upgrades invoke `sudo nala upgrade --no-autoremove -o DPkg::Lock::Timeout=10` and single-package installs invoke `sudo nala install --no-autoremove -o DPkg::Lock::Timeout=10 -y`. Silent background upgrades (`pkexec`) and passive update checks always remain on deterministic `apt-get` (`apt-get -s --with-new-pkgs upgrade`) so count and list parsing match reliably across releases; because `nala upgrade` may defer upgrades requiring brand-new dependency packages compared to `apt-get --with-new-pkgs`, the number of packages upgraded by Nala can occasionally be lower than the listed count.
+
+---
+
+## Installation & Upgrade (How-To)
+
+### 1. Prerequisites
+
+Install the required runtime packages for Kubuntu, Ubuntu, or Debian (most are pre-installed on KDE Plasma desktops):
 
 ```bash
-sudo apt install konsole
+sudo apt install konsole pkexec psmisc procps iproute2 systemd libglib2.0-bin dbus-bin libnotify-bin gawk
 ```
 
-### 2. Quick Install (from Source)
+Optional integrations supported when installed: `nala`, `snapd`, `flatpak`, `network-manager` (`nmcli`), `qdbus-qt6`, `kdialog`, and `ubuntu-release-upgrader-core`.
 
-Run the following commands in your terminal:
+### 2. Install via `kpackagetool6` (Recommended)
+
+Package a clean release archive and install or upgrade using KDE's package manager:
 
 ```bash
 # Clone the repository
 git clone https://github.com/hadbilen/aptupdate.git /tmp/aptupdate
+cd /tmp/aptupdate
 
-# Install into KDE Plasma 6 user plasmoids directory
-mkdir -p ~/.local/share/plasma/plasmoids
-cp -r /tmp/aptupdate/hadbilen.aptupdate.plasmoid ~/.local/share/plasma/plasmoids/
+# Build and verify the clean .plasmoid archive under dist/
+./scripts/package.sh
 
-# Refresh KDE system cache
-kbuildsycoca6 --noincremental
+# Install (first time) or upgrade (existing installation)
+kpackagetool6 --type Plasma/Applet --install dist/hadbilen.aptupdate.plasmoid-v1.2.2.plasmoid
+# To upgrade an existing install instead:
+# kpackagetool6 --type Plasma/Applet --upgrade dist/hadbilen.aptupdate.plasmoid-v1.2.2.plasmoid
 
-# Restart Plasmashell (flushes in-memory QML cache without closing open apps)
+# Restart Plasmashell to reload QML/service components
 systemctl --user restart plasma-plasmashell.service
-
-# Clean up temporary clone
-rm -rf /tmp/aptupdate
 ```
 
-### 3. Adding to Panel or System Tray
-
-1. **On Panel:** Right-click your KDE panel, select **Add Widgets...** (Gereç Ekle), search for **APT Update Counter**, and drag it onto your panel.
-2. **In System Tray:** Right-click the System Tray arrow -> **Configure System Tray...** -> **Entries** -> ensure **APT Update Counter** is set to *Shown when relevant* or *Always shown*.
-
----
-
-## Default Commands Configuration
-
-The applet comes pre-configured for Debian / Ubuntu / Kubuntu:
-
-| Setting | Default Value / Command | Description |
-| :--- | :--- | :--- |
-| **Enable Snap Updates** | `true` | Toggle tracking and upgrading Snap packages |
-| **Enable Flatpak Updates** | `true` | Toggle tracking and upgrading Flatpak packages |
-| **Include Phased Updates** | `false` | Include staged/deferred phased updates in count/list (and force in full upgrade) |
-| **Use Nala in Terminal Mode** | `false` | Use `sudo nala upgrade` / `sudo nala install` in terminal mode when `nala` is detected (disabled in Silent Mode) |
-| **Silent Background Updates** | `false` | Run upgrades silently via `pkexec` without opening a terminal window |
-| **Notify on Silent Update** | `true` | Desktop notification upon completion (critical failure errors are always notified) |
-| **Count APT Command (internal)** | `bash -c "set -o pipefail; LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade 2>/dev/null \| awk '/^Inst [^ ]+ \\[/ {c++} END {print c+0}'"` | Counts pending APT package updates (with optional phased updates flag) |
-| **Count & List Snap / Flatpak (internal)** | `LC_ALL=C timeout --kill-after=5s 20s snap refresh --list` / `flatpak remote-ls --updates` | Single-pass pipelines extracting Snap/Flatpak update counts and versions with `set -o pipefail` |
-| **List APT / Snap / Flatpak (internal)** | Managed read-only pipelines with `set -o pipefail` and `LC_ALL=C` | Extracts package names, installed versions, target versions, and origin repositories |
-| **Update All Command** | `sudo apt -o DPkg::Lock::Timeout=10 update && sudo apt -o DPkg::Lock::Timeout=10 upgrade` (or `sudo nala upgrade -o DPkg::Lock::Timeout=10`; plus `sudo snap refresh` / `flatpak update -y` when pending) | Full or per-ecosystem upgrade in terminal or via `pkexec` |
-| **Update One Command** | `sudo apt install --only-upgrade` (or `sudo nala install -o DPkg::Lock::Timeout=10` when Nala is enabled) | Upgrade single selected APT package (`-o DPkg::Lock::Timeout=10 -y` injected automatically; Snap/Flatpak routed natively) |
-| **Terminal Command** | `konsole -e bash -c` | Terminal emulator wrapper |
-
----
-
-## Contributing & Translations
-
-Translations are managed using standard GNU Gettext under `translate/`:
+To verify installation or uninstall later:
 
 ```bash
-# To update template.pot and compile all .po files to .mo:
-./translate/build.sh
+kpackagetool6 --type Plasma/Applet --show hadbilen.aptupdate.plasmoid
+kpackagetool6 --type Plasma/Applet --remove hadbilen.aptupdate.plasmoid
 ```
 
-To contribute a new language, copy `translate/template.pot` to `translate/<lang>.po`, translate the strings, and submit a pull request.
+### 3. Direct User Directory Install
+
+If you prefer copying the widget directory directly from a source checkout:
+
+```bash
+mkdir -p ~/.local/share/plasma/plasmoids
+cp -a hadbilen.aptupdate.plasmoid ~/.local/share/plasma/plasmoids/
+kbuildsycoca6 --noincremental
+systemctl --user restart plasma-plasmashell.service
+```
+
+### 4. Add to Panel or System Tray
+
+1. **On a Panel:** Right-click the panel, choose **Add Widgets...**, search for **APT Update Counter**, and drag it into place.
+2. **In the System Tray:** Right-click the System Tray arrow, select **Configure System Tray...** -> **Entries**, and set **APT Update Counter** to *Shown when relevant* or *Always shown*.
 
 ---
 
-## Credits & Upstream
+## Default Configuration & Commands (Reference)
 
-- **Original Creator & UI Design:** [Alan Bouteiller (A2N)](https://github.com/bouteillerAlan) - [bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate).
-- **Debian / Ubuntu / Snap / Flatpak Port & Maintainer:** [hadbilen](https://github.com/hadbilen) - [hadbilen/aptupdate](https://github.com/hadbilen/aptupdate).
+Defaults defined in `contents/config/main.xml` and generated by `contents/service/CommandBuilder.js`:
 
-## Trademarks & Attributions
+| Setting / Operation | Default Value or Command | Notes |
+| :--- | :--- | :--- |
+| **Enable Snap Updates** | `true` | Disabled automatically if `snap` is absent |
+| **Enable Flatpak Updates** | `true` | Disabled automatically if `flatpak` is absent |
+| **Include Phased Updates** | `false` | Appends `-o APT::Get::Always-Include-Phased-Updates=true` |
+| **Silent Background Updates** | `false` | Executes via `pkexec` under `systemd-inhibit` and `< /dev/null` |
+| **Use Nala (Terminal Only)** | `false` | Uses `sudo nala upgrade --no-autoremove -o DPkg::Lock::Timeout=10` when installed |
+| **APT Count / List (internal)** | `LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade` | Read-only pipeline with `set -o pipefail` |
+| **Snap / Flatpak Check (internal)** | `snap refresh --list` / `flatpak remote-ls --updates` | Single-pass `timeout --kill-after=5s 20s` queries; Flatpak tracks `<appId>//<branch>` |
+| **Full Upgrade (Terminal)** | `sudo apt -o DPkg::Lock::Timeout=10 update && sudo apt -o DPkg::Lock::Timeout=10 upgrade` | Appends `sudo snap refresh` and `flatpak update -y` for active pending backends |
+| **Full Upgrade (Silent `pkexec`)** | `apt-get -o DPkg::Lock::Timeout=10 update && apt-get -o DPkg::Lock::Timeout=10 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold upgrade -yq --with-new-pkgs` | Sets `DEBIAN_FRONTEND=noninteractive`, `APT_LISTCHANGES_FRONTEND=none`, `NEEDRESTART_MODE=a` |
+| **Update One Package Command** | `sudo apt install --only-upgrade` | Injects `-o DPkg::Lock::Timeout=10 -y -- <pkg>` (or routes Snap/Flatpak directly) |
+| **Terminal Command** | `konsole -e bash -c` | Configurable terminal launcher |
+| **Cache & Debug Log Directory** | `$XDG_CACHE_HOME/hadbilen.aptupdate.plasmoid/` | Stores `cache.json` and capped 200-line `debug.log` (migrated out of KConfig) |
+| **Transient Runtime Log Directory** | `$XDG_RUNTIME_DIR/aptupdate` (fallback: `$XDG_CACHE_HOME/hadbilen.aptupdate.plasmoid/logs`) | Stores `0700` per-run failure, exit-code (`rc`), and process-group (`pgid`) logs |
 
-All trademarks, service marks, and logos (Debian/APT, Canonical/Snapcraft, and Flatpak) are the property of their respective owners. They are used in this project strictly for identification and nominative fair use purposes to indicate package management backends. No endorsement or affiliation is implied.
+---
 
-## License
+## Development, Testing & Translations
 
-GNU General Public License v3.0 (GPL-3.0). See [LICENSE](LICENSE) for details.
+### Run Automated Checks
+
+Requires Qt 6 (`qmllint`, `qmltestrunner`), `xmllint`, `msgfmt`, and `zip`:
+
+```bash
+QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -import tests/mocks -input tests/tst_ac1_ac4_seams.qml
+./tests/mocks_exec/build.sh
+QT_QPA_PLATFORM=offscreen /usr/lib/qt6/bin/qmltestrunner -import tests/mocks -import tests/mocks_exec -input tests/tst_main_state_seams.qml
+bash tests/test_shell_seams.sh
+./scripts/package.sh
+```
+
+> **Upgrade / Rollback Note (`<= v1.2.1 <-> v1.2.2`):** Deprecated KConfig keys (`cached*`, `debugLog`) inside `plasma-org.kde.plasma.desktop-appletsrc` are no longer written or read. Cached counts reset cleanly until the next check runs.
+
+### Update Translations
+
+Translations use GNU Gettext under `translate/`:
+
+```bash
+./translate/build.sh
+msgfmt --check --statistics -o /dev/null translate/tr.po
+```
+
+To add a language, copy `translate/template.pot` to `translate/<lang>.po`, translate the entries, and run `./translate/build.sh` to compile `contents/locale/<lang>/LC_MESSAGES/plasma_applet_hadbilen.aptupdate.plasmoid.mo`.
+
+---
+
+## Credits & License
+
+- **Original Creator & UI Design:** [Alan Bouteiller (A2N)](https://github.com/bouteillerAlan) ([bouteillerAlan/archupdate](https://github.com/bouteillerAlan/archupdate)).
+- **Ubuntu / Debian / Snap / Flatpak Port & Maintainer:** [hadbilen](https://github.com/hadbilen) ([hadbilen/aptupdate](https://github.com/hadbilen/aptupdate)).
+- **Trademarks:** Debian/APT, Canonical/Snapcraft, and Flatpak marks belong to their respective owners and are referenced strictly for identification.
+- **License:** GNU General Public License v3.0 or later (`GPL-3.0+`). See [LICENSE](LICENSE).

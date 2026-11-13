@@ -3,11 +3,11 @@
         "Authors": [
             {
                 "Email": "temroa@gmail.com",
-                "Name": "hadbilen (Ubuntu, Debian, Snap & Flatpak Portu)"
+                "Name": "hadbilen (Ubuntu, Debian, Snap & Flatpak Port)"
             },
             {
                 "Email": "a2n.dev@pm.me",
-                "Name": "Alan Bouteiller <a2n> (Orijinal Archupdate Geliştiricisi)"
+                "Name": "Alan Bouteiller <a2n> (Original Archupdate Developer)"
             }
         ],
         "Category": "System Information",
@@ -18,7 +18,7 @@
         "License": "GPL-3.0+",
         "Name": "APT Update Counter",
         "Name[tr]": "APT Güncelleme Sayacı",
-        "Version": "1.2.1",
+        "Version": "1.2.2",
         "Website": "https://github.com/hadbilen/aptupdate",
         "Depends": ["konsole"],
         "EnabledByDefault": false
