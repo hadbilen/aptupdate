@@ -5,7 +5,6 @@ import QtQuick.Controls
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
-import org.kde.plasma.workspace.components as WorkspaceComponents
 import "components" as Components
 
 Item {
@@ -39,9 +38,9 @@ Item {
   property string secondDotColor: plasmoid.configuration.secondDotColor
   property int secondDotPosition: parseInt(plasmoid.configuration.secondDotPosition, 10)
 
-  property bool onUpdate: false
-  property bool onRefresh: false
-  property bool hasError: main.hasError
+  readonly property bool onUpdate: Boolean(main.isInstalling || main.isOnUpdate)
+  readonly property bool onRefresh: Boolean(main.isChecking)
+  readonly property bool hasError: main.hasError
 
   property bool isPanelVertical: plasmoid.formFactor === PlasmaCore.Types.Vertical
 
@@ -50,49 +49,39 @@ Item {
   property bool invertMouseAction: plasmoid.configuration.invertMouseAction
   property bool mainIsRefresh: plasmoid.configuration.mainIsRefresh
 
-  // updates the icon according to the refresh status
-  function updateUi(refresh: bool) {
-    onRefresh = refresh
-    if (refresh || onUpdate) {
-      updateIcon.source = iconRefresh
-    } else {
-      updateIcon.source = iconUpdate
-    }
-  }
-
   // event handler for the left click on MouseArea
   function onLClick() {
-    row.hasError = false
-    main.hasError = false
-    if (!onRefresh && !onUpdate) updater.countAll()
+    if (!onRefresh && !onUpdate && !main.isChecking && !main.isInstalling && !main.isOnUpdate) {
+      main.refreshAll()
+    }
   }
 
   // event handler for the middle click on MouseArea
   function onMClick() {
-    row.hasError = false
-    main.hasError = false
     if (!onRefresh && !onUpdate) {
-      onUpdate = true
+      if (main.canUpdateAll()) {
+        main.clearRepoErrors()
+      }
       updater.launchUpdate()
     }
   }
 
   // generate the text for the count result
   function generateResult() {
-    if (row.hasError) return " ! "
-    if (onRefresh) return " ↻ "
+    if (row.hasError) return "!"
+    if (onRefresh) return ""
     const apt = parseInt(row.totalApt, 10) || 0
-    const snap = parseInt(row.totalSnap, 10) || 0
-    const flatpak = parseInt(row.totalFlatpak, 10) || 0
+    const snap = (main.enableSnapUpdates && main.hasSnap) ? (parseInt(row.totalSnap, 10) || 0) : 0
+    const flatpak = (main.enableFlatpakUpdates && main.hasFlatpak) ? (parseInt(row.totalFlatpak, 10) || 0) : 0
     if (separateResult && !isPanelVertical) {
       let parts = [row.totalApt || "0"]
-      if (plasmoid.configuration.enableSnapUpdates && plasmoid.configuration.hasSnap) {
+      if (main.enableSnapUpdates && main.hasSnap) {
         parts.push(row.totalSnap || "0")
       }
-      if (plasmoid.configuration.enableFlatpakUpdates && plasmoid.configuration.hasFlatpak) {
+      if (main.enableFlatpakUpdates && main.hasFlatpak) {
         parts.push(row.totalFlatpak || "0")
       }
-      return ' ' + parts.join(separator) + ' '
+      return parts.join(separator)
     }
     return `${apt + snap + flatpak}`
   }
@@ -100,8 +89,8 @@ Item {
   // return true if update is needed (total > 0)
   function isUpdateNeeded() {
     const apt = parseInt(row.totalApt, 10) || 0
-    const snap = parseInt(row.totalSnap, 10) || 0
-    const flatpak = parseInt(row.totalFlatpak, 10) || 0
+    const snap = (main.enableSnapUpdates && main.hasSnap) ? (parseInt(row.totalSnap, 10) || 0) : 0
+    const flatpak = (main.enableFlatpakUpdates && main.hasFlatpak) ? (parseInt(row.totalFlatpak, 10) || 0) : 0
     return (apt + snap + flatpak) > 0
   }
 
@@ -110,31 +99,9 @@ Item {
   }
 
   function isSecondaryUpdateNeeded() {
-    return ((parseInt(row.totalSnap, 10) || 0) + (parseInt(row.totalFlatpak, 10) || 0) > 0)
-  }
-
-  // map the cmd signal
-  Connections {
-    target: cmd
-
-    function onIsUpdating(status) {
-      updateUi(status)
-      if (!status && !row.onUpdate) {
-        updateIcon.rotation = 0
-      }
-    }
-
-    function onUpdateRunning(running) {
-      row.onUpdate = running
-      updateUi(running)
-      if (!running && !row.onRefresh) {
-        updateIcon.rotation = 0
-      }
-    }
-
-    function onErrorStatus(err) {
-      row.hasError = err
-    }
+    const snap = (main.enableSnapUpdates && main.hasSnap) ? (parseInt(row.totalSnap, 10) || 0) : 0
+    const flatpak = (main.enableFlatpakUpdates && main.hasFlatpak) ? (parseInt(row.totalFlatpak, 10) || 0) : 0
+    return (snap + flatpak) > 0
   }
 
   Item {
@@ -148,11 +115,12 @@ Item {
       id: updateIcon
       height: container.height
       width: height
-      source: iconUpdate
+      source: (row.onUpdate || row.onRefresh) ? row.iconRefresh : row.iconUpdate
       transformOrigin: Item.Center
 
-      RotationAnimator {
+      RotationAnimation {
         target: updateIcon
+        property: "rotation"
         from: 0
         to: 360
         duration: 1200
@@ -270,24 +238,25 @@ Item {
      }
     }
 
-    WorkspaceComponents.BadgeOverlay { // for the horizontal bar
-      anchors {
-        bottom: container.bottom
-        horizontalCenter: container.horizontalCenter
-      }
-      text: generateResult()
-      visible: !isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh && !row.onUpdate))
-      icon: updateIcon
-    }
+    Kirigami.Badge {
+      readonly property bool isRefreshBadge: row.onRefresh && !row.hasError
+      readonly property bool isSeparateBadge: !row.hasError && !row.onRefresh && row.separateResult && !row.isPanelVertical
 
-    WorkspaceComponents.BadgeOverlay { // for the vertical bar
       anchors {
         bottom: container.bottom
         horizontalCenter: container.horizontalCenter
       }
+      customColor: Qt.alpha(Kirigami.Theme.backgroundColor, 0.9)
+      padding: isRefreshBadge ? 2 : 1
+      horizontalPadding: isSeparateBadge ? Kirigami.Units.smallSpacing : padding
+      font.bold: false
+      font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
+      icon.name: isRefreshBadge ? "view-refresh-symbolic" : ""
+      icon.width: Math.round(Kirigami.Units.iconSizes.sizeForLabels * 0.75)
+      icon.height: Math.round(Kirigami.Units.iconSizes.sizeForLabels * 0.75)
+      icon.color: Kirigami.Theme.textColor
       text: generateResult()
-      visible: isPanelVertical && !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh && !row.onUpdate))
-      icon: updateIcon
+      visible: !mainDot && (row.hasError || !(hideOnZero && !isUpdateNeeded() && !onRefresh))
     }
 
     MouseArea {

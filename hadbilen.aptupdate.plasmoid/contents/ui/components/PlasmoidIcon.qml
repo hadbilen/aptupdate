@@ -1,8 +1,6 @@
 import QtQuick
 import QtCore
 import org.kde.kirigami as Kirigami
-import org.kde.ksvg as KSvg
-import org.kde.plasma.workspace.components as WorkspaceComponents
 import org.kde.plasma.plasmoid
 import "."
 
@@ -20,7 +18,6 @@ Item {
         opacity: 1
         width: parent.width
         height: parent.height
-        property int sourceIndex: 0
         anchors.centerIn: parent
         smooth: true
         isMask: {
@@ -33,7 +30,7 @@ Item {
             if (src.includes("://")) return src;
             if (src.startsWith("/")) return "file://" + src;
             if (src.startsWith("~/")) {
-                let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0];
+                let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0].toString().replace(/^file:\/\//, "");
                 return "file://" + home + src.slice(1);
             }
             if (src.indexOf(".") !== -1) {

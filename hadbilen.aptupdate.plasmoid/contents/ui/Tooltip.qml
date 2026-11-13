@@ -19,8 +19,8 @@ ColumnLayout {
 
     function noUpdateAvailable() {
         const apt = parseInt(totalApt, 10) || 0
-        const snap = parseInt(totalSnap, 10) || 0
-        const flatpak = parseInt(totalFlatpak, 10) || 0
+        const snap = (main.enableSnapUpdates && main.hasSnap) ? (parseInt(totalSnap, 10) || 0) : 0
+        const flatpak = (main.enableFlatpakUpdates && main.hasFlatpak) ? (parseInt(totalFlatpak, 10) || 0) : 0
         return (apt + snap + flatpak) === 0
     }
 

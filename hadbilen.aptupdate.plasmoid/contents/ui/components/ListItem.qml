@@ -16,7 +16,12 @@ PlasmaComponents.ItemDelegate {
     // tv         = to version
     // appId      = application ID (reverse-DNS for flatpak)
 
-    property string appId: (typeof model !== "undefined" && model !== null && typeof model.appId !== "undefined") ? model.appId : ""
+    required property string name
+    required property string repo
+    required property string fv
+    required property string tv
+    required property string websiteUrl
+    required property string appId
 
     width: ListView.view ? ListView.view.width : (parent ? parent.width : implicitWidth)
 
@@ -99,7 +104,7 @@ PlasmaComponents.ItemDelegate {
                 onClicked: openRepoPage()
                 visible: websiteUrl !== ''
                 PlasmaComponents.ToolTip {
-                    text: parent.text
+                    text: repoToolButton.text
                 }
             }
             PlasmaComponents.ToolButton {
@@ -110,7 +115,7 @@ PlasmaComponents.ItemDelegate {
                 enabled: main.canUpdatePackage(repo, name, appId)
                 onClicked: updateOne()
                 PlasmaComponents.ToolTip {
-                    text: (repo === "apt" && main.isPkgManagerBusy) ? i18n("Package manager is currently in use by another process.") : (!main.canUpdatePackage(repo, name, appId) ? i18n("An update is already in progress.") : parent.text)
+                    text: (repo === "apt" && main.isPkgManagerBusy) ? i18n("Package manager is currently in use by another process.") : (!main.canUpdatePackage(repo, name, appId) ? i18n("An update is already in progress.") : actionToolButton.text)
                 }
             }
         }

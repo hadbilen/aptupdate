@@ -16,11 +16,12 @@ PlasmaExtras.Representation {
   property string totalSnap: main.tSnap
   property string totalFlatpak: main.tFlatpak
   property string packageList: ""
-  property bool onRefresh: false
+  property bool onRefresh: Boolean(main.isChecking || main.isInstalling || main.isOnUpdate)
   property bool onError: false
-  property string errorMessage: ""
+  property string localErrorMessage: ""
+  property string errorMessage: main.lastErrorMessage || full.localErrorMessage
   readonly property bool hasAnyError: full.onError || main.hasError
-  property bool rebootRequired: false
+  property bool rebootRequired: main.rebootRequired
 
   focus: true
   anchors.fill: parent
@@ -70,11 +71,11 @@ PlasmaExtras.Representation {
       combined = main.listApt
       injectList(main.listApt)
     }
-    if (main.listSnap) {
+    if (main.enableSnapUpdates && main.hasSnap && main.listSnap) {
       combined += (combined ? "\n" : "") + main.listSnap
       injectList(main.listSnap)
     }
-    if (main.listFlatpak) {
+    if (main.enableFlatpakUpdates && main.hasFlatpak && main.listFlatpak) {
       combined += (combined ? "\n" : "") + main.listFlatpak
       injectList(main.listFlatpak)
     }
@@ -197,45 +198,43 @@ PlasmaExtras.Representation {
   Connections {
     target: cmd
 
-    function onConnected(source) {
-      onError = false
+    function onSourceConnected(source) {
+      if (!main.updateError) {
+        onError = false
+      }
     }
 
     function onIsUpdating(status) {
-      onRefresh = status
-      if (status) {
+      if (status && !main.updateError) {
         onError = false
+        localErrorMessage = ""
       }
     }
 
     function onErrorStatus(err) {
       full.onError = err
       if (err && !full.errorMessage) {
-        full.errorMessage = i18n("Failed to check for updates. Please verify your connection or package manager.")
+        full.localErrorMessage = i18n("Failed to check for updates. Please verify your connection or package manager.")
+      } else if (!err) {
+        full.localErrorMessage = ""
       }
     }
 
-    function onTotalApt(total) {
-      full.totalApt = total
-    }
-
-    function onTotalSnap(total) {
-      full.totalSnap = total
-    }
-
-    function onTotalFlatpak(total) {
-      full.totalFlatpak = total
-    }
-
-    function onRebootStatus(required) {
-      full.rebootRequired = required
-    }
-
     function onExited(cmd, exitCode, exitStatus, stdout, stderr) {
-      const isUpdate = cmd.indexOf("konsole") !== -1 || cmd.startsWith(plasmoid.configuration.termCmd) || cmd.startsWith(plasmoid.configuration.termNoCloseCmd)
+      const tCmd = (plasmoid.configuration.termCmd || "").trim()
+      const tNoCloseCmd = (plasmoid.configuration.termNoCloseCmd || "").trim()
+      const isUpdate = (main.activeUpdateJobs[cmd] !== undefined ||
+                        (updater.lastUpdateCmd !== "" && cmd === updater.lastUpdateCmd) ||
+                        cmd.indexOf("aptupdate_last_error") !== -1 ||
+                        cmd.indexOf("konsole") !== -1 ||
+                        cmd.indexOf("pkexec") !== -1 ||
+                        (tCmd !== "" && cmd.startsWith(tCmd)) ||
+                        (tNoCloseCmd !== "" && cmd.startsWith(tNoCloseCmd)))
       if (isUpdate) {
-        onError = false
-        refresh()
+        if (exitCode === 0 || exitCode === 126) {
+          onError = false
+          localErrorMessage = ""
+        }
         return
       }
       if (exitCode !== 0 && stderr !== '') {
@@ -247,7 +246,7 @@ PlasmaExtras.Representation {
         }).join("\n").trim()
         if (cleanErr !== '') {
           onError = true
-          errorMessage = cleanErr
+          localErrorMessage = cleanErr
         }
       }
     }
@@ -259,6 +258,10 @@ PlasmaExtras.Representation {
      function onListAptChanged() { full.reloadPackages() }
      function onListSnapChanged() { full.reloadPackages() }
      function onListFlatpakChanged() { full.reloadPackages() }
+     function onEnableSnapUpdatesChanged() { full.reloadPackages() }
+     function onEnableFlatpakUpdatesChanged() { full.reloadPackages() }
+     function onHasSnapChanged() { full.reloadPackages() }
+     function onHasFlatpakChanged() { full.reloadPackages() }
    }
 
    Connections {
@@ -392,11 +395,17 @@ PlasmaExtras.Representation {
          text: i18n("Open in Terminal")
          icon.name: "utilities-terminal"
          onTriggered: {
-           var baseTerm = plasmoid.configuration.termCmd.trim()
+           var baseTerm = (plasmoid.configuration.termCmd || "").trim()
+           if (!baseTerm) {
+             updater.sendNotify(i18n("Update Error"), i18n("No terminal command is configured."), "dialog-error", "critical")
+             return
+           }
            if (baseTerm.indexOf("bash -c") === -1 && baseTerm.indexOf("sh -c") === -1) {
              baseTerm += " bash -c"
            }
-           cmd.exec(baseTerm + " 'sudo do-release-upgrade; echo \"\"; echo \"" + i18n("Press Enter to close...") + "\"; read -r'")
+           var closePrompt = i18n("Press Enter to close...")
+           var innerScript = "sudo do-release-upgrade; echo ''; echo '" + updater.bashEscape(closePrompt) + "'; read -r"
+           cmd.exec(baseTerm + " '" + updater.bashEscape(innerScript) + "'")
          }
        }
      ]
@@ -539,7 +548,7 @@ PlasmaExtras.Representation {
                id: aptBusyIndicator
                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-               visible: !main.isUpdatingAll && Boolean(main.updatingRepos["apt"])
+               visible: !main.isUpdatingAll && main.isRepoBusy("apt")
                running: visible
              }
 
@@ -582,7 +591,7 @@ PlasmaExtras.Representation {
        // Snap Group Card
        ColumnLayout {
          id: snapGroupCard
-         visible: snapListModel.count > 0
+         visible: main.enableSnapUpdates && main.hasSnap && snapListModel.count > 0
          Layout.fillWidth: true
          spacing: Kirigami.Units.smallSpacing
 
@@ -635,7 +644,7 @@ PlasmaExtras.Representation {
                id: snapBusyIndicator
                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-               visible: !main.isUpdatingAll && Boolean(main.updatingRepos["snap"])
+               visible: !main.isUpdatingAll && main.isRepoBusy("snap")
                running: visible
              }
 
@@ -678,7 +687,7 @@ PlasmaExtras.Representation {
        // Flatpak Group Card
        ColumnLayout {
          id: flatpakGroupCard
-         visible: flatpakListModel.count > 0
+         visible: main.enableFlatpakUpdates && main.hasFlatpak && flatpakListModel.count > 0
          Layout.fillWidth: true
          spacing: Kirigami.Units.smallSpacing
 
@@ -731,7 +740,7 @@ PlasmaExtras.Representation {
                id: flatpakBusyIndicator
                Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
-               visible: !main.isUpdatingAll && Boolean(main.updatingRepos["flatpak"])
+               visible: !main.isUpdatingAll && main.isRepoBusy("flatpak")
                running: visible
              }
 
@@ -779,7 +788,7 @@ PlasmaExtras.Representation {
      id: waitingCheckLabel
      text: i18n("Waiting for update check…")
      anchors.centerIn: contentArea
-     visible: (!main.hasCheckedOnce || main.isStartupDelaying) && !main.isChecking && !main.isInstalling && (packageList === "" || packageListModel.count === 0) && !full.hasAnyError
+     visible: (!main.hasCheckedOnce || main.isStartupDelaying) && !main.isChecking && !main.isInstalling && !main.hasUpdate() && (packageList === "" || packageListModel.count === 0) && !full.hasAnyError
    }
 
    // if not update is needed
@@ -787,7 +796,7 @@ PlasmaExtras.Representation {
      id: upToDateLabel
      text: i18n("You're up-to-date !")
      anchors.centerIn: contentArea
-     visible: main.hasCheckedOnce && !main.isStartupDelaying && !main.isChecking && !main.isInstalling && (packageList === "" || packageListModel.count === 0) && !full.hasAnyError
+     visible: main.hasCheckedOnce && !main.isStartupDelaying && !main.isChecking && !main.isInstalling && !main.hasUpdate() && (packageList === "" || packageListModel.count === 0) && !full.hasAnyError
    }
 
    // if an error happend

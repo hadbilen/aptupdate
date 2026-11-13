@@ -46,14 +46,6 @@
     <default>false</default>
   </entry>
 
-  <entry name="konsoleIsValid" type="Bool">
-    <default>false</default>
-  </entry>
-
-  <entry name="checkupdateIsValid" type="Bool">
-    <default>false</default>
-  </entry>
-
   <entry name="notCloseCommand" type="Bool">
     <default>false</default>
   </entry>
@@ -90,20 +82,16 @@
     <default>true</default>
   </entry>
 
+  <entry name="hasNala" type="Bool">
+    <default>false</default>
+  </entry>
+
+  <entry name="useNala" type="Bool">
+    <default>false</default>
+  </entry>
+
   <entry name="updateCommandOne" type="String">
     <default>sudo apt install --only-upgrade</default>
-  </entry>
-
-  <entry name="countArchCommand" type="String">
-    <default>bash -c &quot;set -o pipefail; LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade 2&gt;/dev/null | awk '/^Inst [^ ]+ \\[/ {c++} END {print c+0}'&quot;</default>
-  </entry>
-
-  <entry name="listArchCommand" type="String">
-    <default>LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade 2&gt;/dev/null | awk '/^Inst [^ ]+ \\[/ {orig=$0; gsub(/[][()]/, &quot;&quot;); $1=$1; origins=&quot;&quot;; for(i=5;i&lt;=NF;i++) origins=(origins==&quot;&quot; ? $i : origins &quot; &quot; $i); print $2, $3, &quot;-&gt;&quot;, $4, origins }'</default>
-  </entry>
-
-  <entry name="listRepoArchCommand" type="String">
-    <default></default>
   </entry>
 
   <entry name="termCmd" type="String">

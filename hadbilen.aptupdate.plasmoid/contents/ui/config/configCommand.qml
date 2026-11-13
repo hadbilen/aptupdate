@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
-import org.kde.kquickcontrols as KQuickControls
+import org.kde.plasma.plasmoid
 
 Kirigami.ScrollablePage {
 
@@ -45,30 +45,162 @@ Kirigami.ScrollablePage {
   property alias cfg_enableFlatpakUpdates: enableFlatpakUpdatesBox.checked
   property alias cfg_silentUpdate: silentUpdateBox.checked
   property alias cfg_includePhasedUpdates: includePhasedUpdatesBox.checked
+  property alias cfg_useNala: useNalaBox.checked
 
   property alias cfg_updateCommandOne: updateCommandOneInput.text
-  property alias cfg_listRepoArchCommand: listRepoArchCommandInput.text
-
   property alias cfg_termCmd: termCmdInput.text
   property alias cfg_termNoCloseCmd: termNoCloseCmdInput.text
   property alias cfg_termNoCloseSuffix: termNoCloseSuffixInput.text
 
+  // Stub declarations for other config entries and *Default keys injected by Plasma AppletConfiguration
+  property var cfg_updateIntervalDefault
+  property var cfg_updateIntervalUnitDefault
+  property var cfg_startupCheckModeDefault
+  property var cfg_startupDelaySecondsDefault
+  property var cfg_debugModeDefault
+  property var cfg_retryModeDefault
+  property var cfg_notCloseCommandDefault
+  property var cfg_enableSnapUpdatesDefault
+  property var cfg_enableFlatpakUpdatesDefault
+  property var cfg_silentUpdateDefault
+  property var cfg_includePhasedUpdatesDefault
+  property var cfg_updateCommandOneDefault
+  property var cfg_termCmdDefault
+  property var cfg_termNoCloseCmdDefault
+  property var cfg_termNoCloseSuffixDefault
+  property var cfg_debugLog
+  property var cfg_debugLogDefault
+  property var cfg_invertMouseAction
+  property var cfg_invertMouseActionDefault
+  property var cfg_mainIsRefresh
+  property var cfg_mainIsRefreshDefault
+  property var cfg_notifyOnSilentUpdate
+  property var cfg_notifyOnSilentUpdateDefault
+  property var cfg_notifyOnRebootRequired
+  property var cfg_notifyOnRebootRequiredDefault
+  property var cfg_hasSnap
+  property var cfg_hasSnapDefault
+  property var cfg_hasFlatpak
+  property var cfg_hasFlatpakDefault
+  property var cfg_hasNala
+  property var cfg_hasNalaDefault
+  property var cfg_useNalaDefault
+  property var cfg_icon
+  property var cfg_iconDefault
+  property var cfg_secondaryIcon
+  property var cfg_secondaryIconDefault
+  property var cfg_separateResult
+  property var cfg_separateResultDefault
+  property var cfg_separator
+  property var cfg_separatorDefault
+  property var cfg_mainDot
+  property var cfg_mainDotDefault
+  property var cfg_mainDotPosition
+  property var cfg_mainDotPositionDefault
+  property var cfg_secondDot
+  property var cfg_secondDotDefault
+  property var cfg_secondDotPosition
+  property var cfg_secondDotPositionDefault
+  property var cfg_mainDotColor
+  property var cfg_mainDotColorDefault
+  property var cfg_secondDotColor
+  property var cfg_secondDotColorDefault
+  property var cfg_mainDotUseCustomColor
+  property var cfg_mainDotUseCustomColorDefault
+  property var cfg_secondDotUseCustomColor
+  property var cfg_secondDotUseCustomColorDefault
+  property var cfg_iconColor
+  property var cfg_iconColorDefault
+  property var cfg_iconUseCustomColor
+  property var cfg_iconUseCustomColorDefault
+  property var cfg_hideOnZero
+  property var cfg_hideOnZeroDefault
+  property var cfg_notifyOnUpdates
+  property var cfg_notifyOnUpdatesDefault
+  property var cfg_notificationThreshold
+  property var cfg_notificationThresholdDefault
+  property var cfg_notifyOnStartup
+  property var cfg_notifyOnStartupDefault
+  property var cfg_notifyOnReleaseUpgrade
+  property var cfg_notifyOnReleaseUpgradeDefault
+  property var cfg_nameUseCustomColor
+  property var cfg_nameUseCustomColorDefault
+  property var cfg_nameColor
+  property var cfg_nameColorDefault
+  property var cfg_sourceUseCustomColor
+  property var cfg_sourceUseCustomColorDefault
+  property var cfg_sourceColor
+  property var cfg_sourceColorDefault
+  property var cfg_separatorUseCustomColor
+  property var cfg_separatorUseCustomColorDefault
+  property var cfg_separatorColor
+  property var cfg_separatorColorDefault
+  property var cfg_separatorText
+  property var cfg_separatorTextDefault
+  property var cfg_fvUseCustomColor
+  property var cfg_fvUseCustomColorDefault
+  property var cfg_fvColor
+  property var cfg_fvColorDefault
+  property var cfg_tvUseCustomColor
+  property var cfg_tvUseCustomColorDefault
+  property var cfg_tvColor
+  property var cfg_tvColorDefault
+  property var cfg_groupUpdates
+  property var cfg_groupUpdatesDefault
+  property var cfg_adaptiveGrouping
+  property var cfg_adaptiveGroupingDefault
+  property var cfg_adaptiveGroupingThreshold
+  property var cfg_adaptiveGroupingThresholdDefault
+  property var cfg_cachedAptCount
+  property var cfg_cachedAptCountDefault
+  property var cfg_cachedSnapCount
+  property var cfg_cachedSnapCountDefault
+  property var cfg_cachedFlatpakCount
+  property var cfg_cachedFlatpakCountDefault
+  property var cfg_cachedPackageList
+  property var cfg_cachedPackageListDefault
+  property var cfg_cachedLastCheckTime
+  property var cfg_cachedLastCheckTimeDefault
+
+  Connections {
+    target: plasmoid.configuration
+    function onDebugLogChanged() { commandConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
+    function onHasSnapChanged() { commandConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
+    function onHasFlatpakChanged() { commandConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
+    function onHasNalaChanged() { commandConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
+    function onCachedAptCountChanged() { commandConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
+    function onCachedSnapCountChanged() { commandConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
+    function onCachedFlatpakCountChanged() { commandConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
+    function onCachedPackageListChanged() { commandConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
+    function onCachedLastCheckTimeChanged() { commandConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
+  }
+
   function getEffectiveCountCommand() {
     var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
-    return "bash -c \"set -o pipefail; LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\\\[/ {c++} END {print c+0}'\""
+    return "bash -c \"set -o pipefail; LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\\\[/ {c++} END {print c+0}'\""
   }
 
   function getEffectiveListCommand() {
     var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
-    return "LANG=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\[/ {orig=$0; gsub(/[][()]/, \"\"); $1=$1; origins=\"\"; for(i=5;i<=NF;i++) origins=(origins==\"\" ? $i : origins \" \" $i); print $2, $3, \"->\", $4, origins }'"
+    return "bash -c 'set -o pipefail; LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk \"/^Inst [^ ]+ \\\\[/ {orig=\\$0; gsub(/[][()]/, \\\"\\\"); \\$1=\\$1; origins=\\\"\\\"; for(i=5;i<=NF;i++) origins=(origins==\\\"\\\" ? \\$i : origins \\\" \\\" \\$i); print \\$2, \\$3, \\\"->\\\", \\$4, origins }\"'"
   }
 
   function getEffectivePreviewCommand() {
-    var aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 upgrade"
-    if (includePhasedUpdatesBox.checked) {
-      aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade"
+    var useNalaPreview = useNalaBox.checked && plasmoid.configuration.hasNala && !silentUpdateBox.checked
+    var aptPart = ""
+    if (useNalaPreview) {
+      aptPart = "sudo nala upgrade -o DPkg::Lock::Timeout=10"
+      if (includePhasedUpdatesBox.checked) {
+        aptPart += " -o APT::Get::Always-Include-Phased-Updates=true"
+      }
+    } else {
+      var aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 upgrade"
+      if (includePhasedUpdatesBox.checked) {
+        aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade"
+      }
+      aptPart = "sudo apt -o DPkg::Lock::Timeout=10 update && " + aptUpgrade
     }
-    var parts = ["sudo apt -o DPkg::Lock::Timeout=10 update && " + aptUpgrade]
+    var parts = [aptPart]
     if (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) {
       parts.push("sudo snap refresh")
     }
@@ -130,7 +262,7 @@ Kirigami.ScrollablePage {
           Controls.SpinBox {
             id: updateIntervalSpin
             from: 1
-            to: updateIntervalUnitCombo.currentIndex === 0 ? 1440 : (updateIntervalUnitCombo.currentIndex === 1 ? 168 : 365)
+            to: updateIntervalUnitCombo.currentIndex === 0 ? 1440 : (updateIntervalUnitCombo.currentIndex === 1 ? 168 : 24)
             editable: true
           }
 
@@ -219,13 +351,6 @@ Kirigami.ScrollablePage {
       Layout.fillWidth: true
       wideMode: true
 
-      Component.onCompleted: {
-        var lay = commandsFormLayout.children[0];
-        lay.anchors.horizontalCenter = undefined;
-        lay.anchors.left = commandsFormLayout.left;
-        lay.anchors.right = commandsFormLayout.right;
-      }
-
       Kirigami.Separator {
         Kirigami.FormData.isSection: true
         Kirigami.FormData.label: i18n("Search & count")
@@ -234,7 +359,7 @@ Kirigami.ScrollablePage {
       Kirigami.InlineMessage {
         Layout.fillWidth: true
         Kirigami.FormData.isSection: true
-        text: i18n("Pre-configured for Kubuntu / Ubuntu / Debian with APT. You can optionally use the secondary command fields for Flatpak or Snap updates.")
+        text: i18n("Pre-configured for Kubuntu / Ubuntu / Debian with APT, Snap, and Flatpak support.")
         visible: true
       }
 
@@ -290,14 +415,6 @@ Kirigami.ScrollablePage {
       text: getEffectiveListCommand()
     }
 
-    Controls.TextField {
-      id: listRepoArchCommandInput
-      selectByMouse: true
-      Layout.fillWidth: true
-      Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("List repository detail (optional): ")
-    }
-
     Kirigami.Separator {
       Kirigami.FormData.isSection: true
       Kirigami.FormData.label: i18n("Update package")
@@ -307,6 +424,23 @@ Kirigami.ScrollablePage {
       id: silentUpdateBox
       text: i18n("Run updates in background silently (pkexec)")
       Kirigami.FormData.isSection: true
+    }
+
+    Controls.CheckBox {
+      id: useNalaBox
+      text: i18n("Use Nala for APT upgrades (terminal mode only)")
+      enabled: Boolean(plasmoid.configuration.hasNala) && !silentUpdateBox.checked
+    }
+
+    Kirigami.InlineMessage {
+      Layout.fillWidth: true
+      type: Kirigami.MessageType.Information
+      text: !plasmoid.configuration.hasNala
+        ? i18n("Nala was not found on this system (sudo apt install nala).")
+        : (silentUpdateBox.checked
+          ? i18n("Silent background updates (pkexec) always use apt-get; Nala is only used in terminal mode.")
+          : i18n("Uses 'nala upgrade' in terminal mode (package checks and lists still use apt-get --with-new-pkgs)."))
+      visible: useNalaBox.checked || !plasmoid.configuration.hasNala
     }
 
     Controls.TextField {
@@ -321,6 +455,7 @@ Kirigami.ScrollablePage {
 
     Controls.TextField {
       id: updateCommandOneInput
+      enabled: !silentUpdateBox.checked
       selectByMouse: true
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)

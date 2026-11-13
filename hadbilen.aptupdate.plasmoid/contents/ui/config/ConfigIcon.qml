@@ -12,22 +12,7 @@ Button {
   property string defaultValue: "software-update-available.svg"
   property string value: ""
 
-  function generateIconPath() {
-    let path = value;
-    if (value === defaultValue) {
-      path = "../../assets";
-    }
-    if (value.split("/").length > 1) {
-      let parts = value.split("/");
-      parts.pop();
-      path = parts.join("/");
-    }
-    if (path === value) {
-      const isPanel = plasmoid.formFactor === PlasmaCore.Types.Vertical || plasmoid.formFactor === PlasmaCore.Types.Horizontal;
-      path = isPanel ? "widgets/panel-background" : "widgets/background";
-    }
-    return path;
-  }
+  readonly property bool isPanel: plasmoid.formFactor === PlasmaCore.Types.Vertical || plasmoid.formFactor === PlasmaCore.Types.Horizontal
 
   implicitWidth: previewFrame.width + Kirigami.Units.smallSpacing * 2
   implicitHeight: previewFrame.height + Kirigami.Units.smallSpacing * 2
@@ -44,7 +29,7 @@ Button {
   KSvg.FrameSvgItem {
     id: previewFrame
     anchors.centerIn: parent
-    imagePath: generateIconPath()
+    imagePath: configIcon.isPanel ? "widgets/panel-background" : "widgets/background"
     width: Kirigami.Units.iconSizes.large + fixedMargins.left + fixedMargins.right
     height: Kirigami.Units.iconSizes.large + fixedMargins.top + fixedMargins.bottom
 
@@ -58,7 +43,7 @@ Button {
         if (path.includes("://")) return path;
         if (path.startsWith("/")) return "file://" + path;
         if (path.startsWith("~/")) {
-          let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0];
+          let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0].toString().replace(/^file:\/\//, "");
           return "file://" + home + path.slice(1);
         }
         return path;
