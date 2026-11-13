@@ -44,8 +44,6 @@ Kirigami.ScrollablePage {
     property var cfg_groupUpdatesDefault
     property var cfg_adaptiveGroupingDefault
     property var cfg_adaptiveGroupingThresholdDefault
-    property var cfg_debugLog
-    property var cfg_debugLogDefault
     property var cfg_invertMouseAction
     property var cfg_invertMouseActionDefault
     property var cfg_mainIsRefresh
@@ -130,29 +128,13 @@ Kirigami.ScrollablePage {
     property var cfg_notifyOnStartupDefault
     property var cfg_notifyOnReleaseUpgrade
     property var cfg_notifyOnReleaseUpgradeDefault
-    property var cfg_cachedAptCount
-    property var cfg_cachedAptCountDefault
-    property var cfg_cachedSnapCount
-    property var cfg_cachedSnapCountDefault
-    property var cfg_cachedFlatpakCount
-    property var cfg_cachedFlatpakCountDefault
-    property var cfg_cachedPackageList
-    property var cfg_cachedPackageListDefault
-    property var cfg_cachedLastCheckTime
-    property var cfg_cachedLastCheckTimeDefault
 
     Connections {
         target: plasmoid.configuration
-        function onDebugLogChanged() { popupConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
         function onHasSnapChanged() { popupConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
         function onHasFlatpakChanged() { popupConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
         function onHasNalaChanged() { popupConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
         function onUseNalaChanged() { popupConfigPage.cfg_useNala = plasmoid.configuration.useNala }
-        function onCachedAptCountChanged() { popupConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-        function onCachedSnapCountChanged() { popupConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-        function onCachedFlatpakCountChanged() { popupConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-        function onCachedPackageListChanged() { popupConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-        function onCachedLastCheckTimeChanged() { popupConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
     }
 
     function escapeHtml(text) {
@@ -169,7 +151,7 @@ Kirigami.ScrollablePage {
     function generateName() {
         const nc = cfg_nameUseCustomColor ? cfg_nameColor : Kirigami.Theme.textColor
         const sc = cfg_sourceUseCustomColor ? cfg_sourceColor : Kirigami.Theme.disabledTextColor
-        return '<font color="' + nc + '"> ' + i18n("PackageName") + ' </font><font color="' + sc + '"> ' + i18n("from source") + '</font>'
+        return '<font color="' + escapeHtml(nc) + '"> ' + i18n("PackageName") + ' </font><font color="' + escapeHtml(sc) + '"> ' + i18n("from source") + '</font>'
     }
 
     // generate & style the version of the package
@@ -177,7 +159,7 @@ Kirigami.ScrollablePage {
         const fvc = cfg_fvUseCustomColor ? cfg_fvColor : Kirigami.Theme.negativeTextColor
         const sc = cfg_separatorUseCustomColor ? cfg_separatorColor : Kirigami.Theme.textColor
         const tvc = cfg_tvUseCustomColor ? cfg_tvColor : Kirigami.Theme.positiveTextColor
-        return '<font color="' + fvc + '">1.0.0</font><font color="' + sc + '"> ' + escapeHtml(cfg_separatorText) + ' </font><font color="' + tvc + '">2.0.0</font>'
+        return '<font color="' + escapeHtml(fvc) + '">1.0.0</font><font color="' + escapeHtml(sc) + '"> ' + escapeHtml(cfg_separatorText) + ' </font><font color="' + escapeHtml(tvc) + '">2.0.0</font>'
     }
 
     Kirigami.FormLayout {

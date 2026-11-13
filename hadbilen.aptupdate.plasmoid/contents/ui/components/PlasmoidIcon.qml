@@ -21,22 +21,22 @@ Item {
         anchors.centerIn: parent
         smooth: true
         isMask: {
-            let src = root.source || "";
-            return !src.startsWith("/") && !src.startsWith("~/") && !src.includes("://");
+            let src = String(root.source || "")
+            return !src.startsWith("/") && !src.startsWith("~/") && !src.includes("://")
         }
         color: iconUseCustomColor ? iconColor : Kirigami.Theme.textColor
         source: {
-            let src = root.source || "software-update-available.svg";
-            if (src.includes("://")) return src;
-            if (src.startsWith("/")) return "file://" + src;
+            let src = String(root.source || "software-update-available.svg")
+            if (src.includes("://")) return src
+            if (src.startsWith("/")) return "file://" + src
             if (src.startsWith("~/")) {
-                let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0].toString().replace(/^file:\/\//, "");
-                return "file://" + home + src.slice(1);
+                let home = StandardPaths.standardLocations(StandardPaths.HomeLocation)[0].toString().replace(/^file:\/\//, "")
+                return "file://" + home + src.slice(1)
             }
-            if (src.indexOf(".") !== -1) {
-                return Qt.resolvedUrl("../../assets/" + src);
+            if (src.indexOf("/") === -1 && /\.(svgz?|png|jpe?g|webp|ico)$/i.test(src)) {
+                return Qt.resolvedUrl("../../assets/" + src)
             }
-            return src;
+            return src
         }
     }
 }

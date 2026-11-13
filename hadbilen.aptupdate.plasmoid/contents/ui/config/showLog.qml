@@ -1,16 +1,18 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls as Controls
+import QtCore
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents
 import org.kde.plasma.plasmoid
+import org.kde.plasma.plasma5support as Plasma5Support
+import "../../service/CommandBuilder.js" as CmdBuilder
 
 Kirigami.ScrollablePage {
 
     id: debugConfigPage
 
-    property string cfg_debugLog: (typeof plasmoid !== "undefined" && plasmoid.configuration && plasmoid.configuration.debugLog) ? plasmoid.configuration.debugLog : ""
-    property var cfg_debugLogDefault
+    // Stub declarations for active config entries and *Default keys injected by Plasma AppletConfiguration
     property var cfg_invertMouseAction
     property var cfg_invertMouseActionDefault
     property var cfg_mainIsRefresh
@@ -123,77 +125,150 @@ Kirigami.ScrollablePage {
     property var cfg_adaptiveGroupingDefault
     property var cfg_adaptiveGroupingThreshold
     property var cfg_adaptiveGroupingThresholdDefault
-    property var cfg_cachedAptCount
-    property var cfg_cachedAptCountDefault
-    property var cfg_cachedSnapCount
-    property var cfg_cachedSnapCountDefault
-    property var cfg_cachedFlatpakCount
-    property var cfg_cachedFlatpakCountDefault
-    property var cfg_cachedPackageList
-    property var cfg_cachedPackageListDefault
-    property var cfg_cachedLastCheckTime
-    property var cfg_cachedLastCheckTimeDefault
+
+    property string logContent: ""
+    property bool isLoadingLog: false
+    property string activeReadCmd: ""
+    property string activeClearCmd: ""
+
+    readonly property string cacheDir: {
+        var base = StandardPaths.writableLocation(StandardPaths.GenericCacheLocation).toString().replace(/^file:\/\//, "")
+        if (!base) {
+            var home = StandardPaths.writableLocation(StandardPaths.HomeLocation).toString().replace(/^file:\/\//, "")
+            base = home ? (home + "/.cache") : ""
+        }
+        return base ? (base + "/hadbilen.aptupdate.plasmoid") : ""
+    }
+    readonly property string logFilePath: cacheDir ? (cacheDir + "/debug.log") : ""
+
+    function refreshLog() {
+        if (!logFilePath) {
+            isLoadingLog = false
+            return
+        }
+        var inner = "f='" + CmdBuilder.bashEscape(logFilePath) + "'; if [ -f \"$f\" ] && [ ! -L \"$f\" ] && [ -O \"$f\" ]; then tail -n 200 \"$f\"; fi"
+        var cmdStr = "bash -c '" + CmdBuilder.bashEscape(inner) + "'"
+        activeReadCmd = cmdStr
+        isLoadingLog = true
+        logIoSource.connectSource(cmdStr)
+    }
+
+    function clearLog() {
+        if (typeof plasmoid !== "undefined" && plasmoid.rootItem && plasmoid.rootItem.debugService) {
+            plasmoid.rootItem.debugService.clear()
+            logContent = ""
+            return
+        }
+        if (!cacheDir || !logFilePath) return
+        var inner = "umask 077; d='" + CmdBuilder.bashEscape(cacheDir) + "'; f='" + CmdBuilder.bashEscape(logFilePath) + "'; " +
+            "if [ -d \"$d\" ] && [ ! -L \"$d\" ] && [ -O \"$d\" ]; then " +
+              "if [ -e \"$f\" ] && [ ! -L \"$f\" ] && [ -O \"$f\" ]; then : > \"$f\"; fi; " +
+            "else exit 1; fi"
+        var cmdStr = "bash -c '" + CmdBuilder.bashEscape(inner) + "'"
+        activeClearCmd = cmdStr
+        logIoSource.connectSource(cmdStr)
+    }
+
+    Component.onCompleted: {
+        refreshLog()
+    }
+
+    Plasma5Support.DataSource {
+        id: logIoSource
+        engine: "executable"
+        connectedSources: []
+        onNewData: (sourceName, data) => {
+            if (!data || data["exit code"] === undefined) return
+            var exitCode = data["exit code"]
+            disconnectSource(sourceName)
+            var out = (data["stdout"] !== undefined) ? String(data["stdout"]) : ""
+            if (sourceName === debugConfigPage.activeReadCmd) {
+                debugConfigPage.isLoadingLog = false
+                if (exitCode === 0) {
+                    debugConfigPage.logContent = out.trimEnd()
+                } else {
+                    console.warn("APTUPDATE showLog read failed (exit " + exitCode + ")")
+                }
+            } else if (sourceName === debugConfigPage.activeClearCmd) {
+                if (exitCode === 0) {
+                    debugConfigPage.logContent = ""
+                } else {
+                    console.warn("APTUPDATE showLog clear failed (exit " + exitCode + ")")
+                }
+            }
+        }
+    }
 
     Connections {
         target: plasmoid.configuration
-        function onDebugLogChanged() { debugConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
         function onHasSnapChanged() { debugConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
         function onHasFlatpakChanged() { debugConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
         function onHasNalaChanged() { debugConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
         function onUseNalaChanged() { debugConfigPage.cfg_useNala = plasmoid.configuration.useNala }
-        function onCachedAptCountChanged() { debugConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-        function onCachedSnapCountChanged() { debugConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-        function onCachedFlatpakCountChanged() { debugConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-        function onCachedPackageListChanged() { debugConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-        function onCachedLastCheckTimeChanged() { debugConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
     }
 
-    Kirigami.FormLayout {
+    ColumnLayout {
         id: debugFormLayout
-        wideMode: true
+        spacing: Kirigami.Units.smallSpacing
 
         anchors {
             left: parent.left
             top: parent.top
             right: parent.right
+            margins: Kirigami.Units.smallSpacing
         }
 
-        Kirigami.Separator {
-            Kirigami.FormData.isSection: true
-            Kirigami.FormData.label: i18n("Debug log")
-        }
-
-        PlasmaComponents.Button {
-            Kirigami.FormData.isSection: true
-            text: i18n("Clear log data")
-            onClicked: {
-                debugConfigPage.cfg_debugLog = ""
-                if (typeof plasmoid !== "undefined" && plasmoid.rootItem && plasmoid.rootItem.debugService) {
-                    plasmoid.rootItem.debugService.clear()
-                }
-                if (typeof plasmoid !== "undefined" && plasmoid.configuration) {
-                    plasmoid.configuration.debugLog = ""
-                }
-            }
+        Kirigami.Heading {
+            level: 2
+            text: i18n("Debug log")
         }
 
         Controls.Label {
-            id: logWindow
-            Kirigami.FormData.isSection: true
             Layout.fillWidth: true
             wrapMode: Text.Wrap
-            textFormat: Text.RichText
-            text: {
-                if (typeof plasmoid !== "undefined" && plasmoid.configuration && plasmoid.configuration.debugLog && plasmoid.configuration.debugLog !== "Nothing") {
-                    return plasmoid.configuration.debugLog
+            color: Kirigami.Theme.disabledTextColor
+            text: i18n("Stored in cache file: %1", debugConfigPage.logFilePath)
+            textFormat: Text.PlainText
+        }
+
+        RowLayout {
+            spacing: Kirigami.Units.smallSpacing
+
+            PlasmaComponents.Button {
+                icon.name: "view-refresh"
+                text: i18n("Refresh")
+                enabled: !debugConfigPage.isLoadingLog
+                onClicked: debugConfigPage.refreshLog()
+            }
+
+            PlasmaComponents.Button {
+                icon.name: "edit-copy"
+                text: i18n("Copy")
+                enabled: debugConfigPage.logContent !== ""
+                onClicked: {
+                    logTextArea.selectAll()
+                    logTextArea.copy()
+                    logTextArea.deselect()
                 }
-                if (debugConfigPage.cfg_debugLog && debugConfigPage.cfg_debugLog !== "Nothing") {
-                    return debugConfigPage.cfg_debugLog
-                }
-                return ""
+            }
+
+            PlasmaComponents.Button {
+                icon.name: "edit-clear"
+                text: i18n("Clear log data")
+                onClicked: debugConfigPage.clearLog()
             }
         }
 
+        Controls.TextArea {
+            id: logTextArea
+            Layout.fillWidth: true
+            Layout.minimumHeight: Kirigami.Units.gridUnit * 16
+            readOnly: true
+            selectByMouse: true
+            wrapMode: TextEdit.Wrap
+            textFormat: Text.PlainText
+            font.family: "monospace"
+            text: debugConfigPage.logContent !== "" ? debugConfigPage.logContent : i18n("No debug log entries recorded yet.")
+        }
     }
-
 }

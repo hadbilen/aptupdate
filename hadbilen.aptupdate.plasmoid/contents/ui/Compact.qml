@@ -1,9 +1,6 @@
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
 
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.plasmoid
 import org.kde.kirigami as Kirigami
 import "components" as Components
 
@@ -49,14 +46,12 @@ Item {
   property bool invertMouseAction: plasmoid.configuration.invertMouseAction
   property bool mainIsRefresh: plasmoid.configuration.mainIsRefresh
 
-  // event handler for the left click on MouseArea
   function onLClick() {
     if (!onRefresh && !onUpdate && !main.isChecking && !main.isInstalling && !main.isOnUpdate) {
       main.refreshAll()
     }
   }
 
-  // event handler for the middle click on MouseArea
   function onMClick() {
     if (!onRefresh && !onUpdate) {
       if (main.canUpdateAll()) {
@@ -66,7 +61,6 @@ Item {
     }
   }
 
-  // generate the text for the count result
   function generateResult() {
     if (row.hasError) return "!"
     if (onRefresh) return ""
@@ -86,7 +80,6 @@ Item {
     return `${apt + snap + flatpak}`
   }
 
-  // return true if update is needed (total > 0)
   function isUpdateNeeded() {
     const apt = parseInt(row.totalApt, 10) || 0
     const snap = (main.enableSnapUpdates && main.hasSnap) ? (parseInt(row.totalSnap, 10) || 0) : 0
@@ -134,108 +127,28 @@ Item {
       }
     }
 
-    // MAIN BR
+    // Primary status / error dot
     Rectangle {
-      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 2
-      height: container.height / 2.5
+      id: mainDotIndicator
+      visible: mainDot && (row.hasError || (secondDot ? isAptUpdateNeeded() : isUpdateNeeded()))
+      height: Math.max(6, Math.round(container.height * 0.175) * 2)
       width: height
       radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
-      anchors {
-        right: container.right
-        bottom: container.bottom
-      }
+      color: row.hasError ? Kirigami.Theme.negativeTextColor : (mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor)
+      x: (mainDotPosition === 0 || mainDotPosition === 2) ? (container.width - width) : 0
+      y: (mainDotPosition === 2 || mainDotPosition === 3) ? (container.height - height) : 0
     }
 
-    // MAIN BL
+    // Secondary repository indicator dot (Snap / Flatpak)
     Rectangle {
-      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 3
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
-      anchors {
-        left: container.left
-        bottom: container.bottom
-      }
-    }
-
-    // MAIN TR
-    Rectangle {
-      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 0
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
-      anchors {
-        right: container.right
-        top: container.top
-      }
-    }
-
-    // MAIN TL
-    Rectangle {
-      visible: (secondDot ? mainDot && isAptUpdateNeeded() : mainDot && isUpdateNeeded()) && mainDotPosition === 1
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: mainDotUseCustomColor ? mainDotColor : Kirigami.Theme.textColor
-      anchors {
-        left: container.left
-        top: container.top
-      }
-    }
-
-    // SECOND BR
-    Rectangle {
-      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 2
-      height: container.height / 2.5
+      id: secondDotIndicator
+      visible: secondDot && mainDot && isSecondaryUpdateNeeded() && !(row.hasError && secondDotPosition === mainDotPosition)
+      height: Math.max(6, Math.round(container.height * 0.175) * 2)
       width: height
       radius: height / 2
       color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
-      anchors {
-        right: container.right
-        bottom: container.bottom
-      }
-    }
-
-    // SECOND BL
-    Rectangle {
-      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 3
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
-      anchors {
-        left: container.left
-        bottom: container.bottom
-      }
-    }
-
-    // SECOND TR
-    Rectangle {
-      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 0
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
-      anchors {
-        right: container.right
-        top: container.top
-      }
-    }
-
-    // SECOND TL
-    Rectangle {
-      visible: (secondDot && mainDot && isSecondaryUpdateNeeded()) && secondDotPosition === 1
-      height: container.height / 2.5
-      width: height
-      radius: height / 2
-      color: secondDotUseCustomColor ? secondDotColor : Kirigami.Theme.textColor
-      anchors {
-        left: container.left
-        top: container.top
-     }
+      x: (secondDotPosition === 0 || secondDotPosition === 2) ? (container.width - width) : 0
+      y: (secondDotPosition === 2 || secondDotPosition === 3) ? (container.height - height) : 0
     }
 
     Kirigami.Badge {
@@ -246,10 +159,12 @@ Item {
         bottom: container.bottom
         horizontalCenter: container.horizontalCenter
       }
-      customColor: Qt.alpha(Kirigami.Theme.backgroundColor, 0.9)
+      type: row.hasError ? Kirigami.Badge.Type.Error : Kirigami.Badge.Type.Information
+      customColor: row.hasError ? Kirigami.Theme.negativeTextColor : Qt.alpha(Kirigami.Theme.backgroundColor, 0.9)
+      customTextColor: row.hasError ? Kirigami.Theme.highlightedTextColor : Kirigami.Theme.textColor
       padding: isRefreshBadge ? 2 : 1
       horizontalPadding: isSeparateBadge ? Kirigami.Units.smallSpacing : padding
-      font.bold: false
+      font.bold: row.hasError
       font.pointSize: Kirigami.Theme.smallFont.pointSize - 1
       icon.name: isRefreshBadge ? "view-refresh-symbolic" : ""
       icon.width: Math.round(Kirigami.Units.iconSizes.sizeForLabels * 0.75)
@@ -260,8 +175,8 @@ Item {
     }
 
     MouseArea {
-      anchors.fill: container // cover all the zone
-      cursorShape: Qt.PointingHandCursor // give user feedback
+      anchors.fill: container
+      cursorShape: Qt.PointingHandCursor
       acceptedButtons: Qt.LeftButton | Qt.MiddleButton
       onClicked: (mouse) => {
         if (invertMouseAction) {

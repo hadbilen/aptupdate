@@ -46,8 +46,6 @@ Kirigami.ScrollablePage {
   property var cfg_iconColorDefault
   property var cfg_iconUseCustomColorDefault
   property var cfg_hideOnZeroDefault
-  property var cfg_debugLog
-  property var cfg_debugLogDefault
   property var cfg_invertMouseAction
   property var cfg_invertMouseActionDefault
   property var cfg_mainIsRefresh
@@ -130,29 +128,13 @@ Kirigami.ScrollablePage {
   property var cfg_adaptiveGroupingDefault
   property var cfg_adaptiveGroupingThreshold
   property var cfg_adaptiveGroupingThresholdDefault
-  property var cfg_cachedAptCount
-  property var cfg_cachedAptCountDefault
-  property var cfg_cachedSnapCount
-  property var cfg_cachedSnapCountDefault
-  property var cfg_cachedFlatpakCount
-  property var cfg_cachedFlatpakCountDefault
-  property var cfg_cachedPackageList
-  property var cfg_cachedPackageListDefault
-  property var cfg_cachedLastCheckTime
-  property var cfg_cachedLastCheckTimeDefault
 
   Connections {
     target: plasmoid.configuration
-    function onDebugLogChanged() { displayConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
     function onHasSnapChanged() { displayConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
     function onHasFlatpakChanged() { displayConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
     function onHasNalaChanged() { displayConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
     function onUseNalaChanged() { displayConfigPage.cfg_useNala = plasmoid.configuration.useNala }
-    function onCachedAptCountChanged() { displayConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-    function onCachedSnapCountChanged() { displayConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-    function onCachedFlatpakCountChanged() { displayConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-    function onCachedPackageListChanged() { displayConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-    function onCachedLastCheckTimeChanged() { displayConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
   }
 
   ColumnLayout {
@@ -165,7 +147,7 @@ Kirigami.ScrollablePage {
       right: parent.right
     }
 
-    // --- BÖLÜM 1: SİMGE (ICON) ---
+    // --- SECTION 1: ICON ---
     Kirigami.Heading {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter
@@ -241,7 +223,7 @@ Kirigami.ScrollablePage {
       Layout.preferredWidth: Math.min(mainColumnLayout.width - Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 32)
     }
 
-    // --- BÖLÜM 2: GÖRÜNÜM (DISPLAY / DOTS) ---
+    // --- SECTION 2: DISPLAY / DOTS ---
     Kirigami.Heading {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter
@@ -326,7 +308,7 @@ Kirigami.ScrollablePage {
       Layout.preferredWidth: Math.min(mainColumnLayout.width - Kirigami.Units.gridUnit * 2, Kirigami.Units.gridUnit * 32)
     }
 
-    // --- BÖLÜM 3: GÜNCELLEME SAYISI GÖRÜNÜMÜ (COUNT DISPLAY FORMAT) ---
+    // --- SECTION 3: COUNT DISPLAY FORMAT ---
     Kirigami.Heading {
       Layout.alignment: Qt.AlignHCenter
       horizontalAlignment: Text.AlignHCenter

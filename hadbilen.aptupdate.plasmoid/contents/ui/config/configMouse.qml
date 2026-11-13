@@ -15,8 +15,6 @@ Kirigami.ScrollablePage {
     // Stub declarations for other config entries and *Default keys injected by Plasma AppletConfiguration
     property var cfg_invertMouseActionDefault
     property var cfg_mainIsRefreshDefault
-    property var cfg_debugLog
-    property var cfg_debugLogDefault
     property var cfg_updateInterval
     property var cfg_updateIntervalDefault
     property var cfg_updateIntervalUnit
@@ -125,29 +123,13 @@ Kirigami.ScrollablePage {
     property var cfg_adaptiveGroupingDefault
     property var cfg_adaptiveGroupingThreshold
     property var cfg_adaptiveGroupingThresholdDefault
-    property var cfg_cachedAptCount
-    property var cfg_cachedAptCountDefault
-    property var cfg_cachedSnapCount
-    property var cfg_cachedSnapCountDefault
-    property var cfg_cachedFlatpakCount
-    property var cfg_cachedFlatpakCountDefault
-    property var cfg_cachedPackageList
-    property var cfg_cachedPackageListDefault
-    property var cfg_cachedLastCheckTime
-    property var cfg_cachedLastCheckTimeDefault
 
     Connections {
         target: plasmoid.configuration
-        function onDebugLogChanged() { mouseConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
         function onHasSnapChanged() { mouseConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
         function onHasFlatpakChanged() { mouseConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
         function onHasNalaChanged() { mouseConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
         function onUseNalaChanged() { mouseConfigPage.cfg_useNala = plasmoid.configuration.useNala }
-        function onCachedAptCountChanged() { mouseConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-        function onCachedSnapCountChanged() { mouseConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-        function onCachedFlatpakCountChanged() { mouseConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-        function onCachedPackageListChanged() { mouseConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-        function onCachedLastCheckTimeChanged() { mouseConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
     }
 
     Kirigami.FormLayout {

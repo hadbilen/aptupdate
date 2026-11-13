@@ -6,12 +6,6 @@
 <kcfgfile name=""/>
 
 
-<group name="debugConfigPage">
-  <entry name="debugLog" type="String">
-    <default>Nothing</default>
-  </entry>
-</group>
-
 <group name="mouseConfigPage">
   <entry name="invertMouseAction" type="Bool">
     <default>false</default>
@@ -252,24 +246,6 @@
     <max>25</max>
   </entry>
 
-</group>
-
-<group name="cache">
-  <entry name="cachedAptCount" type="String">
-    <default>0</default>
-  </entry>
-  <entry name="cachedSnapCount" type="String">
-    <default>0</default>
-  </entry>
-  <entry name="cachedFlatpakCount" type="String">
-    <default>0</default>
-  </entry>
-  <entry name="cachedPackageList" type="String">
-    <default></default>
-  </entry>
-  <entry name="cachedLastCheckTime" type="String">
-    <default></default>
-  </entry>
 </group>
 
 </kcfg>

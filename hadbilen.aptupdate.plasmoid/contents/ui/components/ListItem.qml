@@ -20,13 +20,14 @@ PlasmaComponents.ItemDelegate {
     required property string repo
     required property string fv
     required property string tv
+    required property string branch
     required property string websiteUrl
     required property string appId
 
     width: ListView.view ? ListView.view.width : (parent ? parent.width : implicitWidth)
 
     function updateOne() {
-        updater.launchOneUpdate(name, repo, appId)
+        updater.launchOneUpdate(name, repo, appId, branch)
     }
 
     function openRepoPage() {
@@ -49,7 +50,7 @@ PlasmaComponents.ItemDelegate {
     function generateName() {
         const nc = plasmoid.configuration.nameUseCustomColor ? plasmoid.configuration.nameColor : Kirigami.Theme.textColor
         const sc = plasmoid.configuration.sourceUseCustomColor ? plasmoid.configuration.sourceColor : Kirigami.Theme.disabledTextColor
-        return '<font color="' + nc + '"> ' + escapeHtml(name) + ' </font><font color="' + sc + '"> ' + i18n("from %1", escapeHtml(repo)) + '</font>'
+        return '<font color="' + escapeHtml(nc) + '"> ' + escapeHtml(name) + ' </font><font color="' + escapeHtml(sc) + '"> ' + i18n("from %1", escapeHtml(repo)) + '</font>'
     }
 
     // generate & style the version of the package
@@ -57,7 +58,7 @@ PlasmaComponents.ItemDelegate {
         const fvc = plasmoid.configuration.fvUseCustomColor ? plasmoid.configuration.fvColor : Kirigami.Theme.negativeTextColor
         const sc = plasmoid.configuration.separatorUseCustomColor ? plasmoid.configuration.separatorColor : Kirigami.Theme.textColor
         const tvc = plasmoid.configuration.tvUseCustomColor ? plasmoid.configuration.tvColor : Kirigami.Theme.positiveTextColor
-        return '<font color="' + fvc + '">' + escapeHtml(fv) + '</font><font color="' + sc + '"> ' + escapeHtml(plasmoid.configuration.separatorText) + ' </font><font color="' + tvc + '">' + escapeHtml(tv) + '</font>'
+        return '<font color="' + escapeHtml(fvc) + '">' + escapeHtml(fv) + '</font><font color="' + escapeHtml(sc) + '"> ' + escapeHtml(plasmoid.configuration.separatorText) + ' </font><font color="' + escapeHtml(tvc) + '">' + escapeHtml(tv) + '</font>'
     }
 
     contentItem: RowLayout {
@@ -111,11 +112,16 @@ PlasmaComponents.ItemDelegate {
                 id: actionToolButton
                 icon.name: "system-run-symbolic"
                 display: PlasmaComponents.AbstractButton.IconOnly
-                text: i18n("Update %1", name)
-                enabled: main.canUpdatePackage(repo, name, appId)
-                onClicked: updateOne()
+                text: i18n("Update %1", listItem.name)
+                enabled: main.canUpdatePackage(listItem.repo, listItem.name, listItem.appId)
+                onClicked: listItem.updateOne()
                 PlasmaComponents.ToolTip {
-                    text: (repo === "apt" && main.isPkgManagerBusy) ? i18n("Package manager is currently in use by another process.") : (!main.canUpdatePackage(repo, name, appId) ? i18n("An update is already in progress.") : actionToolButton.text)
+                    textFormat: Text.PlainText
+                    text: (listItem.repo === "apt" && main.isPkgManagerBusy)
+                        ? i18n("Package manager is currently in use by another process.")
+                        : (!main.canUpdatePackage(listItem.repo, listItem.name, listItem.appId)
+                            ? i18n("An update is already in progress.")
+                            : actionToolButton.text)
                 }
             }
         }

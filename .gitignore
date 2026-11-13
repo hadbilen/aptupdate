@@ -1,8 +1,12 @@
 *.zip
 *.tar.gz
+/*.plasmoid
+!hadbilen.aptupdate.plasmoid/
+dist/
 .kdev4/*
 archupdate.kdev4
 .idea/*
 tasks.md
 HANDOFF.md
 MISTAKES.md
+tests/mocks_exec/**/*.so

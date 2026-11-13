@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 13:57+0300\n"
+"POT-Creation-Date: 2026-11-13 22:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,616 +18,696 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:217
-msgid ""
-"Failed to check for updates. Please verify your connection or package "
-"manager."
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:237
+#, qt-format
+msgid "Last online check: %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:307
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:237
 #, qt-format
 msgid "Last check: %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:323
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:827
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:253
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
 msgid "Installing updates…"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:332
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:262
 msgid "Cancel update"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:336
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:266
 msgid "Abort running update process"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:345
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:275
 msgid "Install all updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:350
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:442
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:572
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:118
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:386
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:121
 msgid "Package manager is currently in use by another process."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:350
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:572
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:668
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:764
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:118
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:754
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:123
 msgid "An update is already in progress."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:364
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:294
 msgid "Refresh list"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:392
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:328
 #, qt-format
 msgid "Upgrade Available: Ubuntu %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:392
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:78
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:328
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:100
 msgid "Distribution upgrade available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:395
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:331
 msgid "Open in Terminal"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:400
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:285
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:312
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:318
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:352
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:383
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:389
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:428
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:434
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:441
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:336
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:293
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:317
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:323
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:350
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:384
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:390
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:408
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:414
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:429
 msgid "Update Error"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:400
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:285
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:352
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:441
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:336
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:293
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:350
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:429
 msgid "No terminal command is configured."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:406
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:339
 msgid "Press Enter to close..."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:423
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:724
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:351
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:373
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:390
+msgid "Dismiss"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:364
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1067
 msgid "A system restart is required to complete updates."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:426
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:367
 msgid "Restart..."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:541
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:402
+msgid ""
+"Offline: displaying cached updates without verifying remote repositories."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:410
+#, qt-format
+msgid "Local APT package index is %1 days old. Run a refresh when online."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:437
+msgid "One or more package sources failed to update."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:533
 #, qt-format
 msgid "APT (%1)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:558
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:654
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:750
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:550
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:645
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:740
 msgid "Repository Home"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:561
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:553
 msgid "Open APT repository website"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:568
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:560
 msgid "Install APT updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:572
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
 msgid "Install all APT updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:637
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:628
 #, qt-format
 msgid "Snap (%1)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:657
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:648
 msgid "Open Snapcraft store"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:664
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:655
 msgid "Install Snap updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:668
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
 msgid "Install all Snap updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:733
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:723
 #, qt-format
 msgid "Flatpak (%1)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:753
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:743
 msgid "Open Flathub website"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:760
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:750
 msgid "Install Flatpak updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:764
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:754
 msgid "Install all Flatpak updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:789
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:778
 msgid "Waiting for update check…"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:797
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:785
+msgid "Offline — unable to check for updates"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:792
 msgid "You're up-to-date !"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:806
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:800
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:54
 msgid "Check log for details."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:806
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:800
 #, qt-format
 msgid ""
 "Something went wrong:\n"
 "%1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:827
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
+msgid "Retrying failed check…"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
 msgid "Checking for updates…"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:115
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:121
+msgid "Connectivity check timed out or failed."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:293
+msgid "Background update timed out after 10 minutes."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:296
 msgid "Update Aborted"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:115
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:296
 msgid "Update operation timed out or was cancelled."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:344
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:577
+#, qt-format
+msgid "Authorization or elevation helper failed (pkexec exit code %1)."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:580
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:593
 #, qt-format
 msgid "Update failed for: %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:346
-msgid "An error occurred during the background update."
-msgstr ""
-
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:356
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:909
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:915
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:584
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:600
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1115
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1122
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1258
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1265
 msgid "Update Failed"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:525
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:594
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1287
+msgid "An error occurred during the background update."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:810
 #, qt-format
 msgid "%1 update available: %2"
 msgid_plural "%1 updates available: %2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:527
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:812
 #, qt-format
 msgid "%1 update available"
 msgid_plural "%1 updates available"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:531
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:816
 msgid "Critical System Updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:534
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:936
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:964
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:995
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:818
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1277
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1282
 msgid "System Updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:609
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:853
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:847
+msgid "Update check interrupted by installation."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:908
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1209
 msgid "Update check timed out."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:724
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1067
 msgid "System Restart Required"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:739
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1078
 msgid "Distribution Upgrade Available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:739
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1078
 #, qt-format
 msgid "Ubuntu %1 is now available for upgrade."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:853
-#, qt-format
-msgid "Command failed with exit code %1"
-msgstr ""
-
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:905
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1089
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1256
 #, qt-format
 msgid "Failed to launch terminal (command not found: %1)."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:911
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1090
+#, qt-format
+msgid "Distribution upgrade launcher failed with exit code %1."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1092
+msgid "Upgrade Error"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1098
+msgid "Could not open the KDE logout prompt via session D-Bus."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1100
+msgid "Restart Failed"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1113
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1263
 #, qt-format
 msgid "Update failed with exit code %1."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:936
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1120
+msgid "Could not read terminal update exit status."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1209
+#, qt-format
+msgid "Command failed with exit code %1"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1277
 msgid "All system updates were installed successfully."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:964
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1280
 #, qt-format
 msgid "%1 updates were installed successfully."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:995
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1282
 #, qt-format
 msgid "%1 was updated successfully."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1128
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1425
 msgid "Update"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1136
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1433
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:239
 msgid "Refresh"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1157
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1452
 msgctxt "@action:button set keyboard shortcut for"
 msgid "Activate widget as if clicked:"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:247
+msgid "Offline"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
 msgid "Upgrade Available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
 msgid "No updates available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:39
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
 msgid "Updates are available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:50
-msgid "An error occurred during update"
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:72
+msgid "Offline — cached update information"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:64
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:86
 msgid "System restart required"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:78
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:100
 #, qt-format
 msgid "Distribution upgrade available: Ubuntu %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:92
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:115
 msgid "APT:"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:105
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:128
 msgid "Snap:"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:118
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:141
 msgid "Flatpak:"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:52
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:53
 #, qt-format
 msgid "from %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:103
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:104
 msgid "See repository"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:114
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:115
 #, qt-format
 msgid "Update %1"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:249
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:214
 msgid "General"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:259
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:224
 msgid "Update every: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:271
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:236
 msgid "Minute(s)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:271
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:236
 msgid "Hour(s)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:271
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:236
 msgid "Day(s)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:245
 msgid "Startup check: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:286
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:251
 msgid "Do not check on startup"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:287
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:252
 msgid "Check immediately"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:288
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:253
 msgid "Check after delay"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:299
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:264
 msgid "Startup delay: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:311
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:276
 msgid "seconds"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:318
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:283
 msgid "Do not close the terminal at the end of the upgrade action"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:325
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:290
 msgid "Debug"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:332
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:297
 msgid "This option enables logs for each command executed by the plugin."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:339
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:304
 msgid "Retry \"Search & count\" cmd if they are in error"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:356
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:321
 msgid "Search & count"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:362
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:327
 msgid ""
 "Pre-configured for Kubuntu / Ubuntu / Debian with APT, Snap, and Flatpak "
 "support."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:370
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:335
 msgid "Enable Snap updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:371
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:336
 msgid "Enable Snap updates (not installed)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:379
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:344
 msgid "Enable Flatpak updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:380
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:345
 msgid "Enable Flatpak updates (not installed)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:386
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:351
 msgid "Include phased (staged) updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:394
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:359
 msgid ""
 "Search and count commands are managed internally to match the backend "
 "parser's expected output format and are provided as read-only preview."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:404
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:369
 msgid "Count APT command (preview): "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:414
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:379
 msgid "List APT command (preview): "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:420
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:385
 msgid "Update package"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:425
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:390
 msgid "Run updates in background silently (pkexec)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:431
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:396
 msgid "Use Nala for APT upgrades (terminal mode only)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:439
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:404
 msgid "Nala was not found on this system (sudo apt install nala)."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:441
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:406
 msgid ""
 "Silent background updates (pkexec) always use apt-get; Nala is only used in "
 "terminal mode."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:442
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:407
 msgid ""
-"Uses 'nala upgrade' in terminal mode (package checks and lists still use apt-"
-"get --with-new-pkgs)."
+"Uses 'nala upgrade --no-autoremove' in terminal mode. Checks and pending "
+"lists use 'apt-get --with-new-pkgs', so Nala may defer new-package "
+"transitions and report fewer installed packages than listed."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:452
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:417
 msgid "Final update command preview: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:462
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:427
 msgid "Update one package command: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:470
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:435
 msgid "Command for the update action: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:478
-msgid "Command for the update action with do no close: "
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:443
+msgid "Command for the update action with do not close: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:486
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configCommand.qml:451
 msgid "Command that run after the \"do not close\" command: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:172
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:154
 msgid "Icon"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:180
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:162
 msgid ""
 "You may need to refresh the widget to see any change if you choose another "
 "icon.\n"
 "A quick way to do that is just to hit 'Refresh' in the widget menu."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:194
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:176
 msgid "Main icon: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:211
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:193
 msgid "Refresh icon: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:229
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:211
 msgid "Custom icon color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:248
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:230
 msgid "Display"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:256
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:238
 msgid ""
 "The dot is shown only if update is needed.\n"
 "This is the recommended option if you want to use the widget in your system "
 "tray or if you tend to have a lot of updates that the label can't handle."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:266
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:248
 msgid "Show a dot in place of the label"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:276
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:258
 msgid "Custom main dot color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:288
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:318
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:270
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:300
 msgid "Top Right"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:288
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:318
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:270
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:300
 msgid "Top Left"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:288
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:318
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:270
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:300
 msgid "Bottom Right"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:288
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:318
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:270
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:300
 msgid "Bottom Left"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:295
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:277
 msgid "Separate the dot between the two commands"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:306
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:288
 msgid "Custom second dot color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:333
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:315
 msgid "Count Display Format"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:341
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:323
 msgid "Choose how the pending update count is displayed on the panel icon."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:356
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:338
 msgid "Merged (single total count, e.g. 45)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:368
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:350
 msgid "Separated (split by package source, e.g. 41 ~ 0 ~ 4)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:383
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:282
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:365
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:264
 msgid "Separator: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:394
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configDisplay.qml:376
 msgid "Hide label when 0 updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:165
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:147
 msgid "Mouse action"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:174
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:156
 msgid "Left click to open popup, middle click to update"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:186
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:168
 msgid "Middle click to open popup, left click to update"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:199
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:181
 msgid "Main action behavior"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:205
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:187
 msgid "Doing both at the same time is prone to bug so it's not possible"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:211
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configMouse.qml:193
 msgid "Do a refresh in place of opening the popup"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:164
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:146
 msgid "Desktop Notifications"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:170
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:152
 msgid ""
 "Critical update failures are always notified regardless of these settings to "
 "ensure system stability.\n"
@@ -635,121 +715,142 @@ msgid ""
 "will still be shown as a status banner in the popup."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:177
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:159
 msgid "Notify when new updates are found"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:187
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:169
 msgid "Minimum pending updates required to notify: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:199
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:181
 msgid "updates"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:205
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:187
 msgid "Notify if updates exceed threshold on session login"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:212
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:194
 msgid "Send desktop notification when system restart is required"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:218
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:200
 msgid "Notify when a new distribution release is available"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:224
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configNotification.qml:206
 msgid "Notify on silent update completion"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:172
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:154
 msgid "PackageName"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:172
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:154
 msgid "from source"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:195
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:177
 msgid "Popup color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:221
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:203
 msgid "Custom name color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:237
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:219
 msgid "Custom source color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:253
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:235
 msgid "Custom 'from version' color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:269
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:251
 msgid "Custom separator color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:291
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:273
 msgid "Custom 'to version' color"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:303
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:285
 msgid "Grouping"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:308
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:290
 msgid "Group updates by repository"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:315
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:297
 msgid "Adaptive accordion (auto-expand groups with few updates)"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:327
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:309
 msgid "Auto-expand threshold: "
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:339
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/configPopup.qml:321
 msgid "packages"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:163
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:223
 msgid "Debug log"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:168
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:230
+#, qt-format
+msgid "Stored in cache file: %1"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:246
+msgid "Copy"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:257
 msgid "Clear log data"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:84
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:271
+msgid "No debug log entries recorded yet."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:90
 msgid "An error occurred during update. Press Enter to close..."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:268
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:303
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:369
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:245
 msgid "Package Manager Busy"
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:268
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:303
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:369
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:245
 msgid ""
 "Another package management process is currently running. Please wait for it "
 "to complete."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:312
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:389
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:428
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:247
+msgid "An active internet connection is required to install updates."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:249
+msgid "Update Unavailable"
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:249
+msgid "Please wait for the current check or update to finish."
+msgstr ""
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:317
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:390
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:408
 msgid "Snap is not installed on this system."
 msgstr ""
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:318
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:383
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:434
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:323
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:384
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:414
 msgid "Flatpak is not installed on this system."
 msgstr ""
 

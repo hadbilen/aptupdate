@@ -22,8 +22,6 @@ Kirigami.ScrollablePage {
     property var cfg_notifyOnRebootRequiredDefault
     property var cfg_notifyOnReleaseUpgradeDefault
     property var cfg_notifyOnSilentUpdateDefault
-    property var cfg_debugLog
-    property var cfg_debugLogDefault
     property var cfg_invertMouseAction
     property var cfg_invertMouseActionDefault
     property var cfg_mainIsRefresh
@@ -124,29 +122,13 @@ Kirigami.ScrollablePage {
     property var cfg_adaptiveGroupingDefault
     property var cfg_adaptiveGroupingThreshold
     property var cfg_adaptiveGroupingThresholdDefault
-    property var cfg_cachedAptCount
-    property var cfg_cachedAptCountDefault
-    property var cfg_cachedSnapCount
-    property var cfg_cachedSnapCountDefault
-    property var cfg_cachedFlatpakCount
-    property var cfg_cachedFlatpakCountDefault
-    property var cfg_cachedPackageList
-    property var cfg_cachedPackageListDefault
-    property var cfg_cachedLastCheckTime
-    property var cfg_cachedLastCheckTimeDefault
 
     Connections {
         target: plasmoid.configuration
-        function onDebugLogChanged() { notificationConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
         function onHasSnapChanged() { notificationConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
         function onHasFlatpakChanged() { notificationConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
         function onHasNalaChanged() { notificationConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
         function onUseNalaChanged() { notificationConfigPage.cfg_useNala = plasmoid.configuration.useNala }
-        function onCachedAptCountChanged() { notificationConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-        function onCachedSnapCountChanged() { notificationConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-        function onCachedFlatpakCountChanged() { notificationConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-        function onCachedPackageListChanged() { notificationConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-        function onCachedLastCheckTimeChanged() { notificationConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
     }
 
     Kirigami.FormLayout {

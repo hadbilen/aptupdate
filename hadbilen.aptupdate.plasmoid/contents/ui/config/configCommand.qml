@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.plasmoid
+import "../../service/CommandBuilder.js" as CmdBuilder
 
 Kirigami.ScrollablePage {
 
@@ -68,8 +69,6 @@ Kirigami.ScrollablePage {
   property var cfg_termCmdDefault
   property var cfg_termNoCloseCmdDefault
   property var cfg_termNoCloseSuffixDefault
-  property var cfg_debugLog
-  property var cfg_debugLogDefault
   property var cfg_invertMouseAction
   property var cfg_invertMouseActionDefault
   property var cfg_mainIsRefresh
@@ -151,76 +150,42 @@ Kirigami.ScrollablePage {
   property var cfg_adaptiveGroupingDefault
   property var cfg_adaptiveGroupingThreshold
   property var cfg_adaptiveGroupingThresholdDefault
-  property var cfg_cachedAptCount
-  property var cfg_cachedAptCountDefault
-  property var cfg_cachedSnapCount
-  property var cfg_cachedSnapCountDefault
-  property var cfg_cachedFlatpakCount
-  property var cfg_cachedFlatpakCountDefault
-  property var cfg_cachedPackageList
-  property var cfg_cachedPackageListDefault
-  property var cfg_cachedLastCheckTime
-  property var cfg_cachedLastCheckTimeDefault
 
   Connections {
     target: plasmoid.configuration
-    function onDebugLogChanged() { commandConfigPage.cfg_debugLog = plasmoid.configuration.debugLog }
     function onHasSnapChanged() { commandConfigPage.cfg_hasSnap = plasmoid.configuration.hasSnap }
     function onHasFlatpakChanged() { commandConfigPage.cfg_hasFlatpak = plasmoid.configuration.hasFlatpak }
     function onHasNalaChanged() { commandConfigPage.cfg_hasNala = plasmoid.configuration.hasNala }
-    function onCachedAptCountChanged() { commandConfigPage.cfg_cachedAptCount = plasmoid.configuration.cachedAptCount }
-    function onCachedSnapCountChanged() { commandConfigPage.cfg_cachedSnapCount = plasmoid.configuration.cachedSnapCount }
-    function onCachedFlatpakCountChanged() { commandConfigPage.cfg_cachedFlatpakCount = plasmoid.configuration.cachedFlatpakCount }
-    function onCachedPackageListChanged() { commandConfigPage.cfg_cachedPackageList = plasmoid.configuration.cachedPackageList }
-    function onCachedLastCheckTimeChanged() { commandConfigPage.cfg_cachedLastCheckTime = plasmoid.configuration.cachedLastCheckTime }
   }
 
   function getEffectiveCountCommand() {
-    var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
-    return "bash -c \"set -o pipefail; LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk '/^Inst [^ ]+ \\\\[/ {c++} END {print c+0}'\""
+    return CmdBuilder.buildCountArchCmd(includePhasedUpdatesBox.checked)
   }
 
   function getEffectiveListCommand() {
-    var phased = includePhasedUpdatesBox.checked ? " -o APT::Get::Always-Include-Phased-Updates=true" : ""
-    return "bash -c 'set -o pipefail; LC_ALL=C apt-get -s --with-new-pkgs -o DPkg::Lock::Timeout=10 upgrade" + phased + " 2>/dev/null | awk \"/^Inst [^ ]+ \\\\[/ {orig=\\$0; gsub(/[][()]/, \\\"\\\"); \\$1=\\$1; origins=\\\"\\\"; for(i=5;i<=NF;i++) origins=(origins==\\\"\\\" ? \\$i : origins \\\" \\\" \\$i); print \\$2, \\$3, \\\"->\\\", \\$4, origins }\"'"
+    return CmdBuilder.buildListArchCmd(includePhasedUpdatesBox.checked)
   }
 
   function getEffectivePreviewCommand() {
-    var useNalaPreview = useNalaBox.checked && plasmoid.configuration.hasNala && !silentUpdateBox.checked
-    var aptPart = ""
-    if (useNalaPreview) {
-      aptPart = "sudo nala upgrade -o DPkg::Lock::Timeout=10"
-      if (includePhasedUpdatesBox.checked) {
-        aptPart += " -o APT::Get::Always-Include-Phased-Updates=true"
-      }
-    } else {
-      var aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 upgrade"
-      if (includePhasedUpdatesBox.checked) {
-        aptUpgrade = "sudo apt -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade"
-      }
-      aptPart = "sudo apt -o DPkg::Lock::Timeout=10 update && " + aptUpgrade
+    var opts = {
+      aptCount: 1,
+      snapCount: (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) ? 1 : 0,
+      flatpakCount: (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak) ? 1 : 0,
+      enableSnapUpdates: enableSnapUpdatesBox.checked,
+      enableFlatpakUpdates: enableFlatpakUpdatesBox.checked,
+      hasSnap: plasmoid.configuration.hasSnap,
+      hasFlatpak: plasmoid.configuration.hasFlatpak,
+      useNala: useNalaBox.checked,
+      hasNala: plasmoid.configuration.hasNala,
+      includePhasedUpdates: includePhasedUpdatesBox.checked,
+      runApt: true,
+      runSnap: Boolean(enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap),
+      runFlatpak: Boolean(enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak)
     }
-    var parts = [aptPart]
-    if (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) {
-      parts.push("sudo snap refresh")
-    }
-    if (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak) {
-      parts.push("flatpak update -y")
-    }
-    var effCmd = parts.length > 1 ? ("err=0; " + parts.map(p => "(" + p + ") || err=1").join("; ") + "; [ $err -eq 0 ]") : (parts[0] || "")
     if (silentUpdateBox.checked) {
-      var silentApt = "(apt-get -o DPkg::Lock::Timeout=10 update && " + (includePhasedUpdatesBox.checked ? "apt-get -o DPkg::Lock::Timeout=10 -o APT::Get::Always-Include-Phased-Updates=true upgrade -yq --with-new-pkgs" : "apt-get -o DPkg::Lock::Timeout=10 upgrade -yq --with-new-pkgs") + ")"
-      var rootParts = [silentApt]
-      if (enableSnapUpdatesBox.checked && plasmoid.configuration.hasSnap) {
-        rootParts.push("snap refresh")
-      }
-      var steps = ["pkexec env DEBIAN_FRONTEND=noninteractive bash -c '" + rootParts.join("; ") + "'"]
-      if (enableFlatpakUpdatesBox.checked && plasmoid.configuration.hasFlatpak) {
-        steps.push("flatpak update -y")
-      }
-      return steps.join("; ")
+      return CmdBuilder.buildEffectiveSilentUpdateCmd(opts)
     }
-    return effCmd
+    return CmdBuilder.buildEffectiveUpdateCmd(opts)
   }
 
   ColumnLayout {
@@ -233,7 +198,7 @@ Kirigami.ScrollablePage {
     }
     width: Math.max(commandConfigPage.width, commandsFormLayout.implicitWidth + Kirigami.Units.gridUnit * 2)
 
-    // --- GENEL BÖLÜMÜ (ORTALANMIŞ) ---
+    // --- GENERAL SECTION (CENTERED) ---
     Item {
       Layout.preferredWidth: Math.min(commandConfigPage.width, mainColumnLayout.width)
       Layout.preferredHeight: generalContentCol.implicitHeight
@@ -439,7 +404,7 @@ Kirigami.ScrollablePage {
         ? i18n("Nala was not found on this system (sudo apt install nala).")
         : (silentUpdateBox.checked
           ? i18n("Silent background updates (pkexec) always use apt-get; Nala is only used in terminal mode.")
-          : i18n("Uses 'nala upgrade' in terminal mode (package checks and lists still use apt-get --with-new-pkgs)."))
+          : i18n("Uses 'nala upgrade --no-autoremove' in terminal mode. Checks and pending lists use 'apt-get --with-new-pkgs', so Nala may defer new-package transitions and report fewer installed packages than listed."))
       visible: useNalaBox.checked || !plasmoid.configuration.hasNala
     }
 
@@ -475,7 +440,7 @@ Kirigami.ScrollablePage {
       selectByMouse: true
       Layout.fillWidth: true
       Layout.preferredWidth: Math.max(750, contentWidth + Kirigami.Units.gridUnit * 2)
-      Kirigami.FormData.label: i18n("Command for the update action with do no close: ")
+      Kirigami.FormData.label: i18n("Command for the update action with do not close: ")
     }
 
     Controls.TextField {
