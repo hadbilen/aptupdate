@@ -1,3 +1,12 @@
+### v1.2.3
+  - Added:
+    - Relative `"Last check"` / `"Last online check"` timestamp formatting (`Today <time>` / `Yesterday <time>` for same-day and previous-day checks, falling back to full locale short date+time for older checks) with DST-safe local calendar day math (`localCalendarDayDiff` via `Date.UTC`), automatic midnight-rollover recalculation on popup open and periodic timer ticks, and a `Text.PlainText` hover tooltip showing the full short date and time.
+    - Flatpak OSTree commit tracking (`flatpak list --columns=application,branch,version,active` and `flatpak remote-ls --updates --columns=application,name,branch,version,commit`) displaying short 7-character commit hashes across normal version upgrades, identical-version rebuilds, missing-version runtimes/extensions, and regressed remote AppStream metadata without cluttering listings with download sizes.
+    - Stale Flatpak AppStream metadata indicator in `ListItem.qml` using `Kirigami.Theme.neutralTextColor` (when custom target-version color is unset) and an explanatory `Text.PlainText` tooltip (`OSTree commit %1 updates installed %2 (remote AppStream metadata still reports %3)`).
+  - Changed:
+    - Preserved 6-column legacy Flatpak output compatibility in `CommandBuilder.buildListFlatpakCmd()` when neither installed nor remote commit hashes are present, and isolated per-branch commits (`<appId>/<branch>`) for multi-branch runtimes.
+    - Updated Turkish translations (`192` translated messages, `0` fuzzy, `0` untranslated), `README.md`, and QML/shell seam regression tests (`tst_ac1_ac4_seams.qml`, `tst_main_state_seams.qml`, `test_shell_seams.sh`).
+
 ### v1.2.2
   - Security:
     - Removed unconfirmed `systemctl reboot` fallback from the popup `Restart...` action; reboot prompting now routes exclusively through KDE Session D-Bus (`qdbus6`, `qdbus`, `gdbus`, `dbus-send` on `org.kde.LogoutPrompt`) and surfaces a clear notification on failure.
