@@ -3,6 +3,7 @@ import QtTest
 import org.kde.plasma.plasmoid as PlasmoidMod
 import org.kde.plasma.plasma5support as P5S
 import "mocks/org/kde/plasma/plasmoid" as MockCfg
+import "../hadbilen.aptupdate.plasmoid/contents/service/CommandBuilder.js" as CmdBuilder
 
 Item {
     id: harness
@@ -556,6 +557,107 @@ Item {
                 wait(40)
                 compare(env.main.aptIndexAgeDays, 2)
                 verify(!env.main.aptIndexStale, "APT index age 2 days must mark aptIndexStale=false")
+            } finally {
+                env.main.destroy()
+                env.cfg.destroy()
+                P5S.DataSourceRegistry.reset()
+            }
+        }
+
+        function test_12_relative_last_check_time_dst_and_midnight_rollover() {
+            // Pure DST-safe local calendar day diff checks
+            var dSameA = new Date(2026, 2, 29, 0, 5, 0)
+            var dSameB = new Date(2026, 2, 29, 23, 55, 0)
+            compare(CmdBuilder.localCalendarDayDiff(dSameA, dSameB), 0)
+
+            var dFallA = new Date(2026, 9, 25, 0, 5, 0)
+            var dFallB = new Date(2026, 9, 25, 23, 55, 0)
+            compare(CmdBuilder.localCalendarDayDiff(dFallA, dFallB), 0)
+
+            var dNewYearsEve = new Date(2025, 11, 31, 23, 59, 0)
+            var dNewYearsDay = new Date(2026, 0, 1, 0, 1, 0)
+            compare(CmdBuilder.localCalendarDayDiff(dNewYearsEve, dNewYearsDay), 1)
+
+            var dTwoDaysAgo = new Date(2026, 0, 1, 23, 59, 0)
+            var dJan3 = new Date(2026, 0, 3, 0, 1, 0)
+            compare(CmdBuilder.localCalendarDayDiff(dTwoDaysAgo, dJan3), 2)
+
+            var dFuture = new Date(2026, 0, 4, 8, 0, 0)
+            compare(CmdBuilder.localCalendarDayDiff(dFuture, dJan3), -1)
+            verify(isNaN(CmdBuilder.localCalendarDayDiff(null, dJan3)))
+            verify(isNaN(CmdBuilder.localCalendarDayDiff(new Date("bad"), dJan3)))
+
+            var env = createMain({ startupCheckMode: 0 }, defaultOnlineHandler)
+            try {
+                wait(40)
+                var refAnchor = new Date(2026, 2, 30, 0, 5, 0)
+                var todayTarget = new Date(2026, 2, 30, 0, 1, 0)
+                var expectedToday = "Today " + Qt.formatTime(todayTarget, Qt.DefaultLocaleShortDate)
+                compare(env.main.formatLastCheckDisplay(todayTarget.toISOString(), refAnchor), expectedToday)
+
+                var yestTarget = new Date(2026, 2, 29, 23, 55, 0)
+                var expectedYest = "Yesterday " + Qt.formatTime(yestTarget, Qt.DefaultLocaleShortDate)
+                compare(env.main.formatLastCheckDisplay(yestTarget.toISOString(), refAnchor), expectedYest)
+
+                var olderTarget = new Date(2026, 2, 28, 14, 15, 0)
+                var expectedOlder = Qt.formatDateTime(olderTarget, Qt.DefaultLocaleShortDate)
+                compare(env.main.formatLastCheckDisplay(olderTarget.toISOString(), refAnchor), expectedOlder)
+
+                var futureTarget = new Date(2026, 2, 31, 9, 0, 0)
+                compare(env.main.formatLastCheckDisplay(futureTarget.toISOString(), refAnchor), Qt.formatDateTime(futureTarget, Qt.DefaultLocaleShortDate))
+
+                compare(env.main.formatLastCheckDisplay("not-an-iso", refAnchor), "not-an-iso")
+                compare(env.main.formatLastCheckDisplay("", refAnchor), "")
+
+                // Midnight rollover on popup expansion: stale "Today 23:55" must refresh to "Yesterday <time>"
+                var preDay = new Date()
+                var liveYesterday = new Date(preDay.getFullYear(), preDay.getMonth(), preDay.getDate() - 1, 23, 55, 0)
+                env.main.lastCheckIso = liveYesterday.toISOString()
+                env.main.lastCheckTime = "Today 23:55"
+                env.main.expanded = false
+                env.main.expanded = true
+                var postDay = new Date()
+                if (CmdBuilder.localCalendarDayDiff(preDay, postDay) !== 0) {
+                    liveYesterday = new Date(postDay.getFullYear(), postDay.getMonth(), postDay.getDate() - 1, 23, 55, 0)
+                    env.main.lastCheckIso = liveYesterday.toISOString()
+                    env.main.lastCheckTime = "Today 23:55"
+                    env.main.expanded = false
+                    env.main.expanded = true
+                }
+                compare(env.main.lastCheckTime, "Yesterday " + Qt.formatTime(liveYesterday, Qt.DefaultLocaleShortDate))
+
+                // Periodic timer tick also refreshes stale timestamp across midnight
+                var periodicTimer = findDataObj(env.main, function(o) {
+                    return o && o.repeat === true && o.interval >= 60000 && typeof o.triggered === "function"
+                })
+                verify(periodicTimer !== null, "Periodic update timer must exist on main")
+                env.main.lastCheckTime = "Today 23:55"
+                periodicTimer.triggered()
+                compare(env.main.lastCheckTime, "Yesterday " + Qt.formatTime(liveYesterday, Qt.DefaultLocaleShortDate))
+
+                // applyLoadedCache formats loaded lastCheckIso relatively via formatLastCheckDisplay
+                env.main.hasScannedThisSession = false
+                env.main.isChecking = false
+                env.main.lastCheckTime = ""
+                env.main.applyLoadedCache(JSON.stringify({
+                    tApt: "1",
+                    lastCheckIso: liveYesterday.toISOString(),
+                    lastCheckOffline: false
+                }))
+                compare(env.main.lastCheckTime, "Yesterday " + Qt.formatTime(liveYesterday, Qt.DefaultLocaleShortDate))
+
+                // Full online check -> saveCache() writes relative "Today <time>" and persists lastCheckIso into cache payload
+                P5S.DataSourceRegistry.history = []
+                env.main.lastCheckIso = ""
+                env.main.lastCheckTime = ""
+                env.main.refreshAll()
+                tryVerify(function() { return !env.main.isChecking && env.main.lastCheckIso !== "" }, 2000)
+                var savedDate = new Date(env.main.lastCheckIso)
+                compare(env.main.lastCheckTime, "Today " + Qt.formatTime(savedDate, Qt.DefaultLocaleShortDate))
+                verify(P5S.DataSourceRegistry.history.some(function(entry) {
+                    var src = entry && entry.source ? String(entry.source) : ""
+                    return src.indexOf("cache.XXXXXX") !== -1 && src.indexOf('"lastCheckIso":"' + env.main.lastCheckIso + '"') !== -1
+                }), "saveCache must write lastCheckIso into persisted cache payload")
             } finally {
                 env.main.destroy()
                 env.cfg.destroy()

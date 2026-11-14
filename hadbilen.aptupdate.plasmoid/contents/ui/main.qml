@@ -603,6 +603,28 @@ PlasmoidItem {
     property string pendingCacheWriteJson: ""
     property bool cacheWriting: false
 
+    function formatLastCheckDisplay(isoStr, nowDate) {
+        const parsedDate = CmdBuilder.parseIsoDate(isoStr)
+        if (!parsedDate) {
+            return String(isoStr || "")
+        }
+        const refDate = (nowDate instanceof Date && !isNaN(nowDate.getTime())) ? nowDate : new Date()
+        const dayDiff = CmdBuilder.localCalendarDayDiff(parsedDate, refDate)
+        const timeStr = Qt.formatTime(parsedDate, Qt.DefaultLocaleShortDate)
+        if (dayDiff === 0) {
+            return i18n("Today %1", timeStr)
+        }
+        if (dayDiff === 1) {
+            return i18n("Yesterday %1", timeStr)
+        }
+        return Qt.formatDateTime(parsedDate, Qt.DefaultLocaleShortDate)
+    }
+
+    function refreshLastCheckTime(nowDate) {
+        if (!main.lastCheckIso) return
+        main.lastCheckTime = main.formatLastCheckDisplay(main.lastCheckIso, nowDate)
+    }
+
     function applyLoadedCache(rawJson) {
         if (main.hasScannedThisSession || main.isChecking) return
         var text = String(rawJson || "").trim()
@@ -622,8 +644,7 @@ PlasmoidItem {
             main.lastCheckIso = String(data.lastCheckIso || "")
             main.lastCheckOffline = Boolean(data.lastCheckOffline)
             if (main.lastCheckIso) {
-                var parsedDate = new Date(main.lastCheckIso)
-                main.lastCheckTime = isNaN(parsedDate.getTime()) ? main.lastCheckIso : Qt.formatDateTime(parsedDate, Qt.DefaultLocaleShortDate)
+                main.refreshLastCheckTime()
                 main.hasCheckedOnce = !main.lastCheckOffline
             }
             if (main.startupCheckMode !== 1 && main.startupCheckMode !== 2) {
@@ -680,10 +701,9 @@ PlasmoidItem {
         const flatpakEnabled = Boolean(main.enableFlatpakUpdates && main.hasFlatpak)
         const now = new Date()
         const isoStr = now.toISOString()
-        const timeStr = Qt.formatDateTime(now, Qt.DefaultLocaleShortDate)
 
         main.lastCheckIso = isoStr
-        main.lastCheckTime = timeStr
+        main.refreshLastCheckTime(now)
         main.hasCheckedOnce = true
         main.hasScannedThisSession = true
 
@@ -1370,12 +1390,14 @@ PlasmoidItem {
         repeat: true
         triggeredOnStart: false
         onTriggered: {
+            main.refreshLastCheckTime()
             main.triggerAutoCheck()
         }
     }
 
     onExpandedChanged: {
         if (main.expanded) {
+            main.refreshLastCheckTime()
             main.isPrewarmed = true
         } else if (main.pendingAutoCheck) {
             main.pendingAutoCheck = false

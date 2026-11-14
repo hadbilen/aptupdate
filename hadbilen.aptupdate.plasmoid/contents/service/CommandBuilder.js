@@ -454,8 +454,8 @@ function buildListSnapCmd() {
 
 function buildListFlatpakCmd() {
     var inner = "set -o pipefail; errf=$(mktemp) || exit 1; trap 'rm -f \"$errf\"' EXIT; " +
-        "(LC_ALL=C flatpak list --columns=application,branch,version 2>/dev/null || true; echo '---SEP---'; LC_ALL=C timeout --kill-after=5s 20s flatpak remote-ls --updates --columns=application,name,branch,version 2>\"$errf\") | " +
-        "awk -F'\\t' 'BEGIN { in_up=0 } $0 == \"---SEP---\" { in_up=1; next } !in_up { if (NF>=2) { ver=($3 != \"\" ? $3 : $2); inst[$1 \"/\" $2]=ver; inst_app[$1]=ver } next } in_up { if (NF>=1 && $1 != \"\") { app=$1; name=($2 != \"\" ? $2 : $1); branch=$3; tv=($4 != \"\" ? $4 : branch); key=app \"/\" branch; fv=(key in inst ? inst[key] : (app in inst_app ? inst_app[app] : \"-\")); print app \"\\t\" name \"\\tflatpak\\t\" fv \"\\t\" tv \"\\t\" branch } }'; " +
+        "(LC_ALL=C flatpak list --columns=application,branch,version,active 2>/dev/null || true; echo '---SEP---'; LC_ALL=C timeout --kill-after=5s 20s flatpak remote-ls --updates --columns=application,name,branch,version,commit 2>\"$errf\") | " +
+        "awk -F'\\t' 'BEGIN { in_up=0 } $0 == \"---SEP---\" { in_up=1; next } !in_up { if (NF>=2) { ver=($3 != \"\" ? $3 : $2); c=($4 != \"\" ? $4 : \"\"); inst[$1 \"/\" $2]=ver; inst_app[$1]=ver; inst_c[$1 \"/\" $2]=c; inst_app_c[$1]=c } next } in_up { if (NF>=1 && $1 != \"\") { app=$1; name=($2 != \"\" ? $2 : $1); branch=$3; tv=($4 != \"\" ? $4 : branch); key=app \"/\" branch; fv=(key in inst ? inst[key] : (app in inst_app ? inst_app[app] : \"-\")); fc=(key in inst ? inst_c[key] : (app in inst_app ? inst_app_c[app] : \"\")); tc=($5 != \"\" ? $5 : \"\"); base=app \"\\t\" name \"\\tflatpak\\t\" fv \"\\t\" tv \"\\t\" branch; if (fc != \"\" || tc != \"\") { print base \"\\t\" fc \"\\t\" tc } else { print base } } }'; " +
         "rc=$?; if [ $rc -ne 0 ]; then tail -n 8 \"$errf\" >&2; fi; exit $rc"
     return "bash -c '" + bashEscape(inner) + "'"
 }
@@ -585,4 +585,116 @@ function classifySilentLog(output) {
         return { status: "pkexec_failed", code: m ? parseInt(m[1], 10) : 127, failedRepos: failed, pkexecFailed: true, raw: text }
     }
     return { status: "failed", failedRepos: failed, pkexecFailed: false, raw: text }
+}
+
+function parseIsoDate(isoStr) {
+    var raw = String(isoStr || "").trim()
+    if (!raw) return null
+    var d = new Date(raw)
+    return isNaN(d.getTime()) ? null : d
+}
+
+function localCalendarDayDiff(targetDate, refDate) {
+    if (!targetDate || !refDate || isNaN(targetDate.getTime()) || isNaN(refDate.getTime())) {
+        return NaN
+    }
+    // Compare local calendar dates in UTC so DST transitions (23h/25h days) cannot skew day counts.
+    var tUtc = Date.UTC(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate())
+    var rUtc = Date.UTC(refDate.getFullYear(), refDate.getMonth(), refDate.getDate())
+    return Math.round((rUtc - tUtc) / 86400000)
+}
+
+function shortCommitHash(commit) {
+    var c = String(commit || "").trim()
+    if (!c || c === "-") return ""
+    return c.slice(0, 7)
+}
+
+function compareAppVersions(a, b) {
+    var sa = String(a || "").trim()
+    var sb = String(b || "").trim()
+    if (!sa || !sb || sa === "-" || sb === "-") return null
+    if (sa === sb) return 0
+    var na = sa.replace(/^[vV](?=\d)/, "")
+    var nb = sb.replace(/^[vV](?=\d)/, "")
+    if (!/^\d/.test(na) || !/^\d/.test(nb)) return null
+    var pa = na.split(/[.+~_-]+/)
+    var pb = nb.split(/[.+~_-]+/)
+    var len = Math.max(pa.length, pb.length)
+    for (var i = 0; i < len; i++) {
+        if (i >= pa.length) {
+            var remB = pb[i]
+            if (/^\d+$/.test(remB)) {
+                if (parseInt(remB, 10) > 0) return -1
+                continue
+            }
+            return 1
+        }
+        if (i >= pb.length) {
+            var remA = pa[i]
+            if (/^\d+$/.test(remA)) {
+                if (parseInt(remA, 10) > 0) return 1
+                continue
+            }
+            return -1
+        }
+        var ta = pa[i]
+        var tb = pb[i]
+        var isNumA = /^\d+$/.test(ta)
+        var isNumB = /^\d+$/.test(tb)
+        if (isNumA && isNumB) {
+            var va = parseInt(ta, 10)
+            var vb = parseInt(tb, 10)
+            if (va !== vb) return va > vb ? 1 : -1
+        } else if (ta !== tb) {
+            var mA = ta.match(/^(\d+)([a-zA-Z].*)$/)
+            var mB = tb.match(/^(\d+)([a-zA-Z].*)$/)
+            var da = mA ? parseInt(mA[1], 10) : (isNumA ? parseInt(ta, 10) : NaN)
+            var db = mB ? parseInt(mB[1], 10) : (isNumB ? parseInt(tb, 10) : NaN)
+            if (!isNaN(da) && !isNaN(db) && da !== db) return da > db ? 1 : -1
+            if (isNumA && !isNumB) return 1
+            if (!isNumA && isNumB) return -1
+            return ta > tb ? 1 : -1
+        }
+    }
+    return 0
+}
+
+function formatFlatpakVersions(fv, tv, branch, fromCommit, toCommit) {
+    var baseFv = String(fv || "").trim() || "-"
+    var baseTv = String(tv || "").trim() || "-"
+    var fc = shortCommitHash(fromCommit)
+    var tc = shortCommitHash(toCommit)
+    if (!fc && !tc) {
+        return { fv: baseFv, tv: baseTv }
+    }
+    var branchStr = String(branch || "").trim()
+    var effFv = (baseFv !== "-" ? baseFv : "-")
+    var effTv = (baseTv !== "-" ? baseTv : (branchStr || "-"))
+    var cmp = (effFv !== "-" && effTv !== "-") ? compareAppVersions(effFv, effTv) : null
+    var outFv = (effFv !== "-") ? (fc ? effFv + " (" + fc + ")" : effFv) : (fc || "-")
+    if (cmp !== null && cmp > 0) {
+        var staleTv = tc ? (tc + " (meta: " + effTv + ")") : (effTv + " (meta)")
+        return { fv: outFv, tv: staleTv }
+    }
+    var outTv = (effTv !== "-") ? (tc ? effTv + " (" + tc + ")" : effTv) : (tc || "-")
+    return { fv: outFv, tv: outTv }
+}
+
+function parseFlatpakStaleMetadata(fv, tv) {
+    var rawTv = String(tv || "").trim()
+    var rawFv = String(fv || "").trim()
+    if (!rawTv || rawTv.indexOf("<") !== -1 || rawTv.indexOf(">") !== -1 || rawFv.indexOf("<") !== -1 || rawFv.indexOf(">") !== -1) {
+        return null
+    }
+    var m = rawTv.match(/^([a-zA-Z0-9._-]+)\s+\(meta:\s*([^()<>]+)\)$/)
+    if (!m) return null
+    var remoteVer = m[2].trim()
+    if (!remoteVer) return null
+    var installedVer = rawFv.replace(/\s+\([a-zA-Z0-9._-]+\)$/, "").trim() || rawFv
+    return {
+        commit: m[1],
+        remoteMetaVer: remoteVer,
+        installedVer: installedVer
+    }
 }

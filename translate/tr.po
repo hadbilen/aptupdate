@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hadbilen.aptupdate.plasmoid 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 22:21+0300\n"
+"POT-Creation-Date: 2026-11-14 10:41+0300\n"
 "PO-Revision-Date: 2026-11-13 22:02+0300\n"
 "Last-Translator: hadbilen <temroa@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -17,67 +17,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:237
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:251
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:268
 #, qt-format
 msgid "Last online check: %1"
 msgstr "Son çevrimiçi denetim: %1"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:237
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:251
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:269
 #, qt-format
 msgid "Last check: %1"
 msgstr "Son denetim: %1"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:253
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:285
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:853
 msgid "Installing updates…"
 msgstr "Güncellemeler kuruluyor…"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:262
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:294
 msgid "Cancel update"
 msgstr "Güncellemeyi iptal et"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:266
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:298
 msgid "Abort running update process"
 msgstr "Çalışan güncelleme sürecini iptal et"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:275
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:307
 msgid "Install all updates"
 msgstr "Tüm güncellemeleri kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:280
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:386
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:121
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:312
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:418
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:596
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:143
 msgid "Package manager is currently in use by another process."
 msgstr "Paket yöneticisi şu anda başka bir işlem tarafından kullanılıyor."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:280
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:754
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:123
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:312
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:596
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:691
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:786
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:145
 msgid "An update is already in progress."
 msgstr "Zaten bir güncelleme devam ediyor."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:294
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:326
 msgid "Refresh list"
 msgstr "Listeyi yenile"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:328
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:360
 #, qt-format
 msgid "Upgrade Available: Ubuntu %1"
 msgstr "Yükseltme Mevcut: Ubuntu %1"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:328
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:360
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:100
 msgid "Distribution upgrade available"
 msgstr "Dağıtım sürümü yükseltmesi mevcut"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:331
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:363
 msgid "Open in Terminal"
 msgstr "Terminalde Aç"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:336
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:368
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:41
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:293
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:317
@@ -91,124 +93,124 @@ msgstr "Terminalde Aç"
 msgid "Update Error"
 msgstr "Güncelleme Hatası"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:336
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:368
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:293
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:350
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/service/Updater.qml:429
 msgid "No terminal command is configured."
 msgstr "Yapılandırılmış bir uçbirim komutu yok."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:339
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:371
 msgid "Press Enter to close..."
 msgstr "Kapatmak için Enter'a basın..."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:351
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:373
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:390
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:383
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:405
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:422
 msgid "Dismiss"
 msgstr "Kapat"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:364
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1067
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:396
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1087
 msgid "A system restart is required to complete updates."
 msgstr ""
 "Güncellemelerin tamamlanması için sistemin yeniden başlatılması gerekiyor."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:367
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:399
 msgid "Restart..."
 msgstr "Yeniden Başlat..."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:402
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:434
 msgid ""
 "Offline: displaying cached updates without verifying remote repositories."
 msgstr ""
 "Çevrimdışı: Uzak depolar doğrulanmadan önbelleğe alınmış güncellemeler "
 "gösteriliyor."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:410
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:442
 #, qt-format
 msgid "Local APT package index is %1 days old. Run a refresh when online."
 msgstr "Yerel APT paket dizini %1 günlük. Çevrimiçi olduğunuzda yenileyin."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:437
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:469
 msgid "One or more package sources failed to update."
 msgstr "Bir veya daha fazla paket kaynağı güncellenemedi."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:533
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:565
 #, qt-format
 msgid "APT (%1)"
 msgstr "APT (%1)"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:550
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:645
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:740
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:582
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:677
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:772
 msgid "Repository Home"
 msgstr "Depo Ana Sayfası"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:553
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:585
 msgid "Open APT repository website"
 msgstr "APT depo web sitesini aç"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:560
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:592
 msgid "Install APT updates"
 msgstr "APT güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:564
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:596
 msgid "Install all APT updates"
 msgstr "Tüm APT güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:628
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:660
 #, qt-format
 msgid "Snap (%1)"
 msgstr "Snap (%1)"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:648
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:680
 msgid "Open Snapcraft store"
 msgstr "Snapcraft mağazasını aç"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:655
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:687
 msgid "Install Snap updates"
 msgstr "Snap güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:659
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:691
 msgid "Install all Snap updates"
 msgstr "Tüm Snap güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:723
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:755
 #, qt-format
 msgid "Flatpak (%1)"
 msgstr "Flatpak (%1)"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:743
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:775
 msgid "Open Flathub website"
 msgstr "Flathub web sitesini aç"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:750
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:782
 msgid "Install Flatpak updates"
 msgstr "Flatpak güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:754
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:786
 msgid "Install all Flatpak updates"
 msgstr "Tüm Flatpak güncellemelerini kur"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:778
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:810
 msgid "Waiting for update check…"
 msgstr "Güncelleme denetimi bekleniyor…"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:785
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:817
 msgid "Offline — unable to check for updates"
 msgstr "Çevrimdışı — güncellemeler denetlenemiyor"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:792
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:824
 msgid "You're up-to-date !"
 msgstr "Sisteminiz güncel!"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:800
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:832
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Tooltip.qml:54
 msgid "Check log for details."
 msgstr "Ayrıntılar için günlüğü kontrol edin."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:800
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:832
 #, qt-format
 msgid ""
 "Something went wrong:\n"
@@ -217,11 +219,11 @@ msgstr ""
 "Bir sorun oluştu:\n"
 "%1"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:853
 msgid "Retrying failed check…"
 msgstr "Başarısız denetim yeniden deneniyor…"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:821
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml:853
 msgid "Checking for updates…"
 msgstr "Güncellemeler denetleniyor…"
 
@@ -256,127 +258,137 @@ msgstr "Güncelleme başarısız oldu: %1"
 
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:584
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:600
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1115
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1122
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1258
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1265
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1135
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1142
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1278
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1285
 msgid "Update Failed"
 msgstr "Güncelleme Başarısız Oldu"
 
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:594
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1287
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1307
 msgid "An error occurred during the background update."
 msgstr "Arka plan güncellemesi sırasında bir hata oluştu."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:810
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:615
+#, qt-format
+msgid "Today %1"
+msgstr "Bugün %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:618
+#, qt-format
+msgid "Yesterday %1"
+msgstr "Dün %1"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:830
 #, qt-format
 msgid "%1 update available: %2"
 msgid_plural "%1 updates available: %2"
 msgstr[0] "%1 güncelleme mevcut: %2"
 msgstr[1] "%1 güncelleme mevcut: %2"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:812
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:832
 #, qt-format
 msgid "%1 update available"
 msgid_plural "%1 updates available"
 msgstr[0] "%1 güncelleme mevcut"
 msgstr[1] "%1 güncelleme mevcut"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:816
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:836
 msgid "Critical System Updates"
 msgstr "Kritik Sistem Güncellemeleri"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:818
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1277
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1280
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1282
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:838
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1297
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1300
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1302
 msgid "System Updates"
 msgstr "Sistem Güncellemeleri"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:847
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:867
 msgid "Update check interrupted by installation."
 msgstr "Güncelleme denetimi kurulum tarafından kesildi."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:908
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1209
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:928
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1229
 msgid "Update check timed out."
 msgstr "Güncelleme denetimi zaman aşımına uğradı."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1067
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1087
 msgid "System Restart Required"
 msgstr "Sistem Yeniden Başlatma Gerekli"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1078
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1098
 msgid "Distribution Upgrade Available"
 msgstr "Dağıtım Sürümü Yükseltmesi Mevcut"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1078
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1098
 #, qt-format
 msgid "Ubuntu %1 is now available for upgrade."
 msgstr "Ubuntu %1 sürümüne yükseltme mevcut."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1089
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1256
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1109
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1276
 #, qt-format
 msgid "Failed to launch terminal (command not found: %1)."
 msgstr "Uçbirim başlatılamadı (komut bulunamadı: %1)."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1090
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1110
 #, qt-format
 msgid "Distribution upgrade launcher failed with exit code %1."
 msgstr "Dağıtım yükseltme başlatıcısı %1 çıkış koduyla başarısız oldu."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1092
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1112
 msgid "Upgrade Error"
 msgstr "Yükseltme Hatası"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1098
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1118
 msgid "Could not open the KDE logout prompt via session D-Bus."
 msgstr "Oturum D-Bus üzerinden KDE oturum kapatma penceresi açılamadı."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1100
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1120
 msgid "Restart Failed"
 msgstr "Yeniden Başlatma Başarısız Oldu"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1113
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1263
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1133
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1283
 #, qt-format
 msgid "Update failed with exit code %1."
 msgstr "Güncelleme %1 çıkış koduyla başarısız oldu."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1120
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1140
 msgid "Could not read terminal update exit status."
 msgstr "Uçbirim güncelleme çıkış durumu okunamadı."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1209
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1229
 #, qt-format
 msgid "Command failed with exit code %1"
 msgstr "Komut %1 çıkış koduyla başarısız oldu"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1277
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1297
 msgid "All system updates were installed successfully."
 msgstr "Tüm sistem güncellemeleri başarıyla kuruldu."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1280
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1300
 #, qt-format
 msgid "%1 updates were installed successfully."
 msgstr "%1 güncellemeleri başarıyla kuruldu."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1282
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1302
 #, qt-format
 msgid "%1 was updated successfully."
 msgstr "%1 başarıyla güncellendi."
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1425
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1447
 msgid "Update"
 msgstr "Güncelle"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1433
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1455
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/config/showLog.qml:239
 msgid "Refresh"
 msgstr "Yenile"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1452
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/main.qml:1474
 msgctxt "@action:button set keyboard shortcut for"
 msgid "Activate widget as if clicked:"
 msgstr "Gereci tıklanmış gibi etkinleştir:"
@@ -423,16 +435,25 @@ msgstr "Snap:"
 msgid "Flatpak:"
 msgstr "Flatpak:"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:53
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:57
 #, qt-format
 msgid "from %1"
 msgstr "%1 kaynağından"
 
 #: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:104
+#, qt-format
+msgid ""
+"OSTree commit %1 updates installed %2 (remote AppStream metadata still "
+"reports %3)"
+msgstr ""
+"%1 OSTree işlemesi kurulu %2 sürümünü günceller (uzak AppStream üst verisi "
+"hâlâ %3 bildiriyor)"
+
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:126
 msgid "See repository"
 msgstr "Depoyu gör"
 
-#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:115
+#: /home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml:137
 #, qt-format
 msgid "Update %1"
 msgstr "%1 paketini güncelle"

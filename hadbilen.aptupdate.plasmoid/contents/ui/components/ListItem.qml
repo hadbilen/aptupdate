@@ -5,6 +5,8 @@ import QtQuick.Controls as Controls
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.components as PlasmaComponents
 
+import "../../service/CommandBuilder.js" as CmdBuilder
+
 PlasmaComponents.ItemDelegate {
     id: listItem
 
@@ -23,6 +25,8 @@ PlasmaComponents.ItemDelegate {
     required property string branch
     required property string websiteUrl
     required property string appId
+
+    readonly property var staleMetaInfo: (listItem.repo === "flatpak") ? CmdBuilder.parseFlatpakStaleMetadata(listItem.fv, listItem.tv) : null
 
     width: ListView.view ? ListView.view.width : (parent ? parent.width : implicitWidth)
 
@@ -57,7 +61,9 @@ PlasmaComponents.ItemDelegate {
     function generateVersion() {
         const fvc = plasmoid.configuration.fvUseCustomColor ? plasmoid.configuration.fvColor : Kirigami.Theme.negativeTextColor
         const sc = plasmoid.configuration.separatorUseCustomColor ? plasmoid.configuration.separatorColor : Kirigami.Theme.textColor
-        const tvc = plasmoid.configuration.tvUseCustomColor ? plasmoid.configuration.tvColor : Kirigami.Theme.positiveTextColor
+        const tvc = plasmoid.configuration.tvUseCustomColor
+            ? plasmoid.configuration.tvColor
+            : (listItem.staleMetaInfo ? Kirigami.Theme.neutralTextColor : Kirigami.Theme.positiveTextColor)
         return '<font color="' + escapeHtml(fvc) + '">' + escapeHtml(fv) + '</font><font color="' + escapeHtml(sc) + '"> ' + escapeHtml(plasmoid.configuration.separatorText) + ' </font><font color="' + escapeHtml(tvc) + '">' + escapeHtml(tv) + '</font>'
     }
 
@@ -82,6 +88,22 @@ PlasmaComponents.ItemDelegate {
                 elide: Text.ElideRight
                 wrapMode: Text.NoWrap
                 text: generateVersion()
+
+                HoverHandler {
+                    id: versionHover
+                    enabled: listItem.staleMetaInfo !== null
+                }
+
+                PlasmaComponents.ToolTip {
+                    id: staleMetaToolTip
+                    parent: itemLabel
+                    y: itemLabel.height + Kirigami.Units.smallSpacing
+                    visible: versionHover.hovered && text.length > 0
+                    textFormat: Text.PlainText
+                    text: listItem.staleMetaInfo
+                        ? i18n("OSTree commit %1 updates installed %2 (remote AppStream metadata still reports %3)", listItem.staleMetaInfo.commit, listItem.staleMetaInfo.installedVer, listItem.staleMetaInfo.remoteMetaVer)
+                        : ""
+                }
             }
         }
         RowLayout {

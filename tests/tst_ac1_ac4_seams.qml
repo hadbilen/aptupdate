@@ -951,5 +951,392 @@ Item {
                 cc.destroy()
             }
         }
+
+        function test_ac1_full_last_check_tooltip_and_legacy_mock_fallback() {
+            // 1. Legacy mock without lastCheckIso must keep lastCheckTime fallback with no warnings/errors
+            resetConfig()
+            main.lastCheckTime = "2026-11-13 10:00"
+            main.lastCheckOffline = false
+            var uLegacy = createUpdater()
+            var fComp = Qt.createComponent("file:///home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml")
+            compare(fComp.status, Component.Ready, fComp.errorString())
+            var fLegacy = fComp.createObject(harness, { width: 420, height: 500 })
+            verify(fLegacy !== null)
+            try {
+                wait(20)
+                compare(fLegacy.lastCheckFullText, "2026-11-13 10:00")
+            } finally {
+                fLegacy.destroy()
+                uLegacy.destroy()
+            }
+
+            // 2. Full.qml with lastCheckIso displays relative label text and reveals full date+time ToolTip on hover
+            var u = createUpdater()
+            var sampleDate = new Date(2026, 10, 14, 9, 30, 0)
+            var sampleIso = sampleDate.toISOString()
+            var sampleToday = "Today " + Qt.formatTime(sampleDate, Qt.DefaultLocaleShortDate)
+            var wrap = Qt.createQmlObject(
+                'import QtQuick; import "file:///home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui" as UI;\n' +
+                'Item {\n' +
+                '    width: 420; height: 500\n' +
+                '    property alias fullView: fullInst\n' +
+                '    property var main: QtObject {\n' +
+                '        property string tApt: "0"\n' +
+                '        property string tSnap: "0"\n' +
+                '        property string tFlatpak: "0"\n' +
+                '        property string listApt: ""\n' +
+                '        property string listSnap: ""\n' +
+                '        property string listFlatpak: ""\n' +
+                '        property bool isChecking: false\n' +
+                '        property bool isRetrying: false\n' +
+                '        property bool isInstalling: false\n' +
+                '        property bool isOnUpdate: false\n' +
+                '        property bool isOnDebug: false\n' +
+                '        property bool isUpdatingAll: false\n' +
+                '        property bool hasError: false\n' +
+                '        property bool updateError: false\n' +
+                '        property bool connectivityError: false\n' +
+                '        property bool hasCheckedOnce: true\n' +
+                '        property bool isStartupDelaying: false\n' +
+                '        property bool isPkgManagerBusy: false\n' +
+                '        property bool lockBlockedUpdate: false\n' +
+                '        property bool expanded: false\n' +
+                '        property bool isPrewarmed: false\n' +
+                '        property bool rebootRequired: false\n' +
+                '        property bool releaseUpgradeAvailable: false\n' +
+                '        property string releaseUpgradeVersion: ""\n' +
+                '        property bool dismissedRebootMsg: false\n' +
+                '        property bool dismissedReleaseUpgradeMsg: false\n' +
+                '        property bool dismissedBusyLockMsg: false\n' +
+                '        property bool isConnected: true\n' +
+                '        property string lastErrorMessage: ""\n' +
+                '        property bool lastCheckOffline: false\n' +
+                '        property bool aptIndexStale: false\n' +
+                '        property int aptIndexAgeDays: 0\n' +
+                '        property string lastCheckTime: ""\n' +
+                '        property string lastCheckIso: ""\n' +
+                '        property string osId: "ubuntu"\n' +
+                '        property string osIdLike: "debian"\n' +
+                '        property bool enableSnapUpdates: false\n' +
+                '        property bool enableFlatpakUpdates: false\n' +
+                '        property bool hasSnap: false\n' +
+                '        property bool hasFlatpak: false\n' +
+                '        property var repoErrors: ({ apt: false, snap: false, flatpak: false })\n' +
+                '        property var checkErrors: ({ apt: false, snap: false, flatpak: false })\n' +
+                '        property var updateErrors: ({ apt: false, snap: false, flatpak: false })\n' +
+                '        property var activeUpdateJobs: ({})\n' +
+                '        property var updatingRepos: ({})\n' +
+                '        function isRepoBusy(repo) { return Boolean(updatingRepos[repo]) }\n' +
+                '        function canUpdate(repo) { return !isChecking && !isUpdatingAll && !isRepoBusy(repo) }\n' +
+                '        function canUpdatePackage(repo, pkg, appId) { return canUpdate(repo) }\n' +
+                '        function isPackageBusy(repo, pkg, appId) { return false }\n' +
+                '        function clearPendingRetries() {}\n' +
+                '        function clearRepoErrors() {}\n' +
+                '        function hasUpdate() { return (parseInt(tApt, 10) || 0) > 0 }\n' +
+                '        function canUpdateApt() { return false }\n' +
+                '        function canUpdateSnap() { return false }\n' +
+                '        function canUpdateFlatpak() { return false }\n' +
+                '        function canUpdateAll() { return false }\n' +
+                '        function canCheckUpdates() { return true }\n' +
+                '        function refreshAll(manual) {}\n' +
+                '        function abortUpdate() {}\n' +
+                '        function registerUpdateJob() {}\n' +
+                '        function isHelperCommand(c) { return false }\n' +
+                '    }\n' +
+                '    UI.Full { id: fullInst; anchors.fill: parent }\n' +
+                '}', harness)
+            verify(wrap !== null)
+            var mockMain = wrap.main
+            var f = wrap.fullView
+            mockMain.lastCheckIso = sampleIso
+            mockMain.lastCheckTime = sampleToday
+            mockMain.lastCheckOffline = false
+
+            try {
+                waitForRendering(wrap)
+                wait(20)
+                var expectedFullDateTime = Qt.formatDateTime(sampleDate, Qt.DefaultLocaleShortDate)
+                compare(f.lastCheckFullText, expectedFullDateTime)
+
+                var checkLbls = walkItems(f, function(it) {
+                    return it.text !== undefined && String(it.text).indexOf("Last check: Today ") === 0
+                })
+                verify(checkLbls.length >= 1, "Full.qml must display Last check: Today ... header label")
+                var lbl = checkLbls[0]
+
+                var toolTipObj = null
+                for (var i = 0; i < lbl.data.length; i++) {
+                    var itemData = lbl.data[i]
+                    if (itemData && itemData.text !== undefined && itemData.delay !== undefined && itemData.visible !== undefined) {
+                        toolTipObj = itemData
+                        break
+                    }
+                }
+                verify(toolTipObj !== null, "lastCheckLabel must own a PlasmaComponents.ToolTip")
+                compare(toolTipObj.textFormat, Text.PlainText)
+                verify(!toolTipObj.visible, "ToolTip must stay hidden before hover")
+                compare(toolTipObj.text, "Last check: " + expectedFullDateTime)
+
+                mouseMove(lbl, Math.max(1, lbl.width / 2), Math.max(1, lbl.height / 2))
+                tryCompare(toolTipObj, "visible", true, (toolTipObj.delay || 700) + 500)
+
+                mockMain.lastCheckOffline = true
+                wait(20)
+                compare(lbl.text, "Last online check: " + sampleToday)
+                compare(toolTipObj.text, "Last online check: " + expectedFullDateTime)
+
+                mouseMove(wrap, 1, 1)
+                tryCompare(toolTipObj, "visible", false, 1000)
+
+                // Invalid non-empty lastCheckIso falls back cleanly to lastCheckTime
+                mockMain.lastCheckIso = "not-an-iso"
+                mockMain.lastCheckTime = "2026-11-13 10:00"
+                wait(20)
+                compare(f.lastCheckFullText, "2026-11-13 10:00")
+            } finally {
+                wrap.destroy()
+                u.destroy()
+            }
+        }
+
+        function test_ac3_flatpak_commit_formatting_and_version_comparison() {
+            compare(CmdBuilder.shortCommitHash("f97247d9e87d0000111122223333444455556666"), "f97247d")
+            compare(CmdBuilder.shortCommitHash("abc12"), "abc12")
+            compare(CmdBuilder.shortCommitHash(""), "")
+            compare(CmdBuilder.shortCommitHash("-"), "")
+
+            compare(CmdBuilder.compareAppVersions("7.4.3", "7.4.1"), 1)
+            compare(CmdBuilder.compareAppVersions("7.4.1", "7.4.10"), -1)
+            compare(CmdBuilder.compareAppVersions("5.2", "5.2"), 0)
+            compare(CmdBuilder.compareAppVersions("5.2", "5.2.0"), 0)
+            compare(CmdBuilder.compareAppVersions("5.2.1", "5.2"), 1)
+            compare(CmdBuilder.compareAppVersions("2.0-beta", "2.0"), -1)
+            compare(CmdBuilder.compareAppVersions("2.0", "2.0-beta"), 1)
+            compare(CmdBuilder.compareAppVersions("1.0rc1", "1.0"), -1)
+            compare(CmdBuilder.compareAppVersions("v1.2", "1.2"), 0)
+            compare(CmdBuilder.compareAppVersions("stable", "stable"), 0)
+            verify(CmdBuilder.compareAppVersions("-", "47") === null)
+            verify(CmdBuilder.compareAppVersions("47", "stable") === null)
+            verify(CmdBuilder.compareAppVersions("master", "stable") === null)
+
+            // 1. Legacy 6-col (no commits)
+            var leg = CmdBuilder.formatFlatpakVersions("1.0", "2.0", "stable", "", "")
+            compare(leg.fv, "1.0")
+            compare(leg.tv, "2.0")
+
+            // 2. Normal version increase with commits
+            var norm = CmdBuilder.formatFlatpakVersions("6.8", "6.9", "6.9", "aaa11119999", "bbb22229999")
+            compare(norm.fv, "6.8 (aaa1111)")
+            compare(norm.tv, "6.9 (bbb2222)")
+
+            // 3. Identical version rebuild
+            var reb = CmdBuilder.formatFlatpakVersions("5.2", "5.2", "stable", "f97247d9e87d", "3e510e350730")
+            compare(reb.fv, "5.2 (f97247d)")
+            compare(reb.tv, "5.2 (3e510e3)")
+
+            // 4. Empty version extension (branch fallback "stable") and dash fallback
+            var ext = CmdBuilder.formatFlatpakVersions("stable", "stable", "stable", "2bbd555a9031", "102459c033d4")
+            compare(ext.fv, "stable (2bbd555)")
+            compare(ext.tv, "stable (102459c)")
+            var dashFallback = CmdBuilder.formatFlatpakVersions("-", "-", "stable", "aaa11119999", "bbb22229999")
+            compare(dashFallback.fv, "aaa1111")
+            compare(dashFallback.tv, "stable (bbb2222)")
+
+            // 5. Single-sided commits (remote-only and stale without toCommit)
+            var remoteOnly = CmdBuilder.formatFlatpakVersions("-", "2.0", "stable", "", "eee55556666")
+            compare(remoteOnly.fv, "-")
+            compare(remoteOnly.tv, "2.0 (eee5555)")
+            var staleNoTc = CmdBuilder.formatFlatpakVersions("7.4.3", "7.4.1", "stable", "3da0f2a359b0", "")
+            compare(staleNoTc.fv, "7.4.3 (3da0f2a)")
+            compare(staleNoTc.tv, "7.4.1 (meta)")
+            verify(CmdBuilder.parseFlatpakStaleMetadata(staleNoTc.fv, staleNoTc.tv) === null)
+
+            // 6. Regressed remote AppStream metadata
+            var reg = CmdBuilder.formatFlatpakVersions("7.4.3", "7.4.1", "stable", "3da0f2a359b0", "9fe9eee3feec")
+            compare(reg.fv, "7.4.3 (3da0f2a)")
+            compare(reg.tv, "9fe9eee (meta: 7.4.1)")
+
+            var parsedStale = CmdBuilder.parseFlatpakStaleMetadata(reg.fv, reg.tv)
+            verify(parsedStale !== null)
+            compare(parsedStale.commit, "9fe9eee")
+            compare(parsedStale.installedVer, "7.4.3")
+            compare(parsedStale.remoteMetaVer, "7.4.1")
+            verify(CmdBuilder.parseFlatpakStaleMetadata(reb.fv, reb.tv) === null)
+            verify(CmdBuilder.parseFlatpakStaleMetadata("<img src=x>", "9fe9eee (meta: 7.4.1)") === null)
+            verify(CmdBuilder.parseFlatpakStaleMetadata("7.4.3 (3da0f2a)", "9fe9eee (meta: <b>1.0</b>)") === null)
+        }
+
+        function test_ac3_full_inject_flatpak_commits_and_listitem_display() {
+            resetConfig()
+            var cfg = PlasmoidMod.Plasmoid.configuration
+            var origHasFlatpak = cfg.hasFlatpak
+            var origEnableFlatpak = cfg.enableFlatpakUpdates
+            var origGroup = cfg.groupUpdates
+            var origTvCustom = cfg.tvUseCustomColor
+            var origTvColor = cfg.tvColor
+            try {
+                cfg.hasFlatpak = true
+                cfg.enableFlatpakUpdates = true
+                cfg.groupUpdates = false
+                cfg.tvUseCustomColor = false
+
+                main.expanded = true
+                main.isPrewarmed = true
+                main.tFlatpak = "4"
+                main.listFlatpak = [
+                    "org.blender.Blender\tBlender\tflatpak\t5.2\t5.2\tstable\tf97247d9e87d\t3e510e350730",
+                    "org.blender.Blender.Codecs\tCodecs\tflatpak\tstable\tstable\tstable\t2bbd555a9031\t102459c033d4",
+                    "org.telegram.desktop\tTelegram Desktop\tflatpak\t7.4.3\t7.4.1\tstable\t3da0f2a359b0\t9fe9eee3feec",
+                    "org.legacy.App\tLegacy App\tflatpak\t1.0\t2.0\tstable"
+                ].join("\n")
+
+                var u = createUpdater()
+                harness.updater = u
+                var fComp = Qt.createComponent("file:///home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/Full.qml")
+                compare(fComp.status, Component.Ready, fComp.errorString())
+                var f = fComp.createObject(harness, { width: 420, height: 500 })
+                verify(f !== null)
+                try {
+                    waitForRendering(f)
+                    wait(30)
+                    var items = walkItems(f, function(it) {
+                        return it.websiteUrl !== undefined && it.appId !== undefined && it.fv !== undefined
+                    })
+                    var byApp = {}
+                    for (var i = 0; i < items.length; i++) {
+                        byApp[items[i].appId] = items[i]
+                    }
+                    verify(byApp["org.blender.Blender"] !== undefined, "Blender ListItem missing")
+                    compare(byApp["org.blender.Blender"].fv, "5.2 (f97247d)")
+                    compare(byApp["org.blender.Blender"].tv, "5.2 (3e510e3)")
+
+                    verify(byApp["org.blender.Blender.Codecs"] !== undefined, "Codecs ListItem missing")
+                    compare(byApp["org.blender.Blender.Codecs"].fv, "stable (2bbd555)")
+                    compare(byApp["org.blender.Blender.Codecs"].tv, "stable (102459c)")
+
+                    verify(byApp["org.telegram.desktop"] !== undefined, "Telegram ListItem missing")
+                    compare(byApp["org.telegram.desktop"].fv, "7.4.3 (3da0f2a)")
+                    compare(byApp["org.telegram.desktop"].tv, "9fe9eee (meta: 7.4.1)")
+
+                    verify(byApp["org.legacy.App"] !== undefined, "Legacy 6-col ListItem missing")
+                    compare(byApp["org.legacy.App"].fv, "1.0")
+                    compare(byApp["org.legacy.App"].tv, "2.0")
+                } finally {
+                    f.destroy()
+                }
+
+                // Direct ListItem seam test: neutralTextColor + tooltip on regressed metadata vs normal positiveTextColor
+                var liComp = Qt.createComponent("file:///home/tugay/Projeler/aptupdate/hadbilen.aptupdate.plasmoid/contents/ui/components/ListItem.qml")
+                compare(liComp.status, Component.Ready, liComp.errorString())
+
+                var liNorm = liComp.createObject(harness, {
+                    width: 400, height: 60,
+                    name: "Blender", repo: "flatpak",
+                    fv: "5.2 (f97247d)", tv: "5.2 (3e510e3)",
+                    branch: "stable", websiteUrl: "", appId: "org.blender.Blender"
+                })
+                verify(liNorm !== null)
+                try {
+                    waitForRendering(liNorm)
+                    verify(liNorm.staleMetaInfo === null)
+                    verify(liNorm.generateVersion().indexOf(String(Kirigami.Theme.positiveTextColor)) !== -1, "Non-regressed Flatpak rebuild must keep positiveTextColor")
+                    var normLabels = walkItems(liNorm, function(it) {
+                        return it.text !== undefined && String(it.text).indexOf("5.2 (3e510e3)") !== -1
+                    })
+                    verify(normLabels.length >= 1)
+                    var normLbl = normLabels[0]
+                    var normTip = null
+                    for (var n = 0; n < normLbl.data.length; n++) {
+                        var nd = normLbl.data[n]
+                        if (nd && nd.text !== undefined && nd.delay !== undefined && nd.visible !== undefined) {
+                            normTip = nd
+                            break
+                        }
+                    }
+                    verify(normTip !== null)
+                    compare(normTip.text, "")
+                    mouseMove(normLbl, Math.max(1, normLbl.width / 2), Math.max(1, normLbl.height / 2))
+                    wait((normTip.delay || 700) + 150)
+                    verify(!normTip.visible, "Non-stale Flatpak ListItem must keep ToolTip hidden on hover")
+                    mouseMove(harness, 1, 1)
+                } finally {
+                    liNorm.destroy()
+                }
+
+                // Non-flatpak item must ignore (meta: ...) pattern and HTML-escape tv
+                var liApt = liComp.createObject(harness, {
+                    width: 400, height: 60,
+                    name: "<b>pkg</b>", repo: "apt",
+                    fv: "1.0", tv: "<img src=y>9fe9eee (meta: 7.4.1)",
+                    branch: "", websiteUrl: "", appId: "pkg"
+                })
+                verify(liApt !== null)
+                try {
+                    verify(liApt.staleMetaInfo === null, "Non-flatpak ListItem must not trigger Flatpak staleMetaInfo")
+                    verify(liApt.generateName().indexOf("&lt;b&gt;pkg") !== -1)
+                    verify(liApt.generateVersion().indexOf("&lt;img src=y&gt;9fe9eee") !== -1)
+                    compare(walkItems(liApt, function(it) { return it.text !== undefined && String(it.text).indexOf("<img") !== -1 }).length, 0)
+                } finally {
+                    liApt.destroy()
+                }
+
+                var liStale = liComp.createObject(harness, {
+                    width: 400, height: 60,
+                    name: "Telegram Desktop", repo: "flatpak",
+                    fv: "7.4.3 (3da0f2a)", tv: "9fe9eee (meta: 7.4.1)",
+                    branch: "stable", websiteUrl: "", appId: "org.telegram.desktop"
+                })
+                verify(liStale !== null)
+                try {
+                    waitForRendering(liStale)
+                    verify(liStale.staleMetaInfo !== null, "Regressed Flatpak metadata must populate staleMetaInfo")
+                    var verHtml = liStale.generateVersion()
+                    verify(verHtml.indexOf(String(Kirigami.Theme.neutralTextColor)) !== -1, "Regressed Flatpak metadata must use neutralTextColor instead of positiveTextColor")
+
+                    cfg.tvUseCustomColor = true
+                    cfg.tvColor = "#123456"
+                    verify(liStale.generateVersion().indexOf("#123456") !== -1, "Custom tvColor must override stale neutralTextColor when enabled")
+                    cfg.tvUseCustomColor = false
+
+                    var verLabels = walkItems(liStale, function(it) {
+                        return it.text !== undefined && String(it.text).indexOf("9fe9eee (meta: 7.4.1)") !== -1
+                    })
+                    verify(verLabels.length >= 1, "Version label not found on ListItem")
+                    var verLbl = verLabels[0]
+
+                    var staleTip = null
+                    for (var j = 0; j < verLbl.data.length; j++) {
+                        var d = verLbl.data[j]
+                        if (d && d.text !== undefined && d.delay !== undefined && d.visible !== undefined) {
+                            staleTip = d
+                            break
+                        }
+                    }
+                    verify(staleTip !== null, "ListItem version label must own a PlasmaComponents.ToolTip")
+                    compare(staleTip.textFormat, Text.PlainText)
+                    verify(staleTip.text.indexOf("9fe9eee") !== -1 && staleTip.text.indexOf("7.4.3") !== -1 && staleTip.text.indexOf("7.4.1") !== -1)
+                    verify(!staleTip.visible)
+
+                    mouseMove(verLbl, Math.max(1, verLbl.width / 2), Math.max(1, verLbl.height / 2))
+                    tryCompare(staleTip, "visible", true, (staleTip.delay || 700) + 500)
+
+                    mouseMove(harness, 1, 1)
+                    tryCompare(staleTip, "visible", false, 1000)
+                } finally {
+                    liStale.destroy()
+                    u.destroy()
+                }
+            } finally {
+                cfg.hasFlatpak = origHasFlatpak
+                cfg.enableFlatpakUpdates = origEnableFlatpak
+                cfg.groupUpdates = origGroup
+                cfg.tvUseCustomColor = origTvCustom
+                cfg.tvColor = origTvColor
+                main.listFlatpak = ""
+                main.tFlatpak = "0"
+                main.expanded = false
+                main.isPrewarmed = false
+            }
+        }
     }
 }

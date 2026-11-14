@@ -17,6 +17,14 @@ PlasmaExtras.Representation {
   property string totalSnap: main.tSnap
   property string totalFlatpak: main.tFlatpak
   property string packageList: ""
+  readonly property string lastCheckFullText: {
+    const iso = (typeof main.lastCheckIso === "string") ? main.lastCheckIso : ""
+    if (iso) {
+      const parsed = CmdBuilder.parseIsoDate(iso)
+      if (parsed) return Qt.formatDateTime(parsed, Qt.DefaultLocaleShortDate)
+    }
+    return main.lastCheckTime
+  }
   property bool onRefresh: Boolean(main.isChecking || main.isInstalling || main.isOnUpdate)
   readonly property bool onError: main.hasError
   readonly property string localErrorMessage: ""
@@ -127,6 +135,11 @@ PlasmaExtras.Representation {
           tv = (parts[4] !== undefined && parts[4].trim() !== "") ? parts[4].trim() : "-"
         }
         branch = (parts[5] !== undefined && parts[5].trim() !== "") ? parts[5].trim() : ""
+        if (repoType === "flatpak" && parts.length >= 7) {
+          const formattedFlatpak = CmdBuilder.formatFlatpakVersions(fv, tv, branch, parts[6], parts[7])
+          fv = formattedFlatpak.fv
+          tv = formattedFlatpak.tv
+        }
         website = CmdBuilder.getPackageInfoUrl(repoType, name, appId, main.osId, main.osIdLike)
       } else {
         const packageDetails = line.trim().split(/\s+/)
@@ -233,10 +246,29 @@ PlasmaExtras.Representation {
       }
 
       Controls.Label {
+        id: lastCheckLabel
         visible: main.lastCheckTime !== ""
         text: main.lastCheckOffline ? i18n("Last online check: %1", main.lastCheckTime) : i18n("Last check: %1", main.lastCheckTime)
         color: Kirigami.Theme.disabledTextColor
         font.pointSize: Kirigami.Theme.smallFont.pointSize
+
+        HoverHandler {
+          id: lastCheckHover
+          enabled: lastCheckLabel.visible
+        }
+
+        PlasmaComponents.ToolTip {
+          id: lastCheckToolTip
+          parent: lastCheckLabel
+          y: lastCheckLabel.height + Kirigami.Units.smallSpacing
+          visible: lastCheckHover.hovered && text.length > 0
+          textFormat: Text.PlainText
+          text: (main.lastCheckTime !== "" && full.lastCheckFullText !== "")
+            ? (main.lastCheckOffline
+                ? i18n("Last online check: %1", full.lastCheckFullText)
+                : i18n("Last check: %1", full.lastCheckFullText))
+            : ""
+        }
       }
     }
 

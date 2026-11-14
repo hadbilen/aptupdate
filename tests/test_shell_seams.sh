@@ -852,6 +852,42 @@ else
     pass "Packaging supports relative ./rel_out and prunes __pycache__"
 fi
 
+# Test 24 (Milestone 56 AC-2): getListFlatpakCmd queries active/commit without download-size and emits 8-col output when commits exist
+mkdir -p "$TMP_ROOT/bin24"
+cat >"$TMP_ROOT/bin24/flatpak" <<'EOF'
+#!/usr/bin/env bash
+if [[ "$1" == "list" ]]; then
+    printf 'org.blender.Blender\tstable\t5.2\tf97247d9e87d0000111122223333444455556666\n'
+    printf 'org.blender.Blender.Codecs\tstable\t\t2bbd555a9031aaaabbbbccccddddeeeeffff0000\n'
+    printf 'org.telegram.desktop\tstable\t7.4.3\t3da0f2a359b01111222233334444555566667777\n'
+    printf 'org.gnome.Platform\t46\t46\taaa111122223333\n'
+    printf 'org.gnome.Platform\t47\t47\tbbb222233334444\n'
+else
+    printf 'org.blender.Blender\tBlender\tstable\t5.2\t3e510e350730aaaabbbbccccddddeeeeffff1111\n'
+    printf 'org.blender.Blender.Codecs\tCodecs\tstable\t\t102459c033d41111222233334444555566667777\n'
+    printf 'org.telegram.desktop\tTelegram Desktop\tstable\t7.4.1\t9fe9eee3feec1111222233334444555566667777\n'
+    printf 'org.gnome.Platform\tGNOME Platform\t46\t46\tddd444455556666\n'
+    printf 'org.gnome.Platform\tGNOME Platform\t47\t47\tccc333344445555\n'
+    printf 'org.remoteonly.App\tRemoteOnly\tstable\t2.0\teee555566667777\n'
+fi
+EOF
+chmod +x "$TMP_ROOT/bin24/flatpak"
+FLATPAK_COMMIT_CMD="$(get_cmd list_flatpak)"
+FLATPAK_COMMIT_OUT="$(PATH="$TMP_ROOT/bin24:/usr/bin:/bin" bash -c "$FLATPAK_COMMIT_CMD" || true)"
+if [[ "$FLATPAK_COMMIT_CMD" != *"--columns=application,branch,version,active"* ]] \
+    || [[ "$FLATPAK_COMMIT_CMD" != *"--columns=application,name,branch,version,commit"* ]] \
+    || [[ "$FLATPAK_COMMIT_CMD" == *"download-size"* ]] \
+    || ! grep -q $'^org\.blender\.Blender\tBlender\tflatpak\t5\.2\t5\.2\tstable\tf97247d9e87d0000111122223333444455556666\t3e510e350730aaaabbbbccccddddeeeeffff1111$' <<<"$FLATPAK_COMMIT_OUT" \
+    || ! grep -q $'^org\.blender\.Blender\.Codecs\tCodecs\tflatpak\tstable\tstable\tstable\t2bbd555a9031aaaabbbbccccddddeeeeffff0000\t102459c033d41111222233334444555566667777$' <<<"$FLATPAK_COMMIT_OUT" \
+    || ! grep -q $'^org\.telegram\.desktop\tTelegram Desktop\tflatpak\t7\.4\.3\t7\.4\.1\tstable\t3da0f2a359b01111222233334444555566667777\t9fe9eee3feec1111222233334444555566667777$' <<<"$FLATPAK_COMMIT_OUT" \
+    || ! grep -q $'^org\.gnome\.Platform\tGNOME Platform\tflatpak\t46\t46\t46\taaa111122223333\tddd444455556666$' <<<"$FLATPAK_COMMIT_OUT" \
+    || ! grep -q $'^org\.gnome\.Platform\tGNOME Platform\tflatpak\t47\t47\t47\tbbb222233334444\tccc333344445555$' <<<"$FLATPAK_COMMIT_OUT" \
+    || ! grep -q $'^org\.remoteonly\.App\tRemoteOnly\tflatpak\t-\t2\.0\tstable\t\teee555566667777$' <<<"$FLATPAK_COMMIT_OUT"; then
+    fail "Milestone 56 AC-2 getListFlatpakCmd commit extraction or download-size exclusion failed (cmd='$FLATPAK_COMMIT_CMD', out='$FLATPAK_COMMIT_OUT')"
+else
+    pass "Milestone 56 AC-2 getListFlatpakCmd queries active/commit without download-size and preserves per-branch commits"
+fi
+
 if [[ "$FAILURES" -ne 0 ]]; then
     echo "TOTAL SHELL SEAM FAILURES: $FAILURES"
     exit 1
